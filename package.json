@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/RHeactor/web-app#readme",
   "dependencies": {
-    "compare-versions": "^2.0.1"
+    "compare-versions": "^2.0.1",
+    "lodash": "^4.12.0"
   },
   "devDependencies": {
     "bluebird": "^3.4.0",
