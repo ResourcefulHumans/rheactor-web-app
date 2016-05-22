@@ -1,0 +1,15 @@
+// List pagination
+*[role=navigation] {
+  @include clearfix();
+  span, .btn-group {
+    @include pull-right();
+  }
+  span {
+    margin-right: 0.5rem;
+    line-height: 2rem;
+  }
+  .loading {
+    @include pull-left();
+    line-height: 2rem;
+  }
+}

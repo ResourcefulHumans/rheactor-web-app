@@ -1,0 +1,293 @@
+// Buttons
+
+button.none {
+  border: 0;
+  background-color: transparent;
+  outline: none;
+  &.danger {
+    color: $brand-danger;
+  }
+  &.success {
+    color: $brand-success;
+  }
+}
+
+// Material Icons
+
+button, .list-group-item {
+  .material-icons {
+    & + span {
+      margin-left: $icon-spacer;
+      line-height: $material-icon-size;
+    }
+  }
+}
+
+button.btn-link {
+  &:active, &:focus, &:active:focus, &:hover {
+    outline: none;
+    text-decoration: none;
+  }
+}
+
+// Other
+
+.dropdown {
+  button + button {
+    margin-right: 0;
+  }
+}
+
+a.danger {
+  color: $brand-danger;
+}
+
+// Cards
+
+.card-header {
+  background-color: $brand-primary;
+  .card-title {
+    color: $text-on-brand-primary;
+  }
+
+  h1.card-title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: 0;
+    @include media-breakpoint-up(sm) {
+      line-height: 4rem;
+      font-size: $font-size-h1;
+      margin-bottom: $card-spacer-y;
+    }
+  }
+}
+
+.card-footer {
+  text-align: left;
+  .error-info, .success-info {
+    margin-top: 1rem;
+  }
+  .alert {
+    .material-icons {
+      margin-right: 0.5rem;
+    }
+    p {
+      margin: 0;
+    }
+  }
+  p {
+    line-height: 1.5rem;
+  }
+}
+
+// An element containing buttons
+.controls {
+  @include clearfix();
+  button {
+    @include pull-right();
+  }
+  button + button {
+    margin-right: 1rem;
+  }
+}
+
+.control {
+  // an element acting as a control
+  cursor: pointer;
+}
+
+.card-block {
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Icons in card headers
+
+.card-header {
+  .card-title {
+    .material-icons {
+      @include pull-right();
+      color: rgba($text-on-brand-primary, 0.5);
+      &.success {
+        color: $brand-success;
+        text-shadow: 0 0 5px rgba($brand-success, 0.5);
+      }
+      zoom: 125%;
+      @include media-breakpoint-up(sm) {
+        zoom: 200%;
+      }
+    }
+  }
+}
+
+// Navbar styling
+
+.navbar-static-top {
+  background-color: $brand-primary;
+  color: $text-on-brand-primary;
+  box-shadow: 0 0 10px #000;
+  .dropdown-menu {
+    background-color: $brand-primary;
+    .dropdown-item {
+      color: $brand-secondary;
+      text-decoration: none;
+      cursor: pointer;
+      @include transition(color .3s);
+      &:hover {
+        background-color: darken($brand-primary, 5%);
+        color: $text-on-brand-primary;
+      }
+    }
+  }
+
+  .btn-link {
+    color: $brand-secondary;
+    @include transition(color .3s);
+    &:hover {
+      color: $text-on-brand-primary;
+      text-decoration: none;
+    }
+  }
+
+  .navbar-toggler {
+    @include pull-right();
+  }
+
+  #metanav {
+    @include pull-right();
+  }
+}
+
+.navbar-brand img {
+  @include pull-left();
+  height: 30px;
+  margin-right: $icon-spacer;
+}
+
+.nav-link {
+  cursor: pointer;
+  color: $text-on-brand-primary;
+  i.material-icons {
+    @include pull-left();
+  }
+}
+
+.nav-icon {
+  color: $text-on-brand-primary;
+  i.material-icons {
+    @include pull-left();
+    margin-right: 5px;
+    padding-top: .425rem;
+    padding-bottom: .425rem;
+  }
+}
+
+a.nav-link, button.nav-link, .nav-icon {
+  color: $brand-secondary;
+  text-decoration: none;
+  @include transition(color .3s);
+  &:hover {
+    color: $text-on-brand-primary;
+  }
+}
+
+.navbar-expandable-top {
+  .nav-link, button.btn-link, .nav-icon {
+    display: block;
+    color: $text-on-brand-primary;
+    margin: $material-icon-size/2 0;
+    padding: 0;
+  }
+  .nav-section {
+    color: rgba($text-on-brand-primary, 0.5);
+    i.material-icons {
+      @include pull-left();
+    }
+  }
+}
+
+// Forms
+
+label {
+  display: block;
+  margin-bottom: 0;
+  button {
+    @include pull-right();
+  }
+}
+
+label.hidden {
+  display: none;
+}
+
+form .input-with-addon {
+  position: relative;
+}
+
+input.form-control + .input-addon {
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  padding: 0;
+  margin: 0;
+  height: $input-height;
+  line-height: $input-height;
+}
+
+input.form-control-lg + .input-addon {
+  height: $input-height-lg;
+  line-height: $input-height-lg;
+}
+
+input.form-control-sm + .input-addon {
+  height: $input-height-sm;
+  line-height: $input-height-sm;
+}
+
+form fieldset p {
+  margin: 0;
+}
+
+// Alerts
+
+.alert-small {
+  font-size: 80%;
+  .material-icons {
+    font-size: $material-icon-size * 0.8;
+  }
+}
+
+// Buttons
+
+/// Make disabled buttons grey
+
+.btn-primary,
+.btn-secondary,
+.btn-info,
+.btn-success,
+.btn-warning,
+.btn-danger {
+  &:disabled, &.disabled, &.disabled:hover, &:disabled:hover {
+    background-color: lighten($gray-dark, 40%);
+    color: lighten($gray-dark, 60%);
+    border-color: lighten($gray-dark, 60%);
+  }
+}
+
+// Dialogues
+
+*[role=dialog] {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  left: 0;
+  @include media-breakpoint-up(sm) {
+    top: $card-spacer-y;
+  }
+  @include media-breakpoint-up(lg) {
+    top: 70px;
+  }
+}

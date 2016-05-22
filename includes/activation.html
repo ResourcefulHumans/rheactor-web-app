@@ -1,0 +1,36 @@
+<div class="container">
+  <article class="row">
+    <section class="offset-md-2 col-md-8 offset-lg-3 col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="card-title">
+            Activation
+            <i class="material-icons" data-ng-hide="vm.p.$success">person_add</i>
+            <i class="material-icons success" data-ng-show="vm.p.$success">check_circle</i>
+          </h1>
+        </div>
+        <div class="card-block">
+          <div class="alert alert-success" role="alert" data-ng-show="vm.p.$success">
+            <p>Awesome, your account has been activated!</p>
+            <p>You can now <a data-ui-sref="login">log in</a> with your email address and password.</p>
+          </div>
+          <p class="card-text" data-ng-show="vm.p.$active">
+            <i class="material-icons spin">hourglass_empty</i> Verifying your token …
+          </p>
+          <p class="card-text" data-ng-show="vm.p.$error">
+            <i class="material-icons" data-ng-show="vm.p.$error">error</i> Verification of your token failed.
+          </p>
+        </div>
+        <div class="card-footer" data-ng-show="vm.p.$error">
+          <div class="error-info" data-ng-show="vm.p.$error">
+            <div class="alert alert-danger" role="alert">
+              <i class="material-icons">error</i>
+              %%vm.p.$problem.title%%<br>
+              <small>%%vm.p.$problem.detail%%</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+</div>

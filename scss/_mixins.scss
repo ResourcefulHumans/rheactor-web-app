@@ -1,0 +1,6 @@
+@mixin gradient($darken:0%) {
+  background: darken($brand-primary, $darken);
+  background: -moz-radial-gradient(center, circle cover, darken($brand-primary, $darken) 0%, darken($brand-secondary, $darken) 100%);
+  background: -webkit-radial-gradient(center, circle cover, darken($brand-primary, $darken) 0%, darken($brand-secondary, $darken) 100%);
+  background: radial-gradient(circle at center, darken($brand-primary, $darken) 0%, darken($brand-secondary, $darken) 100%);
+}
