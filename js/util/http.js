@@ -14,7 +14,6 @@ function auth (token) {
   }
 }
 
-// FIXME: use https://www.npmjs.com/package/envify to make it dynamic
 const API_VERSION = process.env.npm_package_API_VERSION
 const appName = process.env.npm_package_name
 const MIME_TYPE = 'application/vnd.resourceful-humans.' + appName + '.v' + API_VERSION + '+json'
