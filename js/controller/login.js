@@ -42,8 +42,9 @@ module.exports = function (app) {
                       })
                       .then(() => {
                         if ($stateParams.returnTo) {
-                          $location.path($stateParams.returnTo.substr(2))
-                          $location.search()
+                          let returnTo = decodeURIComponent($stateParams.returnTo)
+                          $location.path(returnTo.substr(2))
+                          $location.search('returnTo', null)
                           $location.replace()
                         } else {
                           $state.transitionTo('dashboard')
