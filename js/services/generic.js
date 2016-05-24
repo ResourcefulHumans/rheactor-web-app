@@ -41,7 +41,7 @@ GenericApiService.prototype.validateModelContext = function (model, expectedCont
 GenericApiService.prototype.create = function (endpoint, model, token) {
   let self = this
 
-  let header = httpUtil.accept()
+  let header = httpUtil.accept(self.apiService.mimeType)
   if (token) {
     _merge(header, httpUtil.auth(token))
   }
@@ -70,7 +70,7 @@ GenericApiService.prototype.create = function (endpoint, model, token) {
  */
 GenericApiService.prototype.get = function ($id, token) {
   let self = this
-  let header = httpUtil.accept()
+  let header = httpUtil.accept(self.apiService.mimeType)
   if (token) {
     _merge(header, httpUtil.auth(token))
   }
@@ -103,7 +103,7 @@ GenericApiService.prototype.get = function ($id, token) {
 GenericApiService.prototype.list = function (endpoint, query, token, expectedContext) {
   let self = this
   expectedContext = expectedContext || self.modelContext
-  let header = httpUtil.accept()
+  let header = httpUtil.accept(self.apiService.mimeType)
   if (token) {
     _merge(header, httpUtil.auth(token))
   }
@@ -157,7 +157,7 @@ GenericApiService.prototype.navigateList = function (list, dir, token) {
  */
 GenericApiService.prototype.update = function (endpoint, data, version, token) {
   let self = this
-  let header = _merge(httpUtil.accept(), httpUtil.ifMatch(version), httpUtil.auth(token))
+  let header = _merge(httpUtil.accept(self.apiService.mimeType), httpUtil.ifMatch(version), httpUtil.auth(token))
   return self.$http.put(endpoint, data, header)
     .catch((err) => {
       if (err.status) {

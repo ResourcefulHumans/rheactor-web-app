@@ -14,16 +14,14 @@ function auth (token) {
   }
 }
 
-const API_VERSION = process.env.npm_package_API_VERSION
-const appName = process.env.npm_package_name
-const MIME_TYPE = 'application/vnd.resourceful-humans.' + appName + '.v' + API_VERSION + '+json'
-const CONTENT_TYPE = MIME_TYPE + '; charset=utf-8'
-
-function accept () {
+/**
+ * @param {String} mimeType
+ */
+function accept (mimeType) {
   return {
     headers: {
-      Accept: MIME_TYPE,
-      'Content-Type': CONTENT_TYPE
+      Accept: mimeType,
+      'Content-Type': mimeType + '; charset=utf-8'
     }
   }
 }
@@ -93,8 +91,5 @@ module.exports = {
   auth,
   accept,
   ifMatch,
-  HttpProgress,
-  API_VERSION,
-  MIME_TYPE,
-  CONTENT_TYPE
+  HttpProgress
 }
