@@ -4,7 +4,7 @@ const HttpProblem = require('../model/http-problem')
 const httpUtil = require('../util/http')
 const _merge = require('lodash/merge')
 const Promise = require('bluebird')
-const Errors = require('../../rheactor-value-objects/errors')
+const Errors = require('rheactor-value-objects/errors')
 const jsonld = require('../util/jsonld')
 
 /**

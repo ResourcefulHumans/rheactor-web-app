@@ -2,7 +2,7 @@
 
 const Promise = require('bluebird')
 const logger = require('../util/logger')
-const Errors = require('../../rheactor-value-objects/errors')
+const Errors = require('rheactor-value-objects/errors')
 
 /**
  * @param $window
