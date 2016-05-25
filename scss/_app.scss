@@ -1,5 +1,14 @@
 body {
   @include gradient();
+  &.login, &.password-change, &.password-change-confirm, &.register, &.activation, &.account {
+    @include gradient(30%);
+    .container {
+      margin-top: $card-spacer-y;
+      @include media-breakpoint-up(lg) {
+        margin-top: 50px;
+      }
+    }
+  }
 }
 
 abbr.environment {
