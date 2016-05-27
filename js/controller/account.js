@@ -2,6 +2,7 @@
 
 const HttpProblem = require('../model/http-problem')
 const jsonld = require('../util/jsonld')
+const Promise = require('bluebird')
 
 module.exports = function (app) {
   app
