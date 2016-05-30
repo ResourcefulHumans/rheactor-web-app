@@ -129,7 +129,7 @@ a.danger {
 
 .navbar-static-top {
   background-color: $brand-primary;
-  color: $text-on-brand-primary;
+  color: $brand-secondary;
   box-shadow: 0 0 10px #000;
   .dropdown-menu {
     background-color: $brand-primary;
@@ -139,6 +139,12 @@ a.danger {
       cursor: pointer;
       @include transition(color .3s);
       &:hover {
+        background-color: darken($brand-primary, 5%);
+        color: $text-on-brand-primary;
+      }
+    }
+    &.active {
+      .dropdown-item {
         background-color: darken($brand-primary, 5%);
         color: $text-on-brand-primary;
       }
@@ -174,6 +180,15 @@ a.danger {
   color: $text-on-brand-primary;
   i.material-icons {
     @include pull-left();
+  }
+}
+
+.nav-item {
+  &:hover,
+  &.active {
+    .nav-link {
+      color: $text-on-brand-primary !important;
+    }
   }
 }
 
