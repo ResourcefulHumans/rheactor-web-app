@@ -17,7 +17,9 @@ module.exports = function (app) {
       (UserService, ClientStorageService, TokenService, $rootScope, $scope, $state, $stateParams, $window) => {
         var vm = {
           authenticated: false,
-          sync: true
+          sync: true,
+          stateName: '',
+          on: {}
         }
         let updater
         let lifeTimeChecker
@@ -90,6 +92,7 @@ module.exports = function (app) {
           }
         }
 
+        let on = {}
         $rootScope.$on('$stateChangeSuccess', () => {
           vm.stateName = $state.current.name
           vm.stateParams = $stateParams
@@ -100,7 +103,18 @@ module.exports = function (app) {
             logger.appInfo('Auto refreshing token')
             vm.refreshToken()
           }
+
+          on = {}
+          let parts = vm.stateName.split('.')
+          while (parts.length > 0) {
+            on[parts.join('.')] = true
+            parts.pop()
+          }
         })
+
+        vm.onState = (state) => {
+          return on[state]
+        }
 
         $rootScope.$on('sync', (event, sync) => {
           vm.sync = sync
