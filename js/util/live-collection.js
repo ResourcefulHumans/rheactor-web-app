@@ -104,6 +104,16 @@ LiveCollection.prototype.remove = function (item) {
 }
 
 /**
+ * Add the given item to the collection
+ *
+ * @param item
+ */
+LiveCollection.prototype.add = function (item) {
+  let self = this
+  self.items.push(item)
+}
+
+/**
  * @param {function} subscriber
  */
 LiveCollection.prototype.subscribe = function (subscriber) {
