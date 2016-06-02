@@ -2,6 +2,7 @@
 
 const _padStart = require('lodash/padStart')
 const logger = require('../util/logger')
+const moment = require('moment')
 
 module.exports = function (app) {
   app
@@ -57,13 +58,11 @@ module.exports = function (app) {
           $scope.$applyAsync(() => {
             if (!vm.token) {
               vm.tokenLifetime = 0
-              vm.tokenLifetimeSec = 0
-              vm.tokenLifetimeMin = 0
+              vm.tokenLifetimeHuman = 'Expired'
               return
             }
             vm.tokenLifetime = Math.max(vm.token.exp.getTime() - Date.now(), 0)
-            vm.tokenLifetimeMin = Math.floor(vm.tokenLifetime / 1000 / 60)
-            vm.tokenLifetimeSec = _padStart(Math.floor((vm.tokenLifetime / 1000) - (vm.tokenLifetimeMin * 60)), 2, '0')
+            vm.tokenLifetimeHuman = moment.duration(vm.tokenLifetime).humanize()
           })
         }
 
