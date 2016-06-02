@@ -10,7 +10,7 @@
   url(/fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
 
-.material-icons {
+@mixin material-icon() {
   display: block;
   float: left;
   font-family: 'Material Icons';
@@ -47,6 +47,10 @@
   }
 }
 
+.material-icons {
+  @include material-icon();
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -62,4 +66,19 @@
 
 .material-icons + span {
   margin-left: 0.5rem;
+}
+
+.material-icons.stacked {
+  position: relative;
+  i {
+    @include material-icon();
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+abbr[title].material-icons {
+  text-decoration: none;
+  border-bottom: none;
 }
