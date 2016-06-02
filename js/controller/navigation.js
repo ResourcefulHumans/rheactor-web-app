@@ -20,7 +20,8 @@ module.exports = function (app) {
           authenticated: false,
           sync: true,
           stateName: '',
-          on: {}
+          on: {},
+          state: $state
         }
         let updater
         let lifeTimeChecker
@@ -95,6 +96,7 @@ module.exports = function (app) {
         $rootScope.$on('$stateChangeSuccess', () => {
           vm.stateName = $state.current.name
           vm.stateParams = $stateParams
+          vm.state = $state.current
           if (!vm.token) {
             return
           }
