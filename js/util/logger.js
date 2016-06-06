@@ -2,7 +2,8 @@
 
 /* global: window */
 
-if (typeof window !== 'undefined' && window.navigator && window.navigator.userAgent && window.navigator.userAgent.indexOf('MSIE ') >= 0) {
+if (typeof window !== 'undefined' && window.navigator && window.navigator.userAgent &&
+  (window.navigator.userAgent.indexOf('MSIE ') >= 0 || window.navigator.userAgent.indexOf('rv:11.0') > 0)) {
   module.exports = {
     appInfo: console.log.bind(console, '[App] '),
     appNotice: console.log.bind(console, '[App!] '),
