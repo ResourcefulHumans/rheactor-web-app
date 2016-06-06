@@ -10,6 +10,7 @@ module.exports = function (app) {
         .state('register', {
           url: '/register',
           public: true,
+          title: 'Register',
           templateUrl: '/view/registration.html',
           controllerAs: 'vm',
           controller: ['RegistrationService', genericController.bind(null, Registration, {}, 'register')]
