@@ -34,7 +34,7 @@
                    auto-focus
             />
             <p>
-              <small>Don't have an account? <a data-ui-sref="register" class="text-nowrap">Create a new one here …</a>
+              <small>Don't have an account? <a data-ui-sref="register({returnTo: vm.returnTo})" class="text-nowrap">Create a new one here …</a>
               </small>
             </p>
           </fieldset>
@@ -87,7 +87,7 @@
               <div class="alert alert-warning alert-small" role="alert">
                 <p>
                   <i class="material-icons">help_outline</i>
-                  <a data-ui-sref="register">Create a new one here …</a>
+                  <a data-ui-sref="register({returnTo: vm.returnTo})">Create a new one here …</a>
                 </p>
               </div>
             </div>

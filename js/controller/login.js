@@ -18,6 +18,7 @@ module.exports = function (app) {
             'UserService',
             'ClientStorageService',
             '$state',
+            '$window',
             '$stateParams',
             '$location',
               /**
@@ -25,10 +26,11 @@ module.exports = function (app) {
                * @param {UserService} UserService
                * @param {ClientStorageService} ClientStorageService
                * @param $state
+               * @param $window
                * @param $stateParams
                * @param $location
                */
-            (LoginService, UserService, ClientStorageService, $state, $stateParams, $location) => {
+            (LoginService, UserService, ClientStorageService, $state, $window, $stateParams, $location) => {
               let vm = genericController(
                 Login,
                 {
@@ -41,8 +43,13 @@ module.exports = function (app) {
                         return ClientStorageService.set('token', result)
                       })
                       .then(() => {
-                        if ($stateParams.returnTo) {
-                          let returnTo = decodeURIComponent($stateParams.returnTo)
+                        let returnTo = $stateParams.returnTo
+                        if (!returnTo) {
+                          returnTo = $window.localStorage.getItem('returnTo')
+                          $window.localStorage.removeItem('returnTo')
+                        }
+                        if (returnTo) {
+                          returnTo = decodeURIComponent(returnTo)
                           $location.path(returnTo.substr(2))
                           $location.search('returnTo', null)
                           $location.replace()
@@ -56,6 +63,7 @@ module.exports = function (app) {
                 LoginService
               )
               vm.from = $stateParams.from
+              vm.returnTo = $stateParams.returnTo
               return vm
             }]
         })
