@@ -1,6 +1,6 @@
 'use strict'
 
-const isEmail = require('../../../vendor/isemail')
+const isEmail = require('isemail')
 
 module.exports = {
   restrict: 'A',
