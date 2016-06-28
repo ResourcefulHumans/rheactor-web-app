@@ -1,6 +1,6 @@
 'use strict'
 
-require('../../node_modules/bootstrap/dist/js/umd/dropdown')
-require('../../node_modules/bootstrap/dist/js/umd/collapse')
-require('../../node_modules/bootstrap/dist/js/umd/button')
-require('../../node_modules/bootstrap/dist/js/umd/alert')
+require('bootstrap/dist/js/umd/dropdown')
+require('bootstrap/dist/js/umd/collapse')
+require('bootstrap/dist/js/umd/button')
+require('bootstrap/dist/js/umd/alert')
