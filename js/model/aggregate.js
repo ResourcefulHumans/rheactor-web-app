@@ -17,6 +17,7 @@ function Aggregate () {
 
 /**
  * @param {Number} updatedAt
+ * @param {Number} newVersion
  */
 Aggregate.prototype.updated = function (updatedAt, newVersion) {
   let self = this
