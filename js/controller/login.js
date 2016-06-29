@@ -1,6 +1,5 @@
 'use strict'
 
-const Login = require('../model/login')
 const genericController = require('./generic')
 
 module.exports = function (app) {
@@ -14,6 +13,7 @@ module.exports = function (app) {
           title: 'Login',
           public: true,
           controller: [
+            'LoginModel',
             'LoginService',
             'UserService',
             'ClientStorageService',
@@ -22,6 +22,7 @@ module.exports = function (app) {
             '$stateParams',
             '$location',
               /**
+               * @param {Login} LoginModel
                * @param {LoginService} LoginService
                * @param {UserService} UserService
                * @param {ClientStorageService} ClientStorageService
@@ -30,9 +31,9 @@ module.exports = function (app) {
                * @param $stateParams
                * @param $location
                */
-            (LoginService, UserService, ClientStorageService, $state, $window, $stateParams, $location) => {
+            (LoginModel, LoginService, UserService, ClientStorageService, $state, $window, $stateParams, $location) => {
               let vm = genericController(
-                Login,
+                LoginModel,
                 {
                   success: (result) => {
                     return UserService.get(result.sub, result)
