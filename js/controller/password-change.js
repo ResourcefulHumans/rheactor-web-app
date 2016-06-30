@@ -1,6 +1,5 @@
 'use strict'
 
-const PasswordChange = require('../model/password-change')
 const PasswordChangeConfirm = require('../model/password-change-confirm')
 const genericController = require('./generic')
 const Token = require('../model/jsonwebtoken')
@@ -18,7 +17,9 @@ module.exports = function (app) {
           public: true,
           templateUrl: '/view/password-change.html',
           controllerAs: 'vm',
-          controller: ['PasswordChangeService', genericController.bind(null, PasswordChange, {}, 'password-change')]
+          controller: ['PasswordChangeService', 'PasswordChangeModel', (PasswordChangeService, PasswordChangeModel) => {
+            return genericController(PasswordChangeModel, {}, 'password-change', PasswordChangeService)
+          }]
         })
         .state('password-change-confirm', {
           url: '/password-change/:token',
