@@ -9,13 +9,14 @@ module.exports = function (app) {
     .controller('NavigationController', [
       'UserService',
       'ClientStorageService',
+      'GoogleAnalyticsService',
       'TokenService',
       '$rootScope',
       '$scope',
       '$state',
       '$stateParams',
       '$window',
-      (UserService, ClientStorageService, TokenService, $rootScope, $scope, $state, $stateParams, $window) => {
+      (UserService, ClientStorageService, GoogleAnalyticsService, TokenService, $rootScope, $scope, $state, $stateParams, $window) => {
         var vm = {
           authenticated: false,
           sync: true,
