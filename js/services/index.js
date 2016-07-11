@@ -6,6 +6,7 @@ const UserService = require('./user')
 const StatusService = require('./status')
 const ClientStorageService = require('./client-storage')
 const IDService = require('./id')
+const GoogleAnalyticsService = require('./google-analytics')
 
 require('angular')
   .module('RHeactorServiceModule', [])
@@ -38,4 +39,7 @@ require('angular')
   }])
   .factory('IDService', ['$window', ($window) => {
     return new IDService($window)
+  }])
+  .factory('GoogleAnalyticsService', ['$rootScope', '$window', '$location', ($rootScope, $window, $location) => {
+    return new GoogleAnalyticsService($rootScope, $window, $location)
   }])
