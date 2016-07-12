@@ -65,6 +65,18 @@ a.danger {
       margin-bottom: $card-spacer-y;
     }
   }
+
+  h2.card-title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: 0;
+    @include media-breakpoint-up(sm) {
+      line-height: 2.5rem;
+      font-size: $font-size-h2;
+      margin-top: $card-spacer-y;
+      margin-bottom: $card-spacer-y;
+    }
+  }
 }
 
 .card-footer {
@@ -88,10 +100,10 @@ a.danger {
 // An element containing buttons
 .controls {
   @include clearfix();
-  button {
+  button, a.btn {
     @include pull-right();
   }
-  button + button {
+  button + button, button + a.btn, a.btn + button, a.btn + a.btn {
     margin-right: 1rem;
   }
 }
