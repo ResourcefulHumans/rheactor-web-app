@@ -4,7 +4,7 @@ const HttpProblem = require('../model/http-problem')
 const httpUtil = require('../util/http')
 const _merge = require('lodash/merge')
 const Promise = require('bluebird')
-const Errors = require('rheactor-value-objects/errors')
+const ApplicationError = require('rheactor-value-objects/errors/application')
 const jsonld = require('../util/jsonld')
 
 /**
@@ -27,9 +27,7 @@ GenericApiService.prototype.validateModelContext = function (model, expectedCont
   let self = this
   expectedContext = expectedContext || self.modelContext
   if (expectedContext && model.$context !== expectedContext) {
-    throw new Errors.ApplicationError(
-      'Unexpected model context! Got "' + model.$context + '", expected "' + self.modelContext + "'"
-    )
+    throw new ApplicationError('Unexpected model context! Got "' + model.$context + '", expected "' + self.modelContext + "'")
   }
 }
 /**

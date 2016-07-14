@@ -2,7 +2,8 @@
 
 const Promise = require('bluebird')
 const logger = require('../util/logger')
-const Errors = require('rheactor-value-objects/errors')
+const EntryNotFoundError = require('rheactor-value-objects/errors/entry-not-found')
+const TokenExpiredError = require('rheactor-value-objects/errors/token-expired')
 
 /**
  * @param $window
@@ -23,13 +24,7 @@ module.exports = function ($window, $rootScope, APIService) {
             self.notify('me', token)
           })
       })
-      .catch((err) => {
-        if (err.name === 'EntityNotFoundError') {
-          logger.authInfo('EntityNotFoundError ignored:', err.message)
-          return
-        }
-        throw err
-      })
+      .catch(err => EntryNotFoundError.is(err), () => null)
   }
 
   /**
@@ -60,7 +55,7 @@ module.exports = function ($window, $rootScope, APIService) {
       .try(() => {
         let v = $window.localStorage.getItem(name)
         if (!v) {
-          throw new Errors.EntityNotFoundError(name)
+          throw new EntryNotFoundError(name)
         }
         return APIService.createModelInstance(JSON.parse(v))
       })
@@ -103,7 +98,7 @@ module.exports = function ($window, $rootScope, APIService) {
       .then((token) => {
         if (token.isExpired()) {
           logger.authWarning('Token expired')
-          throw new Errors.TokenExpiredError(token)
+          throw new TokenExpiredError(token)
         }
         return token
       })

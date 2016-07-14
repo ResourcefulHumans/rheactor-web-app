@@ -2,7 +2,7 @@
 
 const logger = require('./logger')
 const _filter = require('lodash/filter')
-const ApplicationError = require('rheactor-value-objects/errors').ApplicationError
+const ApplicationError = require('rheactor-value-objects/errors/application')
 
 /**
  * @param {Function} filterFunc
