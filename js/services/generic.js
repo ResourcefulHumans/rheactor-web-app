@@ -5,6 +5,7 @@ const httpUtil = require('../util/http')
 const _merge = require('lodash/merge')
 const Promise = require('bluebird')
 const ApplicationError = require('rheactor-value-objects/errors/application')
+const URIValue = require('rheactor-value-objects/uri')
 const jsonld = require('../util/jsonld')
 
 /**
@@ -34,29 +35,35 @@ GenericApiService.prototype.validateModelContext = function (model, expectedCont
  * @param {String} endpoint
  * @param {Login} model
  * @param {JsonWebToken} token
- * @returns {Promise.<Model>}
+ * @param {boolean} fetch Fetch the created model, defaults to true
+ * @returns {Promise.<Model|URIValue>}
  */
-GenericApiService.prototype.create = function (endpoint, model, token) {
-  let self = this
+GenericApiService.prototype.create = function (endpoint, model, token, fetch) {
+  const self = this
+  fetch = fetch !== false
 
   let header = httpUtil.accept(self.apiService.mimeType)
   if (token) {
     _merge(header, httpUtil.auth(token))
   }
   return self.$http.post(endpoint, model, header)
-    .then(function (response) {
+    .then(response => {
       if (response.data) {
-        let model = self.apiService.createModelInstance(response.data)
+        const model = self.apiService.createModelInstance(response.data)
         self.validateModelContext(model)
         return model
       }
-      let location = response.headers('Location')
+      const location = response.headers('Location')
       if (location) {
-        return self.get(location, token)
+        if (fetch) {
+          return self.get(location, token)
+        } else {
+          return new URIValue(location)
+        }
       }
       return null
     })
-    .catch((httpError) => {
+    .catch(httpError => {
       throw HttpProblem.fromHttpError(httpError, 'Creation of ' + model.$context + ' failed!')
     })
 }
