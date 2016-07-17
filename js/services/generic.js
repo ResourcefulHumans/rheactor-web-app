@@ -5,7 +5,6 @@ const httpUtil = require('../util/http')
 const _merge = require('lodash/merge')
 const Promise = require('bluebird')
 const ApplicationError = require('rheactor-value-objects/errors/application')
-const URIValue = require('rheactor-value-objects/uri')
 const jsonld = require('../util/jsonld')
 
 /**
@@ -35,8 +34,8 @@ GenericApiService.prototype.validateModelContext = function (model, expectedCont
  * @param {String} endpoint
  * @param {Login} model
  * @param {JsonWebToken} token
- * @param {boolean} fetch Fetch the created model, defaults to true
- * @returns {Promise.<Model|URIValue>}
+ * @param {boolean} fetch Fetch the created model, defaults to true, if false returns the location header value if present
+ * @returns {Promise.<Model|String>}
  */
 GenericApiService.prototype.create = function (endpoint, model, token, fetch) {
   const self = this
@@ -58,7 +57,7 @@ GenericApiService.prototype.create = function (endpoint, model, token, fetch) {
         if (fetch) {
           return self.get(location, token)
         } else {
-          return new URIValue(location)
+          return location
         }
       }
       return null
