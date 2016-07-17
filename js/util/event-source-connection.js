@@ -6,6 +6,12 @@ const Promise = require('bluebird')
 require('event-source-polyfill')
 const logger = require('./logger')
 
+/**
+ * @deprecated Use ModelEventConnection
+ * @param {string} streamUrl
+ * @param {string} eventName
+ * @constructor
+ */
 function EventSourceConnection (streamUrl, eventName) {
   this.subscribers = []
   this.errorSubscribers = []
