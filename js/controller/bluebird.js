@@ -3,6 +3,7 @@
 /* global trackJs */
 
 const logger = require('../util/logger')
+const EntryNotFoundError = require('rheactor-value-objects/errors/entry-not-found')
 
 module.exports = function () {
   require('angular')
@@ -27,7 +28,7 @@ module.exports = function () {
           $state.go('login', {'from': errorName, returnTo})
           return
         }
-        if (errorName === 'EntityNotFoundError' &&
+        if (EntryNotFoundError.is(error) &&
           (error.message === 'token' || error.message === 'me') &&
           ($state.current.name === '' || !$state.current.public)) {
           $state.go('login', {returnTo})
