@@ -17,6 +17,7 @@ function User (data) {
   this.firstname = undefined
   this.lastname = undefined
   this.avatar = undefined
+  this.superUser = undefined
 
   if (data) {
     var self = this
