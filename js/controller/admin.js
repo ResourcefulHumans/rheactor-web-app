@@ -29,11 +29,12 @@ module.exports = function (app) {
           templateUrl: '/view/admin-user.html',
           controllerAs: 'vm',
           controller: [
+            '$rootScope',
             '$stateParams',
             'IDService',
             'ClientStorageService',
             'UserService',
-            ($stateParams, IDService, ClientStorageService, UserService) => new AdminUserController($stateParams, IDService, ClientStorageService, UserService)
+            ($rootScope, $stateParams, IDService, ClientStorageService, UserService) => new AdminUserController($stateParams, IDService, ClientStorageService, UserService)
           ]
         })
     }])
