@@ -77,6 +77,18 @@ a.danger {
       margin-bottom: $card-spacer-y;
     }
   }
+
+  h3.card-title {
+    font-size: 1.25rem;
+    line-height: 2rem;
+    margin-bottom: 0;
+    @include media-breakpoint-up(sm) {
+      line-height: 2rem;
+      font-size: $font-size-h3;
+      margin-top: $card-spacer-y;
+      margin-bottom: $card-spacer-y;
+    }
+  }
 }
 
 .card-footer {
