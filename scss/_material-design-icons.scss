@@ -38,11 +38,15 @@
   /* Support for IE. */
   font-feature-settings: 'liga';
 
-  &.material-icons-danger {
+  &.success {
+    color: $brand-success;
+  }
+
+  &.danger {
     color: $brand-danger;
   }
 
-  &.material-icons-warning {
+  &.warning {
     color: $brand-warning;
   }
 }

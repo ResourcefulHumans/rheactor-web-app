@@ -1,0 +1,118 @@
+<div class="container">
+  <article class="row">
+    <section class="col-xs-12 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="card-title">
+            <i class="material-icons">people</i>
+            Users
+          </h1>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item" role="navigation">
+            <span class="loading" data-ng-if="vm.l.$active">
+              <i class="material-icons spin">hourglass_empty</i>
+            </span>
+            <div class="btn-group" role="group" aria-label="Pager" data-ng-show="vm.paginatedList.to">
+              <button type="button" class="btn btn-secondary btn-sm" title="Previous" data-ng-disabled="vm.l.$active || !vm.paginatedList.hasPrev" data-ng-click="vm.prev()">
+                <i class="material-icons">navigate_before</i>
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" title="Next" data-ng-disabled="vm.l.$active || !vm.paginatedList.hasNext" data-ng-click="vm.next()">
+                <i class="material-icons">navigate_next</i>
+              </button>
+            </div>
+            <span data-ng-if="!vm.l.$active">
+              <strong>%%vm.paginatedList.from%%</strong>&ndash;<strong>%%vm.paginatedList.to%%</strong> of <strong>%%vm.paginatedList.total%%</strong>
+            </span>
+          </div>
+          <a data-ui-sref="admin.user({id: (user|idparam)})" class="list-group-item" data-ng-repeat="user in vm.paginatedList.items">
+            <i class="material-icons" data-ng-if="user.superUser" title="SuperUser">security</i>
+            <span>%%user.name%%</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="col-xs-12 col-md-6">
+      <form name="form" class="card">
+        <div class="card-header">
+          <h2 class="card-title">
+            New user
+            <i class="material-icons" data-ng-hide="vm.p.$success">person_add</i>
+            <i class="material-icons success" data-ng-show="vm.p.$success">check_circle</i>
+          </h2>
+        </div>
+        <div class="card-block">
+          <div class="alert alert-info" role="alert">
+            <i class="material-icons">info</i>
+            <span>New users are automatically activated and their password is <code>12345678</code>.</span>
+          </div>
+          <fieldset class="form-group">
+            <label for="email">email address</label>
+            <input tabindex="1"
+                   class="form-control"
+                   type="email"
+                   id="email"
+                   required
+                   is-email
+                   bootstrap-error-states
+                   data-ng-model="data.email"
+                   data-ng-disabled="vm.p.$active"
+                   name="email"
+                   auto-focus
+            />
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="firstname">first name</label>
+            <input tabindex="2"
+                   class="form-control"
+                   type="text"
+                   id="firstname"
+                   required
+                   bootstrap-error-states
+                   data-ng-model="data.firstname"
+                   data-ng-disabled="vm.p.$active"
+                   name="firstname"
+            />
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="lastname">last name</label>
+            <input tabindex="3"
+                   class="form-control"
+                   type="text"
+                   id="lastname"
+                   required
+                   bootstrap-error-states
+                   data-ng-model="data.lastname"
+                   data-ng-disabled="vm.p.$active"
+                   name="lastname"
+            />
+          </fieldset>
+        </div>
+        <div class="card-footer">
+          <div class="controls">
+            <button type="submit" tabindex="4" class="btn btn-primary" data-ng-disabled="form.$invalid || vm.p.$active" data-ng-click="vm.submit(data);">
+              <i class="material-icons" data-ng-show="(form.$invalid) && !vm.p.$active">block</i>
+              <i class="material-icons" data-ng-show="!(form.$invalid || vm.p.$active) && vm.p.$pristine">add_circle_outline</i>
+              <i class="material-icons spin" data-ng-show="vm.p.$active">hourglass_empty</i>
+              <i class="material-icons" data-ng-show="!(form.$invalid || vm.p.$active) && vm.p.$success">check_ok</i>
+              <i class="material-icons" data-ng-show="vm.p.$error">error</i>
+              <span>Create</span>
+            </button>
+          </div>
+          <div data-ng-if="vm.p.$error" class="error-info">
+            <div class="alert alert-danger" role="alert">
+              <i class="material-icons">error</i>
+              %%vm.p.$problem.title%%<br>
+              <small>%%vm.p.$problem.detail%%</small>
+            </div>
+          </div>
+          <div class="success-info" data-ng-show="vm.p.$success">
+            <div class="alert alert-success" role="alert">
+              <i class="material-icons">check_ok</i> User created!
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+  </article>
+</div>

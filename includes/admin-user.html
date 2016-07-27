@@ -1,0 +1,73 @@
+<div class="container">
+  <article class="row">
+    <section class="col-xs-12 col-md-6 col-md-offset-3">
+
+      <div class="card" data-ng-if="vm.p.$success">
+        <div class="card-header">
+          <h1 class="card-title">
+            <i class="material-icons" data-ng-if="!vm.user.avatar">person</i>
+            <img class="avatar" data-ng-src="%%vm.user.avatar%%" alt="%%vm.user.name%%" data-ng-if="vm.user.avatar">
+            %%vm.user.name%%
+          </h1>
+        </div>
+        <div class="card-block">
+          <p>
+            <a href="mailto:%%vm.user.email%%" target="_blank">
+              <i class="material-icons">email</i>
+              <span>%%vm.user.email%%</span>
+            </a>
+          </p>
+          <dl>
+            <dt>Activated</dt>
+            <dd>
+              <span data-ng-if="vm.user.active">
+                <i class="material-icons success">check_box</i>
+                <span>Yes</span>
+              </span>
+              <span data-ng-if="!vm.user.active">
+                <i class="material-icons danger">block</i>
+                <span>No</span>
+              </span>
+            </dd>
+            <dt>SuperUser</dt>
+            <dd>
+              <span data-ng-if="vm.user.superUser">
+                <i class="material-icons success">check_box</i>
+                <span>Yes</span>
+              </span>
+              <span data-ng-if="!vm.user.superUser">
+                <i class="material-icons danger">block</i>
+                <span>No</span>
+              </span>
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="card" data-ng-if="vm.p.$progress">
+        <div class="card-header">
+          <h1 class="card-title">
+            <i class="material-icons spin">hourglass_empty</i>
+            Please stand by …
+          </h1>
+        </div>
+        <div class="card-block">
+          <p>Loading user …</p>
+          <progress class="progress progress-striped" value="50" max="100">50%</progress>
+        </div>
+      </div>
+
+      <div class="card" data-ng-if="vm.p.$error">
+        <div class="card-header">
+          <h1 class="card-title">
+            <i class="material-icons">error</i>
+            %%vm.c.$problem.title%%
+          </h1>
+        </div>
+        <div class="card-block">
+          <p>%%vm.c.$problem.detail%%</p>
+        </div>
+      </div>
+    </section>
+  </article>
+</div>

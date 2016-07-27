@@ -155,6 +155,9 @@ a.danger {
         background-color: darken($brand-primary, 5%);
         color: $text-on-brand-primary;
       }
+      &.active {
+        color: $text-on-brand-primary;
+      }
     }
     &.active {
       .dropdown-item {
