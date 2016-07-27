@@ -34,7 +34,7 @@ module.exports = function (app) {
             'IDService',
             'ClientStorageService',
             'UserService',
-            ($rootScope, $stateParams, IDService, ClientStorageService, UserService) => new AdminUserController($stateParams, IDService, ClientStorageService, UserService)
+            ($rootScope, $stateParams, IDService, ClientStorageService, UserService) => new AdminUserController($rootScope, $stateParams, IDService, ClientStorageService, UserService)
           ]
         })
     }])
