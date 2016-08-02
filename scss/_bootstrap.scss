@@ -342,15 +342,13 @@ form fieldset p {
 // List groups
 
 // No extra border for list-groups in cards
-.card {
-  .list-group {
-    .list-group-item {
-      &:first-child {
-        border-top: 0;
-      }
-      &:last-child {
-        border-bottom: 0;
-      }
+.card > .list-group {
+  .list-group-item {
+    &:first-child {
+      border-top: 0;
+    }
+    &:last-child {
+      border-bottom: 0;
     }
   }
 }
