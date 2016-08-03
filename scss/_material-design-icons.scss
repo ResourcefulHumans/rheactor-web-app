@@ -55,6 +55,10 @@
   @include material-icon();
 }
 
+label.btn .material-icons {
+  font-size: $material-icon-size * 0.8;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
