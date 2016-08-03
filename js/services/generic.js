@@ -171,4 +171,24 @@ GenericApiService.prototype.update = function (endpoint, data, version, token) {
     })
 }
 
+/**
+ * Delete a resource
+ *
+ * @param {String} endpoint
+ * @param {Number} version
+ * @param {JsonWebToken} token
+ * @returns {Promise.<Model>}
+ */
+GenericApiService.prototype.delete = function (endpoint, version, token) {
+  let self = this
+  let header = _merge(httpUtil.accept(self.apiService.mimeType), httpUtil.ifMatch(version), httpUtil.auth(token))
+  return self.$http.delete(endpoint, header)
+    .catch(err => {
+      if (err.status) {
+        throw HttpProblem.fromHttpError(err, 'Updating of ' + endpoint + ' failed!')
+      }
+      throw HttpProblem.fromException(err, 500)
+    })
+}
+
 module.exports = GenericApiService
