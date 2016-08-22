@@ -1,0 +1,7 @@
+<button type="button" class="btn btn-secondary" data-ng-disabled="progress.$active" data-ng-click="click()">
+  <i class="material-icons" data-ng-show="!progress.$active && progress.$pristine">%%icon%%</i>
+  <i class="material-icons spin" data-ng-show="progress.$active">hourglass_empty</i>
+  <i class="material-icons" data-ng-show="!progress.$active && progress.$success">check_ok</i>
+  <i class="material-icons" data-ng-show="!progress.$active && progress.$error">error</i>
+  <span>%%label%%</span>
+</button>

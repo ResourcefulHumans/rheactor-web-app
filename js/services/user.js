@@ -38,4 +38,53 @@ UserService.prototype.create = function (user, token) {
   return self.apiService.index().then(index => GenericAPIService.prototype.create.call(self, jsonld.getRelLink('create-user', index), user, token))
 }
 
+/**
+ * Activate a user (superusers only)
+ * @param {User} user
+ * @param {JsonWebToken} token
+ * @return {Promise}
+ */
+UserService.prototype.activate = function (user, token) {
+  let self = this
+  return GenericAPIService.prototype.update
+    .call(
+      self,
+      jsonld.getRelLink('toggle-active', user),
+      {},
+      user.$version,
+      token
+    )
+    .then((response) => {
+      let lastModified = new Date(response.headers('Last-Modified')).getTime()
+      let version = +response.headers('etag')
+      user.updated(lastModified, version)
+      user.active = true
+      return user
+    })
+}
+
+/**
+ * Deactivate a user (superusers only)
+ * @param {User} user
+ * @param {JsonWebToken} token
+ * @return {Promise}
+ */
+UserService.prototype.deactivate = function (user, token) {
+  let self = this
+  return GenericAPIService.prototype.delete
+    .call(
+      self,
+      jsonld.getRelLink('toggle-active', user),
+      user.$version,
+      token
+    )
+    .then((response) => {
+      let lastModified = new Date(response.headers('Last-Modified')).getTime()
+      let version = +response.headers('etag')
+      user.updated(lastModified, version)
+      user.active = false
+      return user
+    })
+}
+
 module.exports = UserService
