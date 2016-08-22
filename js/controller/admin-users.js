@@ -1,6 +1,5 @@
 'use strict'
 
-const Promise = require('bluebird')
 const HttpProblem = require('../model/http-problem')
 const HttpProgress = require('../util/http').HttpProgress
 

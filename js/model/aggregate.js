@@ -21,7 +21,7 @@ function Aggregate () {
  */
 Aggregate.prototype.updated = function (updatedAt, newVersion) {
   let self = this
-  self.$version = newVersion ? newVersion : self.$version + 1
+  self.$version = newVersion || self.$version + 1
   self.$updatedAt = updatedAt || Date.now()
 }
 
