@@ -9,6 +9,27 @@
           </h1>
         </div>
         <div class="list-group">
+          <form class="list-group-item" name="userSearchForm">
+            <fieldset class="form-group one-line">
+              <label for="userSearch" class="sr-only">Search</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="material-icons">email</i>
+                </div>
+                <input class="form-control"
+                       type="email"
+                       placeholder="Search by email …"
+                       id="userSearch"
+                       name="searchTerm"
+                       bootstrap-error-states
+                       data-ng-model="vm.searchTerm"
+                       data-ng-change="userSearchForm.$valid && vm.search()">
+                <div class="input-group-addon" data-ng-if="!userSearchForm.$pristine">
+                  <i class="material-icons control" data-ng-click="vm.searchTerm = ''; userSearchForm.$setPristine(); vm.search()">delete</i>
+                </div>
+              </div>
+            </fieldset>
+          </form>
           <div class="list-group-item" role="navigation">
             <span class="loading" data-ng-if="vm.l.$active">
               <i class="material-icons spin">hourglass_empty</i>

@@ -8,6 +8,7 @@ function AdminUserController (ClientStorageService, UserService) {
   self.paginatedList = false
   self.p = new HttpProgress()
   self.l = new HttpProgress()
+  self.searchTerm = ''
 
   const fetch = list => {
     if (self.l.$active) {
@@ -24,7 +25,13 @@ function AdminUserController (ClientStorageService, UserService) {
       })
   }
 
-  const refresh = () => ClientStorageService.getValidToken().then(token => fetch(UserService.listUsers.bind(UserService, {}, token)))
+  const refresh = () => {
+    const query = {}
+    if (self.searchTerm.length) {
+      query.email = self.searchTerm
+    }
+    return ClientStorageService.getValidToken().then(token => fetch(UserService.listUsers.bind(UserService, query, token)))
+  }
   refresh()
 
   self.next = () => ClientStorageService.getValidToken().then(token => fetch(UserService.navigateList.bind(UserService, self.paginatedList, 'next', token)))
@@ -46,6 +53,8 @@ function AdminUserController (ClientStorageService, UserService) {
         })
       )
   }
+
+  self.search = refresh
 }
 
 module.exports = AdminUserController

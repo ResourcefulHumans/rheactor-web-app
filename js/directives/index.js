@@ -3,7 +3,7 @@
 require('angular')
   .module('RHeactorDirectiveModule', [])
   .directive('bootstrapErrorStates', [() => {
-    return require('./bootstrap-error-states')()
+    return require('./bootstrap-error-states')
   }])
   .directive('autoFocus', ['$window', ($window) => {
     return require('./auto-focus')($window)
