@@ -27,10 +27,11 @@ Aggregate.prototype.updated = function (updatedAt, newVersion) {
 
 /**
  * @param {Number} deletedAt
+ * @param {Number} newVersion
  */
-Aggregate.prototype.deleted = function (deletedAt) {
+Aggregate.prototype.deleted = function (deletedAt, newVersion) {
   let self = this
-  self.$version++
+  self.$version = newVersion || self.$version + 1
   self.$deleted = true
   self.$deletedAt = deletedAt || Date.now()
 }
