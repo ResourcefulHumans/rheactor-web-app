@@ -17,6 +17,7 @@ describe('AppButton', () => {
     }
     b.link(scope)
     expect(scope.isDisabled()).to.equal(false)
+    expect(scope.isBlocked()).to.equal(false)
     expect(scope.isPristine()).to.equal(true)
     expect(scope.isProgress()).to.equal(false)
     expect(scope.isSuccess()).to.equal(false)
@@ -33,6 +34,7 @@ describe('AppButton', () => {
     }
     b.link(scope)
     expect(scope.isDisabled()).to.equal(true)
+    expect(scope.isBlocked()).to.equal(true)
     expect(scope.isPristine()).to.equal(false)
     expect(scope.isProgress()).to.equal(false)
     expect(scope.isSuccess()).to.equal(false)
@@ -49,6 +51,7 @@ describe('AppButton', () => {
     }
     b.link(scope)
     expect(scope.isDisabled()).to.equal(true)
+    expect(scope.isBlocked()).to.equal(true)
     expect(scope.isPristine()).to.equal(false)
     expect(scope.isProgress()).to.equal(false)
     expect(scope.isSuccess()).to.equal(false)
@@ -62,6 +65,7 @@ describe('AppButton', () => {
     }
     b.link(scope)
     expect(scope.isDisabled()).to.equal(true)
+    expect(scope.isBlocked()).to.equal(false)
     expect(scope.isPristine()).to.equal(false)
     expect(scope.isProgress()).to.equal(true)
     expect(scope.isSuccess()).to.equal(false)
@@ -75,6 +79,7 @@ describe('AppButton', () => {
     }
     b.link(scope)
     expect(scope.isDisabled(), 'It should not be disabled').to.equal(false)
+    expect(scope.isBlocked(), 'It should not be blocked').to.equal(false)
     expect(scope.isPristine(), 'It should not be pristine').to.equal(false)
     expect(scope.isProgress(), 'It should not be progress').to.equal(false)
     expect(scope.isSuccess(), 'It should not be success').to.equal(false)
@@ -88,6 +93,7 @@ describe('AppButton', () => {
     }
     b.link(scope)
     expect(scope.isDisabled(), 'It should not be disabled').to.equal(false)
+    expect(scope.isBlocked(), 'It should not be blocked').to.equal(false)
     expect(scope.isPristine(), 'It should not be pristine').to.equal(false)
     expect(scope.isProgress(), 'It should not be progress').to.equal(false)
     expect(scope.isSuccess(), 'It should be success').to.equal(true)

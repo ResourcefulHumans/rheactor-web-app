@@ -1,5 +1,5 @@
-<button type="button" class="btn %%class%%" data-ng-disabled="isDisabled()" data-ng-click="click()">
-  <i class="material-icons" data-ng-show="isDisabled()">block</i>
+<button type="button" class="btn %%class%%" data-ng-disabled="isDisabled()" data-ng-click="click(progress, clickArgument)">
+  <i class="material-icons" data-ng-show="isBlocked()">block</i>
   <i class="material-icons" data-ng-show="isPristine()">%%icon%%</i>
   <i class="material-icons spin" data-ng-show="isProgress()">hourglass_empty</i>
   <i class="material-icons" data-ng-show="isSuccess()">check_ok</i>

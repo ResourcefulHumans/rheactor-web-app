@@ -23,12 +23,12 @@
               <span data-ng-if="vm.user.active">
                 <i class="material-icons success">check_box</i>
                 <span>Yes</span>
-                <app-button class="btn-secondary" label="deactivate" icon="not_interested" click="vm.toggleActive" progress="vm.b" class="pull-xs-right"></app-button>
+                <app-button button-class="btn-secondary pull-xs-right" label="deactivate" icon="not_interested" click="vm.toggleActive" progress="vm.b" class="pull-xs-right"></app-button>
               </span>
               <span data-ng-if="!vm.user.active">
                 <i class="material-icons danger">block</i>
                 <span>No</span>
-                <app-button class="btn-secondary" label="activate" icon="power_settings_new" click="vm.toggleActive" progress="vm.b" class="pull-xs-right"></app-button>
+                <app-button button-class="btn-secondary pull-xs-right" label="activate" icon="power_settings_new" click="vm.toggleActive" progress="vm.b" class="pull-xs-right"></app-button>
               </span>
             </dd>
             <dt>SuperUser</dt>
