@@ -140,10 +140,10 @@ GenericApiService.prototype.list = function (endpoint, query, token, expectedCon
 /**
  * Follow the links in a list
  *
- * @param {List} list
+ * @param {appButton} list
  * @param {String} dir
  * @param {JsonWebToken} token
- * @return {Promise.<List>}
+ * @return {Promise.<appButton>}
  */
 GenericApiService.prototype.navigateList = function (list, dir, token) {
   let self = this

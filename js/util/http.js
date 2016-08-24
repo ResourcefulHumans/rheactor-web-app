@@ -1,6 +1,6 @@
 'use strict'
 
-/* global trackJs */
+/* global trackJs, document */
 
 /**
  * @param {JsonWebToken} token
@@ -45,7 +45,7 @@ HttpProgress.prototype.activity = function () {
   this.$error = false
   this.$success = false
   this.$problem = null
-  document.body.parentElement.style.cursor = 'wait'
+  if (typeof document !== 'undefined') document.body.parentElement.style.cursor = 'wait'
   return this
 }
 
@@ -62,20 +62,24 @@ const done = function (self, error, httpProblem) {
   self.$error = error || false
   self.$success = !self.$error
   self.$problem = httpProblem && self.$error ? httpProblem : null
-  document.body.parentElement.style.cursor = ''
+  if (typeof document !== 'undefined') document.body.parentElement.style.cursor = ''
   return self
 }
 
 /**
  * @param {HttpProblem} httpProblem
+ * @returns {HttpProgress}
  */
 HttpProgress.prototype.error = function (httpProblem) {
-  trackJs.track(httpProblem)
-  done(this, true, httpProblem)
+  if (typeof trackJs !== 'undefined') trackJs.track(httpProblem)
+  return done(this, true, httpProblem)
 }
 
+/**
+ * @returns {HttpProgress}
+ */
 HttpProgress.prototype.success = function () {
-  done(this)
+  return done(this)
 }
 
 HttpProgress.prototype.reset = function () {

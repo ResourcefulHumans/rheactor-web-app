@@ -1,7 +1,8 @@
-<button type="button" class="btn btn-secondary" data-ng-disabled="progress.$active" data-ng-click="click()">
-  <i class="material-icons" data-ng-show="!progress.$active && progress.$pristine">%%icon%%</i>
-  <i class="material-icons spin" data-ng-show="progress.$active">hourglass_empty</i>
-  <i class="material-icons" data-ng-show="!progress.$active && progress.$success">check_ok</i>
-  <i class="material-icons" data-ng-show="!progress.$active && progress.$error">error</i>
+<button type="button" class="btn %%class%%" data-ng-disabled="isDisabled()" data-ng-click="click()">
+  <i class="material-icons" data-ng-show="isDisabled()">block</i>
+  <i class="material-icons" data-ng-show="isPristine()">%%icon%%</i>
+  <i class="material-icons spin" data-ng-show="isProgress()">hourglass_empty</i>
+  <i class="material-icons" data-ng-show="isSuccess()">check_ok</i>
+  <i class="material-icons" data-ng-show="isError()">error</i>
   <span>%%label%%</span>
 </button>

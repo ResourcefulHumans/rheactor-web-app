@@ -21,7 +21,7 @@ UserService.prototype = _create(GenericAPIService.prototype, {
 /**
  * @param {Object} filter
  * @param {JsonWebToken} token
- * @return {Promise.<List>}
+ * @return {Promise.<appButton>}
  */
 UserService.prototype.listUsers = function (filter, token) {
   const self = this
