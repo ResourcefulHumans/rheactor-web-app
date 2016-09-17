@@ -1,6 +1,5 @@
 'use strict'
 
-const _padStart = require('lodash/padStart')
 const logger = require('../util/logger')
 const moment = require('moment')
 

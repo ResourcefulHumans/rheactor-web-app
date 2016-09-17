@@ -297,6 +297,19 @@ form fieldset p {
   margin: 0;
 }
 
+.input-group-addon {
+  .control {
+    cursor: pointer;
+  }
+  .material-icons {
+    font-size: 20px;
+  }
+}
+
+.form-group.one-line {
+  margin-bottom: 0;
+}
+
 // Alerts
 
 .alert-small {
