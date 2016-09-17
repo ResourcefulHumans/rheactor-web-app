@@ -3,10 +3,10 @@
   "description": "Contains the building blocks for a web application",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/standard",
+    "lint": "standard",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "test": "environment=testing ./node_modules/.bin/mocha --reporter=dot --timeout=1350 test/\\*\\*/\\*.js",
-    "test:coverage": "environment=testing ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- -R dot --timeout=1350 test/\\*\\*/\\*.js && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage && rm -rf ./coverage"
+    "test": "environment=testing mocha --reporter=dot --timeout=1350 test/\\*\\*/\\*.js",
+    "test:coverage": "environment=testing istanbul cover _mocha --report lcovonly -- -R dot --timeout=1350 test/\\*\\*/\\*.js && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
