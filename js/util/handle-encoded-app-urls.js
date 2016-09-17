@@ -1,6 +1,6 @@
 'use strict'
 
-/*global window */
+/* global window */
 
 /**
  * Fix URLs where the ! has been encoded as %21, happens usually in links from emails
