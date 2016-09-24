@@ -30,9 +30,10 @@ GenericApiService.prototype.validateModelContext = function (model, expectedCont
     throw new ApplicationError('Unexpected model context! Got "' + model.$context + '", expected "' + self.modelContext + "'")
   }
 }
+
 /**
  * @param {String} endpoint
- * @param {Login} model
+ * @param {Model} model
  * @param {JsonWebToken} token
  * @param {boolean} fetch Fetch the created model, defaults to true, if false returns the location header value if present
  * @returns {Promise.<Model|String>}
@@ -64,6 +65,31 @@ GenericApiService.prototype.create = function (endpoint, model, token, fetch) {
     })
     .catch(httpError => {
       throw HttpProblem.fromHttpError(httpError, 'Creation of ' + model.$context + ' failed!')
+    })
+}
+
+/**
+ * @param {String} endpoint
+ * @param {object} query
+ * @param {JsonWebToken} token
+ * @returns {Promise.<Model|null>}
+ */
+GenericApiService.prototype.query = function (endpoint, query, token) {
+  const self = this
+
+  let header = httpUtil.accept(self.apiService.mimeType)
+  if (token) {
+    _merge(header, httpUtil.auth(token))
+  }
+  return self.$http.post(endpoint, query, header)
+    .then(response => {
+      if (!response.data) return null
+      const model = self.apiService.createModelInstance(response.data)
+      self.validateModelContext(model)
+      return model
+    })
+    .catch(httpError => {
+      throw HttpProblem.fromHttpError(httpError, 'Query to ' + endpoint + ' failed!')
     })
 }
 
