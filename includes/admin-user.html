@@ -2,15 +2,15 @@
   <article class="row">
     <section class="col-xs-12 col-md-6 offset-md-3">
 
-      <div class="card" data-ng-if="vm.p.$success">
+      <form name="userEditForm" class="card" data-ng-if="vm.p.$success">
         <div class="card-header">
           <h1 class="card-title">
             <i class="material-icons" data-ng-if="!vm.user.avatar">person</i>
             <img class="avatar" data-ng-src="%%vm.user.avatar%%" alt="%%vm.user.name%%" data-ng-if="vm.user.avatar">
-            %%vm.user.name%%
+            %%vm.user.firstname%% %%vm.user.lastname%%
           </h1>
         </div>
-        <div class="card-block">
+        <div class="card-block" data-ng-if="!vm.editing">
           <p>
             <a href="mailto:%%vm.user.email%%" target="_blank">
               <i class="material-icons">email</i>
@@ -44,7 +44,68 @@
             </dd>
           </dl>
         </div>
-      </div>
+        <div class="card-block" data-ng-if="vm.editing">
+          <fieldset class="form-group">
+            <label for="email">email</label>
+            <input class="form-control"
+                   type="email"
+                   id="email"
+                   required
+                   bootstrap-error-states
+                   data-ng-model="vm.userCopy.email"
+                   name="email"
+                   data-ng-blur="vm.updateUserProperty('email')"
+            />
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="firstname">firstname</label>
+            <input class="form-control"
+                   type="text"
+                   id="firstname"
+                   required
+                   bootstrap-error-states
+                   data-ng-model="vm.userCopy.firstname"
+                   name="firstname"
+                   data-ng-blur="vm.updateUserProperty('firstname')"
+            />
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="lastname">lastname</label>
+            <input class="form-control"
+                   type="text"
+                   id="lastname"
+                   required
+                   bootstrap-error-states
+                   data-ng-model="vm.userCopy.lastname"
+                   name="lastname"
+                   data-ng-blur="vm.updateUserProperty('lastname')"
+            />
+          </fieldset>
+        </div>
+        <div class="card-footer">
+          <div class="controls">
+            <button type="button" class="btn btn-secondary" data-ng-click="vm.editing = true" data-ng-if="!vm.editing">
+              <i class="material-icons">mode_edit</i>
+              <span>edit</span>
+            </button>
+            <button type="button" class="btn btn-secondary" data-ng-click="vm.editing = false" data-ng-if="vm.editing">
+              <i class="material-icons">arrow_back</i>
+            </button>
+          </div>
+          <div class="error-info" data-ng-show="vm.e.$error">
+            <div class="alert alert-danger" role="alert">
+              <i class="material-icons">error</i>
+              %%vm.e.$problem.title%%<br>
+              <small>%%vm.e.$problem.detail%%</small>
+            </div>
+          </div>
+          <div class="success-info" data-ng-show="vm.e.$success">
+            <div class="alert alert-success" role="alert">
+              <i class="material-icons">check_ok</i> Changes saved …
+            </div>
+          </div>
+        </div>
+      </form>
 
       <div class="card" data-ng-if="vm.p.$progress">
         <div class="card-header">
@@ -63,11 +124,11 @@
         <div class="card-header">
           <h1 class="card-title">
             <i class="material-icons">error</i>
-            %%vm.c.$problem.title%%
+            %%vm.p.$problem.title%%
           </h1>
         </div>
         <div class="card-block">
-          <p>%%vm.c.$problem.detail%%</p>
+          <p>%%vm.p.$problem.detail%%</p>
         </div>
       </div>
     </section>

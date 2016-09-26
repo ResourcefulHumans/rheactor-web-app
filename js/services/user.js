@@ -87,4 +87,71 @@ UserService.prototype.deactivate = function (user, token) {
     })
 }
 
+/**
+ * Update a user property
+ *
+ * @param {User} user
+ * @param {String} property
+ * @param {object} value
+ * @param {JsonWebToken} token
+ * @return {Promise}
+ */
+UserService.prototype.updateProperty = function (user, property, value, token) {
+  let self = this
+  return GenericAPIService.prototype.update
+    .call(
+      self,
+      jsonld.getRelLink('update-' + property, user),
+      {value},
+      user.$version,
+      token
+    )
+    .then((response) => {
+      let lastModified = new Date(response.headers('Last-Modified')).getTime()
+      let version = +response.headers('etag')
+      user.updated(lastModified, version)
+      user[property] = value
+      return user
+    })
+}
+
+/**
+ * User requests and email change
+ *
+ * @param {User} user
+ * @param {String} newEmail
+ * @param {JsonWebToken} token
+ * @return {Promise}
+ */
+UserService.prototype.requestEmailChange = function (user, newEmail, token) {
+  let self = this
+  return GenericAPIService.prototype.update
+    .call(
+      self,
+      jsonld.getRelLink('change-email', user),
+      {value: newEmail},
+      user.$version,
+      token
+    )
+}
+
+/**
+ * Confirm an email change
+ *
+ * @param {User} user
+ * @param {JsonWebToken} confirmationToken
+ * @return {Promise}
+ */
+UserService.prototype.confirmEmailChange = function (user, confirmationToken) {
+  let self = this
+  return GenericAPIService.prototype.update
+    .call(
+      self,
+      jsonld.getRelLink('change-email-confirm', user),
+      {},
+      user.$version,
+      confirmationToken
+    )
+}
+
 module.exports = UserService

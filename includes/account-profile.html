@@ -1,0 +1,136 @@
+<div class="container">
+  <article class="row">
+    <section class="col-xs-12 col-md-6" data-ng-if="vm.p.$success">
+      <form name="userEditForm" class="card">
+        <div class="card-header">
+          <h1 class="card-title">
+            <i class="material-icons" data-ng-if="!vm.user.avatar">person</i>
+            <img class="avatar" data-ng-src="%%vm.user.avatar%%" alt="%%vm.user.name%%" data-ng-if="vm.user.avatar">
+            %%vm.user.firstname%% %%vm.user.lastname%%
+          </h1>
+        </div>
+        <div class="card-block">
+          <fieldset class="form-group">
+            <label for="firstname">firstname</label>
+            <input class="form-control"
+                   type="text"
+                   id="firstname"
+                   required
+                   bootstrap-error-states
+                   data-ng-model="vm.userCopy.firstname"
+                   name="firstname"
+                   data-ng-blur="vm.updateUserProperty('firstname')"
+            />
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="lastname">lastname</label>
+            <input class="form-control"
+                   type="text"
+                   id="lastname"
+                   required
+                   bootstrap-error-states
+                   data-ng-model="vm.userCopy.lastname"
+                   name="lastname"
+                   data-ng-blur="vm.updateUserProperty('lastname')"
+            />
+          </fieldset>
+        </div>
+        <div class="card-footer" data-ng-if="vm.e.$error || vm.e.$success">
+          <div class="error-info" data-ng-show="vm.e.$error">
+            <div class="alert alert-danger" role="alert">
+              <i class="material-icons">error</i>
+              %%vm.e.$problem.title%%<br>
+              <small>%%vm.e.$problem.detail%%</small>
+            </div>
+          </div>
+          <div class="success-info" data-ng-show="vm.e.$success">
+            <div class="alert alert-success" role="alert">
+              <i class="material-icons">check_ok</i> Changes saved …
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="col-xs-12 col-md-6" data-ng-if="vm.p.$success">
+      <form name="updateEmailForm" class="card">
+        <div class="card-header">
+          <h2 class="card-title">
+            Change email address
+          </h2>
+        </div>
+        <div class="card-block">
+          <div class="alert alert-success" role="alert" data-ng-if="vm.c.$success">
+            <i class="material-icons">check_ok</i> Ok, now check the inbox of <code>%%vm.newEmail%%</code> for the confirmation email.
+          </div>
+          <p>
+            Your current email address is:<br>
+            <code>%%::vm.user.email%%</code>.
+          </p>
+          <p>
+            In order to change your email, please enter a new email address below.<br>
+            We will send you a confirmation link to the new address.<br>
+            After you have clicked this link, your new email address will be activated.
+          </p>
+          <fieldset class="form-group">
+            <label for="email">email</label>
+            <input class="form-control"
+                   type="email"
+                   id="email"
+                   required
+                   bootstrap-error-states
+                   data-ng-model="vm.newEmail"
+                   name="email"
+            />
+          </fieldset>
+        </div>
+        <div class="card-footer">
+          <app-button
+            button-class="btn-secondary pull-xs-right"
+            label="continue"
+            icon="send"
+            click="vm.changeUserEmail"
+            progress="vm.c"
+            form="updateEmailForm"
+            class="pull-xs-right"></app-button>
+          <div class="error-info" data-ng-if="vm.c.$error">
+            <div class="alert alert-danger" role="alert">
+              <i class="material-icons">error</i>
+              %%vm.c.$problem.title%%<br>
+              <small>%%vm.c.$problem.detail%%</small>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="col-xs-12 col-md-6 offset-md-3" data-ng-if="vm.p.$progress">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="card-title">
+            <i class="material-icons spin">hourglass_empty</i>
+            Please stand by …
+          </h1>
+        </div>
+        <div class="card-block">
+          <p>Loading user …</p>
+          <progress class="progress progress-striped" value="50" max="100">50%</progress>
+        </div>
+      </div>
+    </section>
+
+    <section class="col-xs-12 col-md-6 offset-md-3" data-ng-if="vm.p.$error">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="card-title">
+            <i class="material-icons">error</i>
+            %%vm.p.$problem.title%%
+          </h1>
+        </div>
+        <div class="card-block">
+          <p>%%vm.p.$problem.detail%%</p>
+        </div>
+      </div>
+    </section>
+  </article>
+</div>

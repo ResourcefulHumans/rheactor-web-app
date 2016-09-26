@@ -30,11 +30,12 @@ module.exports = function (app) {
           controllerAs: 'vm',
           controller: [
             '$rootScope',
+            '$timeout',
             '$stateParams',
             'IDService',
             'ClientStorageService',
             'UserService',
-            ($rootScope, $stateParams, IDService, ClientStorageService, UserService) => new AdminUserController($rootScope, $stateParams, IDService, ClientStorageService, UserService)
+            ($rootScope, $timeout, $stateParams, IDService, ClientStorageService, UserService) => new AdminUserController($rootScope, $timeout, $stateParams, IDService, ClientStorageService, UserService)
           ]
         })
     }])

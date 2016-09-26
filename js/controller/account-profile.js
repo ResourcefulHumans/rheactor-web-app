@@ -3,19 +3,24 @@
 const HttpProblem = require('../model/http-problem')
 const HttpProgress = require('../util/http').HttpProgress
 const _cloneDeep = require('lodash/cloneDeep')
+const Promise = require('bluebird')
 
-function AdminUserController ($rootScope, $timeout, $stateParams, IDService, ClientStorageService, UserService) {
+function AccountProfileController ($rootScope, $timeout, ClientStorageService, UserService) {
   const self = this
   self.user = false
   self.userCopy = false
   self.p = new HttpProgress()
-  self.b = new HttpProgress()
   self.e = new HttpProgress()
+  self.c = new HttpProgress()
 
   self.p.activity()
-  ClientStorageService
-    .getValidToken()
-    .then(token => UserService.get(IDService.decode($stateParams.id), token))
+
+  Promise
+    .join(
+      ClientStorageService.get('me'),
+      ClientStorageService.getValidToken()
+    )
+    .spread((me, token) => UserService.get(me.$id, token))
     .then(user => {
       self.user = user
       self.userCopy = _cloneDeep(user)
@@ -26,22 +31,7 @@ function AdminUserController ($rootScope, $timeout, $stateParams, IDService, Cli
       self.p.error(err)
     })
 
-  self.toggleActive = () => {
-    if (self.b.$active) {
-      return
-    }
-    self.b.activity()
-    ClientStorageService
-      .getValidToken()
-      .then(token => UserService.updateProperty(self.user, 'active', !self.user.active, token))
-      .then(() => {
-        self.b.success()
-      })
-      .catch(HttpProblem, (httpProblem) => {
-        self.b.error(httpProblem)
-      })
-  }
-
+  // Update profile
   let timeout
   self.updateUserProperty = (property) => {
     if (self.e.$active) {
@@ -62,6 +52,7 @@ function AdminUserController ($rootScope, $timeout, $stateParams, IDService, Cli
         self.e.success()
         self.user = user
         self.userCopy = _cloneDeep(self.user)
+        ClientStorageService.set('me', user)
         timeout = $timeout(() => {
           self.e.reset()
         }, 1000)
@@ -70,6 +61,23 @@ function AdminUserController ($rootScope, $timeout, $stateParams, IDService, Cli
         self.e.error(httpProblem)
       })
   }
+
+  // Update email
+  self.changeUserEmail = () => {
+    if (self.c.$active) {
+      return
+    }
+    self.c.activity()
+    ClientStorageService
+      .getValidToken()
+      .then(token => UserService.requestEmailChange(self.user, self.newEmail, token))
+      .then(() => {
+        self.c.success()
+      })
+      .catch(HttpProblem, (httpProblem) => {
+        self.c.error(httpProblem)
+      })
+  }
 }
 
-module.exports = AdminUserController
+module.exports = AccountProfileController
