@@ -113,7 +113,7 @@ a.danger {
 .controls {
   @include clearfix();
   button, a.btn {
-    @include pull-right();
+    float: right;
   }
   button + button, button + a.btn, a.btn + button, a.btn + a.btn {
     margin-right: 1rem;
@@ -136,7 +136,7 @@ a.danger {
 .card-header {
   .card-title {
     .material-icons {
-      @include pull-right();
+      float: right;
       color: rgba($text-on-brand-primary, 0.5);
       &.success {
         color: $brand-success;
@@ -189,16 +189,16 @@ a.danger {
   }
 
   .navbar-toggler {
-    @include pull-right();
+    float: right;
   }
 
   #metanav {
-    @include pull-right();
+    float: right;
   }
 }
 
 .navbar-brand img {
-  @include pull-left();
+  float: left;
   height: 30px;
   margin-right: $icon-spacer;
 }
@@ -207,7 +207,7 @@ a.danger {
   cursor: pointer;
   color: $text-on-brand-primary;
   i.material-icons {
-    @include pull-left();
+    float: left;
   }
 }
 
@@ -223,7 +223,7 @@ a.danger {
 .nav-icon {
   color: $text-on-brand-primary;
   i.material-icons {
-    @include pull-left();
+    float: left;
     margin-right: 5px;
     padding-top: .425rem;
     padding-bottom: .425rem;
@@ -249,7 +249,7 @@ a.nav-link, button.nav-link, .nav-icon {
   .nav-section {
     color: rgba($text-on-brand-primary, 0.5);
     i.material-icons {
-      @include pull-left();
+      float: left;
     }
   }
 }
@@ -260,7 +260,7 @@ label {
   display: block;
   margin-bottom: 0;
   button {
-    @include pull-right();
+    float: right;
   }
 }
 

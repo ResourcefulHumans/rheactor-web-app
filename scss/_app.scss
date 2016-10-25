@@ -63,7 +63,7 @@ body > footer {
 .card {
   .card-header {
     .avatar {
-      @include pull-right();
+      float: right;
       border-radius: 100%;
       border: 1px solid #bbb;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
