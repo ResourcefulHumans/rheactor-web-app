@@ -44,10 +44,12 @@ module.exports = {
     })
     // watch for changes on the pristine state (form might get reset)
     // and reset the error states
-    scope.$watch(formCtrl.$name + '.' + modelCtrl.$name + '.$pristine', (isPristine, wasPristine) => {
-      if (!wasPristine && isPristine) {
-        resetErrorStates(element)
-      }
-    })
+    if (modelCtrl.$name) { // can be empty on textareas
+      scope.$watch(formCtrl.$name + '.' + modelCtrl.$name + '.$pristine', (isPristine, wasPristine) => {
+        if (!wasPristine && isPristine) {
+          resetErrorStates(element)
+        }
+      })
+    }
   }
 }
