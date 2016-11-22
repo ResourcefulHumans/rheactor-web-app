@@ -1,7 +1,10 @@
 'use strict'
 
-const logger = require('../util/logger')
+/* global: document */
+
 const moment = require('moment')
+const debounce = require('lodash/debounce')
+const $ = require('jquery')
 
 module.exports = function (app) {
   app
@@ -10,12 +13,13 @@ module.exports = function (app) {
       'ClientStorageService',
       'GoogleAnalyticsService',
       'TokenService',
+      'RefreshTokenService',
       '$rootScope',
       '$scope',
       '$state',
       '$stateParams',
       '$window',
-      (UserService, ClientStorageService, GoogleAnalyticsService, TokenService, $rootScope, $scope, $state, $stateParams, $window) => {
+      (UserService, ClientStorageService, GoogleAnalyticsService, TokenService, RefreshTokenService, $rootScope, $scope, $state, $stateParams, $window) => {
         var vm = {
           authenticated: false,
           sync: true,
@@ -39,6 +43,7 @@ module.exports = function (app) {
           if (property === 'token') {
             if (value === undefined) {
               delete vm.token
+              RefreshTokenService.token = null
               if (updater) {
                 $window.clearInterval(updater)
                 $window.clearInterval(lifeTimeChecker)
@@ -47,6 +52,7 @@ module.exports = function (app) {
               }
             } else {
               vm.token = value
+              RefreshTokenService.token = value
               updater = $window.setInterval(updateTimer, 1000)
               lifeTimeChecker = $window.setInterval(checkLifetime, 1000)
               updateTimer()
@@ -67,18 +73,7 @@ module.exports = function (app) {
           })
         }
 
-        let refreshing = false
-        vm.refreshToken = function () {
-          if (refreshing) {
-            return
-          }
-          refreshing = true
-          TokenService.create(vm.token)
-            .then((token) => {
-              ClientStorageService.set('token', token)
-              refreshing = false
-            })
-        }
+        vm.refreshToken = RefreshTokenService.refresh.bind(RefreshTokenService)
 
         let checkLifetime = function () {
           if (!vm.token) {
@@ -97,13 +92,7 @@ module.exports = function (app) {
           vm.stateName = $state.current.name
           vm.stateParams = $stateParams
           vm.state = $state.current
-          if (!vm.token) {
-            return
-          }
-          if (Math.max(vm.token.exp.getTime() - Date.now(), 0) / (vm.token.exp.getTime() - vm.token.iat.getTime()) < 0.10) {
-            logger.appInfo('Auto refreshing token')
-            vm.refreshToken()
-          }
+          RefreshTokenService.maybeRefreshToken()
 
           on = {}
           let parts = vm.stateName.split('.')
@@ -120,6 +109,7 @@ module.exports = function (app) {
         $rootScope.$on('sync', (event, sync) => {
           vm.sync = sync
         })
+        $(document).on('click touch', debounce(RefreshTokenService.maybeRefreshToken.bind(RefreshTokenService), 1000))
 
         return vm
       }
