@@ -35,7 +35,7 @@
     "mocha": "^3.1.2",
     "mocha-lcov-reporter": "^1.2.0",
     "semantic-release": "^6.3.2",
-    "standard": "^8.4.0",
+    "standard": "^8.6.0",
     "validate-commit-msg": "^2.8.2"
   },
   "config": {
