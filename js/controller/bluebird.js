@@ -3,7 +3,7 @@
 /* global trackJs */
 
 const logger = require('../util/logger')
-const EntryNotFoundError = require('rheactor-value-objects/errors/entry-not-found')
+const EntryNotFoundError = require('rheactor-value-objects/dist/errors/entry-not-found')
 
 module.exports = function () {
   require('angular')
