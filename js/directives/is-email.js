@@ -1,6 +1,6 @@
 'use strict'
 
-const isEmail = require('isemail')
+const EmailValue = require('rheactor-value-objects/dist/email')
 
 module.exports = {
   restrict: 'A',
@@ -10,7 +10,11 @@ module.exports = {
       if (!viewValue) {
         return true
       }
-      return isEmail.validate(viewValue, {minDomainAtoms: 2})
+      try {
+        return (new EmailValue(viewValue)) && true
+      } catch (err) {
+        return false
+      }
     }
   }
 }
