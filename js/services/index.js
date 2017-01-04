@@ -1,5 +1,7 @@
 'use strict'
 
+/* globals angular */
+
 const GenericApiService = require('./generic')
 const TokenService = require('./token')
 const RefreshTokenService = require('./refresh-token')
@@ -9,7 +11,7 @@ const ClientStorageService = require('./client-storage')
 const IDService = require('./id')
 const GoogleAnalyticsService = require('./google-analytics')
 
-require('angular')
+angular
   .module('RHeactorServiceModule', [])
   .factory('LoginService', ['$http', 'APIService', ($http, APIService) => {
     return new GenericApiService($http, APIService)

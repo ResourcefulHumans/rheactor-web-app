@@ -21,12 +21,15 @@
   },
   "homepage": "https://github.com/ResourcefulHumans/rheactor-web-app#readme",
   "dependencies": {
+    "angular": "^1.6.1",
     "bluebird": "^3.4.6",
     "bootstrap": "^4.0.0-alpha.5",
     "compare-versions": "^3.0.0",
     "event-source-polyfill": "0.0.7",
     "lodash": "^4.15.0",
-    "rheactor-value-objects": "^3.6.0"
+    "moment": "^2.17.1",
+    "rheactor-value-objects": "^3.6.0",
+    "showdown": "^1.5.5"
   },
   "devDependencies": {
     "chai": "^3.5.0",

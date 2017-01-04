@@ -1,9 +1,11 @@
 'use strict'
 
+/* globals angular */
+
 const Login = require('./login')
 const PasswordChange = require('./password-change')
 
-require('angular')
+angular
   .module('RHeactorModelModule', [])
   .service('LoginModel', () => {
     return Login

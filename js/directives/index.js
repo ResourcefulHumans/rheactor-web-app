@@ -1,6 +1,8 @@
 'use strict'
 
-require('angular')
+/* globals angular */
+
+angular
   .module('RHeactorDirectiveModule', [])
   .directive('bootstrapErrorStates', [() => {
     return require('./bootstrap-error-states')

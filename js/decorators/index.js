@@ -1,6 +1,8 @@
 'use strict'
 
-require('angular')
+/* globals angular */
+
+angular
   .module('RHeactorDecoratorModule', [])
   /**
    * Angular $rootScope.Scope.$once

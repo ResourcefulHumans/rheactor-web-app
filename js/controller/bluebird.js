@@ -1,12 +1,12 @@
 'use strict'
 
-/* global trackJs */
+/* global angular trackJs */
 
 const logger = require('../util/logger')
 const EntryNotFoundError = require('rheactor-value-objects/dist/errors/entry-not-found')
 
 module.exports = function () {
-  require('angular')
+  angular
     .module('mwl.bluebird')
     .run(['$q', '$state', ($q, $state) => {
       $q.onPossiblyUnhandledRejection(function (error) {
