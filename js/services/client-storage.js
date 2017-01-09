@@ -2,8 +2,8 @@
 
 const Promise = require('bluebird')
 const logger = require('../util/logger')
-const EntryNotFoundError = require('rheactor-value-objects/dist/errors/entry-not-found')
-const TokenExpiredError = require('rheactor-value-objects/dist/errors/token-expired')
+const EntryNotFoundError = require('rheactor-value-objects/errors/entry-not-found')
+const TokenExpiredError = require('rheactor-value-objects/errors/token-expired')
 
 /**
  * @param $window

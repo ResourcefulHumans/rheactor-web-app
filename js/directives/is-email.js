@@ -1,6 +1,6 @@
 'use strict'
 
-const EmailValue = require('rheactor-value-objects/dist/email')
+const EmailValue = require('rheactor-value-objects/email')
 
 module.exports = {
   restrict: 'A',
