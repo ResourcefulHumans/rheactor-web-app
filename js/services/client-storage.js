@@ -1,27 +1,28 @@
-'use strict'
+import Promise from 'bluebird'
+import {appLogger} from '../util/logger'
+import {TokenExpiredError, EntryNotFoundError} from '@resourcefulhumans/rheactor-errors'
 
-const Promise = require('bluebird')
-const logger = require('../util/logger')
-const EntryNotFoundError = require('rheactor-value-objects/errors/entry-not-found')
-const TokenExpiredError = require('rheactor-value-objects/errors/token-expired')
+const logger = appLogger()
 
-/**
- * @param $window
- * @param $rootScope
- * @param {APIService} APIService
- * @returns {ClientStorageService}
- */
-module.exports = function ($window, $rootScope, APIService) {
-  function ClientStorageService () {
-    var self = this
-    self.getValidToken()
+export class ClientStorageService {
+  /**
+   * @param $window
+   * @param $rootScope
+   * @param {APIService} APIService
+   * @returns {ClientStorageService}
+   */
+  constructor ($window, $rootScope, APIService) {
+    this.$window = $window
+    this.$rootScope = $rootScope
+    this.APIService = APIService
+    this.getValidToken()
       .then((token) => {
-        self.notify('token', token)
+        this.notify('token', token)
       })
       .then(() => {
-        self.get('me')
+        this.get('me')
           .then((token) => {
-            self.notify('me', token)
+            this.notify('me', token)
           })
       })
       .catch(err => EntryNotFoundError.is(err), () => null)
@@ -33,15 +34,14 @@ module.exports = function ($window, $rootScope, APIService) {
    * @param {Object} value
    * @returns {Promise}
    */
-  ClientStorageService.prototype.set = function (name, value) {
+  set (name, value) {
     logger.appInfo('ClientStorageService.set', name)
-    var self = this
     return Promise
-      .try(function () {
-        return $window.localStorage.setItem(name, JSON.stringify(value))
+      .try(() => {
+        return this.$window.localStorage.setItem(name, JSON.stringify(value))
       })
-      .then(function () {
-        self.notify(name, value)
+      .then(() => {
+        this.notify(name, value)
       })
   }
 
@@ -50,14 +50,14 @@ module.exports = function ($window, $rootScope, APIService) {
    * @param {String} name
    * @returns {Promise}
    */
-  ClientStorageService.prototype.get = function (name) {
+  get (name) {
     return Promise
       .try(() => {
-        let v = $window.localStorage.getItem(name)
+        let v = this.$window.localStorage.getItem(name)
         if (!v) {
           throw new EntryNotFoundError(name)
         }
-        return APIService.createModelInstance(JSON.parse(v))
+        return this.APIService.createModelInstance(JSON.parse(v))
       })
   }
 
@@ -66,35 +66,32 @@ module.exports = function ($window, $rootScope, APIService) {
    * @param {String} name
    * @returns {Promise}
    */
-  ClientStorageService.prototype.remove = function (name) {
+  remove (name) {
     logger.appInfo('ClientStorageService.remove', name)
-    var self = this
     return Promise
-      .try(function () {
-        return $window.localStorage.removeItem(name)
+      .try(() => {
+        return this.$window.localStorage.removeItem(name)
       })
-      .then(function () {
-        self.notify(name, undefined)
+      .then(() => {
+        this.notify(name, undefined)
       })
   }
 
-  ClientStorageService.prototype.subscribe = function (scope, callback) {
-    var handler = $rootScope.$on('clientstorage-event', callback)
-    scope.$on('$destroy', handler)
+  subscribe (scope, callback) {
+    scope.$on('$destroy', this.$rootScope.$on('clientstorage-event', callback))
   }
 
-  ClientStorageService.prototype.notify = function (name, value) {
+  notify (name, value) {
     logger.appInfo('ClientStorageService.notify', name)
-    $rootScope.$emit('clientstorage-event', name, value)
+    this.$rootScope.$emit('clientstorage-event', name, value)
   }
 
   /**
    * Retrieves the token and checks that it is not expired
    * @returns {Promise.<JsonWebToken>}
    */
-  ClientStorageService.prototype.getValidToken = function () {
-    let self = this
-    return self.get('token')
+  getValidToken () {
+    return this.get('token')
       .then((token) => {
         if (token.isExpired()) {
           logger.authWarning('Token expired')
@@ -103,6 +100,4 @@ module.exports = function ($window, $rootScope, APIService) {
         return token
       })
   }
-
-  return new ClientStorageService()
 }

@@ -1,24 +1,16 @@
-'use strict'
+import {URIValue} from 'rheactor-value-objects'
+import {String as StringValue} from 'tcomb'
 
-const _forEach = require('lodash/forEach')
+const $context = new URIValue('https://github.com/RHeactor/nucleus/wiki/JsonLD#PasswordChangeConfirm')
 
-/**
- * @param {object} data
- * @constructor
- */
-function PasswordChangeConfirm (data) {
-  this.password = undefined
-
-  if (data) {
-    var self = this
-    _forEach(this, function (value, key) {
-      self[key] = data[key] === undefined ? undefined : data[key]
-    })
+export class PasswordChangeConfirmModel {
+  constructor (email, password) {
+    StringValue(password)
+    this.password = password
+    this.$context = $context
   }
 
-  this.$context = PasswordChangeConfirm.$context
+  static get $context () {
+    return $context
+  }
 }
-
-PasswordChangeConfirm.$context = 'https://github.com/RHeactor/nucleus/wiki/JsonLD#PasswordChangeConfirm'
-
-module.exports = PasswordChangeConfirm

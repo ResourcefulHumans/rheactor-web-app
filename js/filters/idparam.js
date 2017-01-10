@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = ($location, IDService) => {
+export const IDParamFilter = ($location, IDService) => {
   /**
    * @param {object} model
    * @returns {string}

@@ -1,9 +1,7 @@
-'use strict'
+import {AdminUsersController} from './admin-users'
+import {AdminUserController} from './admin-user'
 
-const AdminUsersController = require('./admin-users')
-const AdminUserController = require('./admin-user')
-
-module.exports = function (app) {
+export function AdminController (app) {
   app
     .config(['$stateProvider', ($stateProvider) => {
       $stateProvider

@@ -1,8 +1,6 @@
-'use strict'
+import Promise from 'bluebird'
 
-const Promise = require('bluebird')
-
-module.exports = function (app) {
+export function LogoutController (app) {
   app
     .config(['$stateProvider', function ($stateProvider) {
       $stateProvider

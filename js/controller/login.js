@@ -1,8 +1,6 @@
-'use strict'
+import {GenericController} from './generic'
 
-const genericController = require('./generic')
-
-module.exports = function (app) {
+export function LoginController (app) {
   app
     .config(['$stateProvider', ($stateProvider) => {
       $stateProvider
@@ -22,7 +20,7 @@ module.exports = function (app) {
             '$stateParams',
             '$location',
               /**
-               * @param {Login} LoginModel
+               * @param {LoginModel} LoginModel
                * @param {LoginService} LoginService
                * @param {UserService} UserService
                * @param {ClientStorageService} ClientStorageService
@@ -32,7 +30,7 @@ module.exports = function (app) {
                * @param $location
                */
             (LoginModel, LoginService, UserService, ClientStorageService, $state, $window, $stateParams, $location) => {
-              let vm = genericController(
+              let vm = GenericController(
                 LoginModel,
                 {
                   success: (result) => {

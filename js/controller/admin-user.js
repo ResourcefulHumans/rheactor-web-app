@@ -1,10 +1,8 @@
-'use strict'
+import {HttpProblem} from 'rheactor-models'
+import {HttpProgress} from '../util/http'
+import _cloneDeep from 'lodash/cloneDeep'
 
-const HttpProblem = require('../model/http-problem')
-const HttpProgress = require('../util/http').HttpProgress
-const _cloneDeep = require('lodash/cloneDeep')
-
-function AdminUserController ($rootScope, $timeout, $stateParams, IDService, ClientStorageService, UserService) {
+export function AdminUserController ($rootScope, $timeout, $stateParams, IDService, ClientStorageService, UserService) {
   const self = this
   self.user = false
   self.userCopy = false
@@ -72,4 +70,3 @@ function AdminUserController ($rootScope, $timeout, $stateParams, IDService, Cli
   }
 }
 
-module.exports = AdminUserController

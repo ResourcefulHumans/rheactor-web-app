@@ -1,9 +1,8 @@
-'use strict'
-
 /* global describe, it, beforeEach */
 
-let LiveCollection = require('../../js/util/live-collection')
-let expect = require('chai').expect
+import {URIValue} from 'rheactor-value-objects'
+import {LiveCollection} from '../../js/util/live-collection'
+import {expect} from 'chai'
 
 describe('LiveCollection', function () {
   describe('.handleEvents()', function () {
@@ -12,8 +11,7 @@ describe('LiveCollection', function () {
     beforeEach(() => {
       // This is the dummy item in the collection
       dummyItem = {
-        $aggregateAlias: 'dummy',
-        $context: 'dummy',
+        $context: new URIValue('https://github.com/RHeactor/nucleus/wiki/JsonLD#PasswordChange'),
         $id: '17',
         $version: 42,
         accepts: (name) => {
@@ -38,8 +36,8 @@ describe('LiveCollection', function () {
     it('should handle regular events', (done) => {
       // This is the dummy event that is emitted from the mocked event source
       let dummyUpdatingEvent = {
-        dummy: {
-          $context: 'dummy',
+        'https://github.com/RHeactor/nucleus/wiki/JsonLD#PasswordChange': {
+          $context: new URIValue('https://github.com/RHeactor/nucleus/wiki/JsonLD#PasswordChange'),
           $id: '17',
           $version: 43
         }
@@ -57,8 +55,8 @@ describe('LiveCollection', function () {
 
     it('should ignore events for other items', (done) => {
       let dummyUpdatingEvent = {
-        dummy: {
-          $context: 'dummy',
+        'https://github.com/RHeactor/nucleus/wiki/JsonLD#PasswordChange': {
+          $context: new URIValue('https://github.com/RHeactor/nucleus/wiki/JsonLD#PasswordChange'),
           $id: '18',
           $version: 43
         }
@@ -74,8 +72,8 @@ describe('LiveCollection', function () {
 
     it('should ignore events that have a lower version number', (done) => {
       let dummyUpdatingEvent = {
-        dummy: {
-          $context: 'dummy',
+        'https://github.com/RHeactor/nucleus/wiki/JsonLD#PasswordChange': {
+          $context: new URIValue('https://github.com/RHeactor/nucleus/wiki/JsonLD#PasswordChange'),
           $id: '17',
           $version: 42
         }

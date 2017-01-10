@@ -1,8 +1,8 @@
-'use strict'
+import {appLogger} from './logger'
+import _filter from 'lodash/filter'
+import {ApplicationError} from '@resourcefulhumans/rheactor-errors'
 
-const logger = require('./logger')
-const _filter = require('lodash/filter')
-const ApplicationError = require('rheactor-value-objects/errors/application')
+const logger = appLogger()
 
 /**
  * @param {Function} filterFunc
@@ -55,7 +55,7 @@ const getListLink = (context, model) => {
   }
 }
 
-module.exports = {
+export const JSONLD = {
   getLink,
   getRelLink,
   getListLink

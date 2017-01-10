@@ -1,18 +1,18 @@
-'use strict'
+import {HttpProgress} from '../util/http'
+import {appLogger} from '../util/logger'
+import {JSONLD} from '../util/jsonld'
+import _defaults from 'lodash/defaults'
+import {HttpProblem} from 'rheactor-models'
 
-const HttpProgress = require('../util/http').HttpProgress
-const logger = require('../util/logger')
-const jsonld = require('../util/jsonld')
-const _defaults = require('lodash/defaults')
-const HttpProblem = require('../model/http-problem')
+const logger = appLogger()
 
 /**
  * @param {object} Model
  * @param {object} callbacks
  * @param {String} createRelation
- * @param {GenericApiService} genericService
+ * @param {GenericAPIService} genericService
  */
-module.exports = function (Model, callbacks, createRelation, genericService) {
+export function GenericController (Model, callbacks, createRelation, genericService) {
   callbacks = _defaults(callbacks,
     {
       success: () => {
@@ -30,13 +30,13 @@ module.exports = function (Model, callbacks, createRelation, genericService) {
     vm.p.activity()
     genericService.apiService.index()
       .then((index) => {
-        return genericService.create(jsonld.getRelLink(createRelation, index), new Model(data))
+        return genericService.create(JSONLD.getRelLink(createRelation, index), new Model(data))
           .then((result) => {
             vm.p.success()
             callbacks.success(result, vm)
           })
       })
-      .catch(HttpProblem, (httpProblem) => {
+      .catch(err => HttpProblem.is(err), httpProblem => {
         vm.p.error(httpProblem)
       })
   }

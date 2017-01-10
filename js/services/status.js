@@ -1,33 +1,21 @@
-'use strict'
-
-const _create = require('lodash/create')
-const GenericAPIService = require('./generic')
-const Status = require('../model/status')
-const jsonld = require('../util/jsonld')
+import {GenericAPIService} from './generic'
+import {Status} from 'rheactor-models'
+import {JSONLD} from '../util/jsonld'
 
 /**
  * @param $http
- * @param {APIService} apiService
- * @constructor
- */
-function StatusService ($http, apiService) {
-  GenericAPIService.call(this, $http, apiService, Status.$context)
+ * @param {APIService} apiService */
+export class StatusService extends GenericAPIService {
+  constructor ($http, apiService) {
+    super($http, apiService, Status.$context)
+  }
+
+  /**
+   * @return {Status}
+   */
+  status () {
+    return this.apiService
+      .index()
+      .then((index) => super.get(JSONLD.getRelLink('status', index) + '?t=' + Date.now()))
+  }
 }
-
-StatusService.prototype = _create(GenericAPIService.prototype, {
-  'constructor': StatusService
-})
-
-/**
- * @return {Status}
- */
-StatusService.prototype.status = function () {
-  let self = this
-  return self.apiService
-    .index()
-    .then((index) => {
-      return GenericAPIService.prototype.get.call(self, jsonld.getRelLink('status', index) + '?t=' + Date.now())
-    })
-}
-
-module.exports = StatusService

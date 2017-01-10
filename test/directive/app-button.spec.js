@@ -1,14 +1,12 @@
-'use strict'
-
 /* global describe, it */
 
-const appButton = require('../../js/directives/app-button')
-const HttpProgress = require('../../js/util/http').HttpProgress
-const expect = require('chai').expect
+import {AppButtonDirective} from '../../js/directives/app-button'
+import {HttpProgress} from '../../js/util/http'
+import {expect} from 'chai'
 
 describe('AppButton', () => {
   it('should be enabled if a form is provided and it is valid', done => {
-    let b = appButton
+    let b = AppButtonDirective
     let scope = {
       progress: new HttpProgress(),
       form: {
@@ -25,7 +23,7 @@ describe('AppButton', () => {
     done()
   })
   it('should be disabled if a form is provided and it is invalid', done => {
-    let b = appButton
+    let b = AppButtonDirective
     let scope = {
       progress: new HttpProgress(),
       form: {
@@ -42,7 +40,7 @@ describe('AppButton', () => {
     done()
   })
   it('should be disabled if a form is provided and it is pristine', done => {
-    let b = appButton
+    let b = AppButtonDirective
     let scope = {
       progress: new HttpProgress(),
       form: {
@@ -59,7 +57,7 @@ describe('AppButton', () => {
     done()
   })
   it('should be disabled during http activity', done => {
-    let b = appButton
+    let b = AppButtonDirective
     let scope = {
       progress: new HttpProgress().activity()
     }
@@ -73,7 +71,7 @@ describe('AppButton', () => {
     done()
   })
   it('should  show error on http error', done => {
-    let b = appButton
+    let b = AppButtonDirective
     let scope = {
       progress: new HttpProgress().error()
     }
@@ -87,7 +85,7 @@ describe('AppButton', () => {
     done()
   })
   it('should show success on http success', done => {
-    let b = appButton
+    let b = AppButtonDirective
     let scope = {
       progress: new HttpProgress().success()
     }

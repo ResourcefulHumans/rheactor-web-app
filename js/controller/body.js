@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = function (app) {
+export function BodyController (app) {
   app
     .run(['$rootScope', ($rootScope) => {
       $rootScope.$on('$stateChangeStart', (event, toState) => {

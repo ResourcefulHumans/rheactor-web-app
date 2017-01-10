@@ -1,18 +1,16 @@
-'use strict'
-
 /* global EventSource, trackJs */
 
-const Promise = require('bluebird')
-require('event-source-polyfill')
-const logger = require('./logger')
+import Promise from 'bluebird'
+import 'event-source-polyfill'
+import {appLogger} from './logger'
+
+const logger = appLogger()
 
 /**
  * @deprecated Use ModelEventConnection
  * @param {string} streamUrl
- * @param {string} eventName
- * @constructor
- */
-function EventSourceConnection (streamUrl, eventName) {
+ * @param {string} eventName */
+export function EventSourceConnection (streamUrl, eventName) {
   this.subscribers = []
   this.errorSubscribers = []
   this.streamUrl = streamUrl
@@ -108,5 +106,3 @@ EventSourceConnection.prototype.getSource = function () {
   }
   return self.source
 }
-
-module.exports = EventSourceConnection

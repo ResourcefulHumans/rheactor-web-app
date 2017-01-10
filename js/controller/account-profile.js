@@ -1,11 +1,9 @@
-'use strict'
+import {HttpProblem} from 'rheactor-models'
+import {HttpProgress} from '../util/http'
+import _cloneDeep from 'lodash/cloneDeep'
+import Promise from 'bluebird'
 
-const HttpProblem = require('../model/http-problem')
-const HttpProgress = require('../util/http').HttpProgress
-const _cloneDeep = require('lodash/cloneDeep')
-const Promise = require('bluebird')
-
-function AccountProfileController ($rootScope, $timeout, ClientStorageService, UserService) {
+export function AccountProfileController ($rootScope, $timeout, ClientStorageService, UserService) {
   const self = this
   self.user = false
   self.userCopy = false
@@ -80,4 +78,3 @@ function AccountProfileController ($rootScope, $timeout, ClientStorageService, U
   }
 }
 
-module.exports = AccountProfileController

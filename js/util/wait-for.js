@@ -1,6 +1,4 @@
-'use strict'
-
-let Promise = require('bluebird')
+import Promise from 'bluebird'
 
 /**
  * Wait for the given properties to appear on the parent of the given scope
@@ -12,7 +10,7 @@ let Promise = require('bluebird')
  * @param {String} property
  * @return Promise
  */
-module.exports = ($scope, property) => {
+export const waitFor = ($scope, property) => {
   return new Promise((resolve, reject) => {
     if ($scope.$parent[property]) {
       $scope.$emit(property, $scope.$parent[property]) // pass down to child scopes

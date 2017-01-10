@@ -1,8 +1,6 @@
-'use strict'
+import {EmailValue} from 'rheactor-value-objects'
 
-const EmailValue = require('rheactor-value-objects/email')
-
-module.exports = {
+export const IsEmailDirective = {
   restrict: 'A',
   require: 'ngModel',
   link: function (scope, element, attrs, modelCtrl) {

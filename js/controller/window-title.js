@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = function (app) {
+export function WindowTitleController (app) {
   app
     .run(['$rootScope', '$window', 'FrontendConfig', '$state', '$timeout', ($rootScope, $window, config, $state, $timeout) => {
       let setTitle = (title) => {

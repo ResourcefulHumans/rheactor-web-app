@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = function ($window) {
+export function IDservice ($window) {
   return {
     encode: (str) => {
       return $window.btoa(encodeURI(encodeURIComponent(str)))

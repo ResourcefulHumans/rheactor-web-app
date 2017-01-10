@@ -1,12 +1,10 @@
-'use strict'
-
 /* global trackJs, document */
 
 /**
  * @param {JsonWebToken} token
  * @returns {{headers: {Authorization: string}}}
  */
-function auth (token) {
+export function auth (token) {
   return {
     headers: {
       Authorization: 'Bearer ' + token.token
@@ -17,7 +15,7 @@ function auth (token) {
 /**
  * @param {String} mimeType
  */
-function accept (mimeType) {
+export function accept (mimeType) {
   return {
     headers: {
       Accept: mimeType,
@@ -26,27 +24,12 @@ function accept (mimeType) {
   }
 }
 
-function ifMatch (match) {
+export function ifMatch (match) {
   return {
     headers: {
       'If-Match': match
     }
   }
-}
-
-function HttpProgress () {
-  this.reset()
-}
-
-HttpProgress.prototype.activity = function () {
-  this.$pristine = false
-  this.$active = true
-  this.$done = false
-  this.$error = false
-  this.$success = false
-  this.$problem = null
-  if (typeof document !== 'undefined') document.body.parentElement.style.cursor = 'wait'
-  return this
 }
 
 /**
@@ -55,7 +38,7 @@ HttpProgress.prototype.activity = function () {
  * @param {HttpProblem} httpProblem
  * @returns {HttpProgress}
  */
-const done = function (self, error, httpProblem) {
+const done = (self, error, httpProblem) => {
   self.$pristine = false
   self.$active = false
   self.$done = true
@@ -66,34 +49,45 @@ const done = function (self, error, httpProblem) {
   return self
 }
 
-/**
- * @param {HttpProblem} httpProblem
- * @returns {HttpProgress}
- */
-HttpProgress.prototype.error = function (httpProblem) {
-  if (typeof trackJs !== 'undefined') trackJs.track(httpProblem)
-  return done(this, true, httpProblem)
+export class HttpProgress {
+  constructor () {
+    this.reset()
+  }
+
+  activity () {
+    this.$pristine = false
+    this.$active = true
+    this.$done = false
+    this.$error = false
+    this.$success = false
+    this.$problem = null
+    if (typeof document !== 'undefined') document.body.parentElement.style.cursor = 'wait'
+    return this
+  }
+
+  /**
+   * @param {HttpProblem} httpProblem
+   * @returns {HttpProgress}
+   */
+  error (httpProblem) {
+    if (typeof trackJs !== 'undefined') trackJs.track(httpProblem)
+    return done(this, true, httpProblem)
+  }
+
+  /**
+   * @returns {HttpProgress}
+   */
+  success () {
+    return done(this)
+  }
+
+  reset () {
+    this.$pristine = true
+    this.$active = false
+    this.$done = false
+    this.$error = false
+    this.$success = false
+    this.$problem = null
+  }
 }
 
-/**
- * @returns {HttpProgress}
- */
-HttpProgress.prototype.success = function () {
-  return done(this)
-}
-
-HttpProgress.prototype.reset = function () {
-  this.$pristine = true
-  this.$active = false
-  this.$done = false
-  this.$error = false
-  this.$success = false
-  this.$problem = null
-}
-
-module.exports = {
-  auth,
-  accept,
-  ifMatch,
-  HttpProgress
-}

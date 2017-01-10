@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = function ($window) {
+export function AutoFocusDirective ($window) {
   return {
     restrict: 'A',
     link: function (scope, element) {

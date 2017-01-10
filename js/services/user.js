@@ -1,16 +1,12 @@
-'use strict'
-
-const _create = require('lodash/create')
-const GenericAPIService = require('../services/generic')
-const jsonld = require('../util/jsonld')
-const User = require('../model/user')
+import _create from 'lodash/create'
+import {GenericAPIService} from '../services/generic'
+import {JSONLD} from '../util/jsonld'
+import {User} from 'rheactor-models'
 
 /**
  * @param $http
- * @param {APIService} apiService
- * @constructor
- */
-function UserService ($http, apiService) {
+ * @param {APIService} apiService */
+export function UserService ($http, apiService) {
   GenericAPIService.call(this, $http, apiService, User.$context)
 }
 
@@ -25,7 +21,7 @@ UserService.prototype = _create(GenericAPIService.prototype, {
  */
 UserService.prototype.listUsers = function (filter, token) {
   const self = this
-  return self.apiService.index().then(index => GenericAPIService.prototype.list.call(this, jsonld.getListLink(User.$context, index), filter, token))
+  return self.apiService.index().then(index => GenericAPIService.prototype.list.call(this, JSONLD.getListLink(User.$context, index), filter, token))
 }
 
 /**
@@ -35,7 +31,7 @@ UserService.prototype.listUsers = function (filter, token) {
  */
 UserService.prototype.create = function (user, token) {
   let self = this
-  return self.apiService.index().then(index => GenericAPIService.prototype.create.call(self, jsonld.getRelLink('create-user', index), user, token))
+  return self.apiService.index().then(index => GenericAPIService.prototype.create.call(self, JSONLD.getRelLink('create-user', index), user, token))
 }
 
 /**
@@ -49,7 +45,7 @@ UserService.prototype.activate = function (user, token) {
   return GenericAPIService.prototype.update
     .call(
       self,
-      jsonld.getRelLink('toggle-active', user),
+      JSONLD.getRelLink('toggle-active', user),
       {},
       user.$version,
       token
@@ -74,7 +70,7 @@ UserService.prototype.deactivate = function (user, token) {
   return GenericAPIService.prototype.delete
     .call(
       self,
-      jsonld.getRelLink('toggle-active', user),
+      JSONLD.getRelLink('toggle-active', user),
       user.$version,
       token
     )
@@ -101,7 +97,7 @@ UserService.prototype.updateProperty = function (user, property, value, token) {
   return GenericAPIService.prototype.update
     .call(
       self,
-      jsonld.getRelLink('update-' + property, user),
+      JSONLD.getRelLink('update-' + property, user),
       {value},
       user.$version,
       token
@@ -128,7 +124,7 @@ UserService.prototype.requestEmailChange = function (user, newEmail, token) {
   return GenericAPIService.prototype.update
     .call(
       self,
-      jsonld.getRelLink('change-email', user),
+      JSONLD.getRelLink('change-email', user),
       {value: newEmail},
       user.$version,
       token
@@ -147,11 +143,9 @@ UserService.prototype.confirmEmailChange = function (user, confirmationToken) {
   return GenericAPIService.prototype.update
     .call(
       self,
-      jsonld.getRelLink('change-email-confirm', user),
+      JSONLD.getRelLink('change-email-confirm', user),
       {},
       user.$version,
       confirmationToken
     )
 }
-
-module.exports = UserService

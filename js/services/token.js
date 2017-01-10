@@ -1,34 +1,21 @@
-'use strict'
-
-const _create = require('lodash/create')
-const GenericAPIService = require('../services/generic')
-const jsonld = require('../util/jsonld')
-const Token = require('../model/jsonwebtoken')
+import {GenericAPIService} from '../services/generic'
+import {JSONLD} from '../util/jsonld'
+import {JsonWebToken} from 'rheactor-models'
 
 /**
  * @param $http
  * @param {APIService} apiService
- * @constructor
  */
-function TokenService ($http, apiService) {
-  GenericAPIService.call(this, $http, apiService, Token.$context)
+export class TokenService extends GenericAPIService {
+  constructor ($http, apiService) {
+    super($http, apiService, JsonWebToken.$context)
+  }
+
+  /**
+   * @param {JsonWebToken} token
+   * @returns {Promise.<JsonWebToken>}
+   */
+  create (token) {
+    return super.create(JSONLD.getRelLink('token-renew', token), token, token)
+  }
 }
-
-TokenService.prototype = _create(GenericAPIService.prototype, {
-  'constructor': TokenService
-})
-
-/**
- * @param {JsonWebToken} token
- * @returns {Promise.<JsonWebToken>}
- */
-TokenService.prototype.create = function (token) {
-  return GenericAPIService.prototype.create.call(
-    this,
-    jsonld.getRelLink('token-renew', token),
-    token,
-    token
-  )
-}
-
-module.exports = TokenService

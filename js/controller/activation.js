@@ -1,11 +1,8 @@
-'use strict'
+import {JsonWebToken, HttpProblem} from 'rheactor-models'
+import {HttpProgress} from '../util/http'
+import {JSONLD} from '../util/jsonld'
 
-const Token = require('../model/jsonwebtoken')
-const HttpProgress = require('../util/http').HttpProgress
-const jsonld = require('../util/jsonld')
-const HttpProblem = require('../model/http-problem')
-
-module.exports = function (app) {
+export function ActivationController (app) {
   app
     .config(['$stateProvider', ($stateProvider) => {
       $stateProvider
@@ -25,15 +22,15 @@ module.exports = function (app) {
               .then((index) => {
                 return ActivationService
                   .create(
-                    jsonld.getRelLink('activate-account', index),
+                    JSONLD.getRelLink('activate-account', index),
                     {},
-                    new Token($stateParams.token)
+                    new JsonWebToken($stateParams.token)
                   )
               })
               .then(() => {
                 vm.p.success()
               })
-              .catch(HttpProblem, (httpProblem) => {
+              .catch(err => HttpProblem.is(err), (httpProblem) => {
                 vm.p.error(httpProblem)
               })
             return vm

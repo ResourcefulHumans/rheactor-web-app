@@ -1,9 +1,7 @@
-'use strict'
+import {HttpProblem} from 'rheactor-models'
+import {HttpProgress} from '../util/http'
 
-const HttpProblem = require('../model/http-problem')
-const HttpProgress = require('../util/http').HttpProgress
-
-function AdminUserController (ClientStorageService, UserService) {
+export function AdminUsersController (ClientStorageService, UserService) {
   const self = this
   self.paginatedList = false
   self.p = new HttpProgress()
@@ -57,4 +55,3 @@ function AdminUserController (ClientStorageService, UserService) {
   self.search = refresh
 }
 
-module.exports = AdminUserController

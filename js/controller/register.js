@@ -1,9 +1,7 @@
-'use strict'
+import {RegistrationModel} from '../model/registration'
+import {GenericController} from './generic'
 
-const Registration = require('../model/registration')
-const genericController = require('./generic')
-
-module.exports = function (app) {
+export function RegisterController (app) {
   app
     .config(['$stateProvider', ($stateProvider) => {
       $stateProvider
@@ -23,7 +21,7 @@ module.exports = function (app) {
              * @param {object} $stateParams
              */
             (RegistrationService, $window, $stateParams) => {
-              let vm = genericController(Registration, {
+              let vm = GenericController(RegistrationModel, {
                 success: () => {
                   if ($stateParams.returnTo) {
                     $window.localStorage.setItem('returnTo', $stateParams.returnTo)

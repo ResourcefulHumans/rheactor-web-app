@@ -1,25 +1,18 @@
-'use strict'
+import {URIValue, EmailValue} from 'rheactor-value-objects'
+import {String as StringValue} from 'tcomb'
 
-const _forEach = require('lodash/forEach')
+const $context = new URIValue('https://github.com/RHeactor/nucleus/wiki/JsonLD#Login')
 
-/**
- * @param {object} data
- * @constructor
- */
-function Login (data) {
-  this.email = undefined
-  this.password = undefined
-
-  if (data) {
-    var self = this
-    _forEach(this, function (value, key) {
-      self[key] = data[key] === undefined ? undefined : data[key]
-    })
+export class LoginModel {
+  constructor (email, password) {
+    EmailValue(email)
+    StringValue(password)
+    this.email = email
+    this.password = password
+    this.$context = $context
   }
 
-  this.$context = Login.$context
+  static get $context () {
+    return $context
+  }
 }
-
-Login.$context = 'https://github.com/RHeactor/nucleus/wiki/JsonLD#Login'
-
-module.exports = Login

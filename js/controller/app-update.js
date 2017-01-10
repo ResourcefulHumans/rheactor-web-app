@@ -1,7 +1,7 @@
-'use strict'
+import {appLogger} from '../util/logger'
+import compareVersions from 'compare-versions'
 
-const logger = require('../util/logger')
-const compareVersions = require('compare-versions')
+const logger = appLogger()
 
 /**
  * The AppUpdateController compares the frontend version to the backend version and if a mismatch is detected
@@ -10,7 +10,7 @@ const compareVersions = require('compare-versions')
  *
  * @param app
  */
-module.exports = function (app) {
+export function AppUpdateController (app) {
   app
     .controller('AppUpdateController', ['$interval', 'StatusService', 'FrontendConfig', ($interval, StatusService, config) => {
       let checkTimer

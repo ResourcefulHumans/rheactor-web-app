@@ -1,5 +1,3 @@
-'use strict'
-
 const setErrorStates = (element, modelCtrl) => {
   const parent = element.parents('.form-group')
   if (modelCtrl.$valid) {
@@ -29,7 +27,7 @@ const resetErrorStates = (element) => {
   }
 }
 
-module.exports = {
+export const BootstrapErrorStatesDirective = {
   restrict: 'A',
   require: ['ngModel', '^form'],
   link: (scope, element, attrs, ctrls) => {

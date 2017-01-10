@@ -1,15 +1,15 @@
-'use strict'
+import {appLogger} from '../util/logger'
+import {EntryNotFoundError} from '@resourcefulhumans/rheactor-errors'
 
-/* global angular trackJs */
+/* globals trackJs */
 
-const logger = require('../util/logger')
-const EntryNotFoundError = require('rheactor-value-objects/errors/entry-not-found')
+const logger = appLogger()
 
-module.exports = function () {
+export const BluebirdController = angular => {
   angular
     .module('mwl.bluebird')
     .run(['$q', '$state', ($q, $state) => {
-      $q.onPossiblyUnhandledRejection(function (error) {
+      $q.onPossiblyUnhandledRejection(error => {
         let errorName = error.name || error.constructor.name
         // Ignore exceptions for handling routing
         if ((error.message && error.message.match(/^transition (superseded|prevented|aborted|failed)$/)) || error.toString() === 'canceled') {

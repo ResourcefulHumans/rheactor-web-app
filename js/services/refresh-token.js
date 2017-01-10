@@ -1,10 +1,10 @@
-'use strict'
+import {appLogger} from '../util/logger'
 
-const logger = require('../util/logger')
+const logger = appLogger()
 
 /* global: document */
 
-module.exports = function (TokenService, ClientStorageService) {
+export function RefreshTokenService (TokenService, ClientStorageService) {
   function RefreshTokenService () {
     this.refreshing = false
     this.token = undefined

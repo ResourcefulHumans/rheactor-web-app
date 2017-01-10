@@ -1,12 +1,10 @@
-'use strict'
-
 /* global: document */
 
-const moment = require('moment')
-const debounce = require('lodash/debounce')
-const $ = require('jquery')
+import moment from 'moment'
+import debounce from 'lodash/debounce'
+import $ from 'jquery'
 
-module.exports = function (app) {
+export function NavigationController (app) {
   app
     .controller('NavigationController', [
       'UserService',

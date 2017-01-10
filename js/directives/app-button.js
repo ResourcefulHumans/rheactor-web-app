@@ -1,8 +1,6 @@
-'use strict'
+import {HttpProgress} from '../util/http'
 
-const HttpProgress = require('../util/http').HttpProgress
-
-module.exports = {
+export const AppButtonDirective = {
   restrict: 'E',
   scope: {
     click: '=',

@@ -1,15 +1,14 @@
-'use strict'
+import showdown from 'showdown'
+import $ from 'jquery'
 
-const showdown = require('showdown')
 const converter = new showdown.Converter({
   simplifiedAutoLink: true,
   strikethrough: true,
   tables: true,
   tasklists: true
 })
-const $ = require('jquery')
 
-module.exports = ($location, $sanitize, $sce) => {
+export const MarkDownToHTMLDirective = ($location, $sanitize, $sce) => {
   return {
     restrict: 'A',
     link: function (scope, element, attrs) {

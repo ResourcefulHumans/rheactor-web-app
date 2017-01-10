@@ -1,10 +1,8 @@
-'use strict'
+import {AccountAvatarController} from './account-avatar'
+import {AccountProfileController} from './account-profile'
+import {AccountEmailChangeController} from './account-email-change-confirm'
 
-const AccountAvatarController = require('./account-avatar')
-const AccountProfileController = require('./account-profile')
-const AccountEmailChangeController = require('./account-email-change-confirm')
-
-module.exports = function (app) {
+export function AccountController (app) {
   app
     .config(['$stateProvider', ($stateProvider) => {
       $stateProvider

@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Track angular.js page views in Google Analytics
  *
@@ -7,7 +5,7 @@
  * @param {object} $window
  * @param {object} $location
  */
-function GoogleAnalyticsService ($rootScope, $window, $location) {
+export function GoogleAnalyticsService ($rootScope, $window, $location) {
   let lastPath
 
   function track () {
@@ -37,5 +35,3 @@ function GoogleAnalyticsService ($rootScope, $window, $location) {
     $rootScope.$on('$viewContentLoaded', track)
   }
 }
-
-module.exports = GoogleAnalyticsService

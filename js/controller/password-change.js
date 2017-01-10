@@ -1,13 +1,11 @@
-'use strict'
+import {PasswordChangeConfirmModel} from '../model/password-change-confirm'
+import {GenericController} from './generic'
+import {JsonWebToken, HttpProblem} from 'rheactor-models'
+import {HttpProgress} from '../util/http'
+import {JSONLD} from '../util/jsonld'
+import {EmailValue} from 'rheactor-value-objects'
 
-const PasswordChangeConfirm = require('../model/password-change-confirm')
-const genericController = require('./generic')
-const Token = require('../model/jsonwebtoken')
-const HttpProgress = require('../util/http').HttpProgress
-const jsonld = require('../util/jsonld')
-const HttpProblem = require('../model/http-problem')
-
-module.exports = function (app) {
+export function PasswordChangeController (app) {
   app
     .config(['$stateProvider', function ($stateProvider) {
       $stateProvider
@@ -18,7 +16,7 @@ module.exports = function (app) {
           templateUrl: '/view/password-change.html',
           controllerAs: 'vm',
           controller: ['PasswordChangeService', 'PasswordChangeModel', (PasswordChangeService, PasswordChangeModel) => {
-            return genericController(PasswordChangeModel, {}, 'password-change', PasswordChangeService)
+            return GenericController(PasswordChangeModel, {}, 'password-change', PasswordChangeService)
           }]
         })
         .state('password-change-confirm', {
@@ -41,15 +39,15 @@ module.exports = function (app) {
                 .then((index) => {
                   return PasswordChangeConfirmService
                     .create(
-                      jsonld.getRelLink('password-change-confirm', index),
-                      new PasswordChangeConfirm(data),
-                      new Token($stateParams.token)
+                      JSONLD.getRelLink('password-change-confirm', index),
+                      new PasswordChangeConfirmModel(new EmailValue(data.email), data.password),
+                      new JsonWebToken($stateParams.token)
                     )
                 })
                 .then(() => {
                   vm.p.success()
                 })
-                .catch(HttpProblem, (httpProblem) => {
+                .catch(err => HttpProblem.is(err), httpProblem => {
                   vm.p.error(httpProblem)
                 })
             }
