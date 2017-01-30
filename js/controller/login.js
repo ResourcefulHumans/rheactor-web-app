@@ -1,4 +1,5 @@
 import {GenericController} from './generic'
+import {EmailValue} from 'rheactor-value-objects'
 
 export function LoginController (app) {
   app
@@ -33,6 +34,7 @@ export function LoginController (app) {
               let vm = GenericController(
                 LoginModel,
                 {
+                  onSubmit: data => new LoginModel(new EmailValue(data.email), data.password),
                   success: (result) => {
                     return UserService.get(result.sub, result)
                       .then(function (user) {

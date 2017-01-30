@@ -16,7 +16,9 @@ export function PasswordChangeController (app) {
           templateUrl: '/view/password-change.html',
           controllerAs: 'vm',
           controller: ['PasswordChangeService', 'PasswordChangeModel', (PasswordChangeService, PasswordChangeModel) => {
-            return GenericController(PasswordChangeModel, {}, 'password-change', PasswordChangeService)
+            return GenericController(PasswordChangeModel, {
+              onSubmit: data => new PasswordChangeModel(new EmailValue(data.email))
+            }, 'password-change', PasswordChangeService)
           }]
         })
         .state('password-change-confirm', {

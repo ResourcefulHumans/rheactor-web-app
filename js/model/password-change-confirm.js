@@ -10,6 +10,12 @@ export class PasswordChangeConfirmModel {
     this.$context = $context
   }
 
+  toJSON () {
+    return {
+      password: this.password
+    }
+  }
+
   static get $context () {
     return $context
   }

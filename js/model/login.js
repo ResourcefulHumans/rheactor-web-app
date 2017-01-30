@@ -1,15 +1,22 @@
-import {URIValue, EmailValue} from 'rheactor-value-objects'
+import {URIValue, EmailValueType} from 'rheactor-value-objects'
 import {String as StringValue} from 'tcomb'
 
 const $context = new URIValue('https://github.com/RHeactor/nucleus/wiki/JsonLD#Login')
 
 export class LoginModel {
   constructor (email, password) {
-    EmailValue(email)
+    EmailValueType(email)
     StringValue(password)
     this.email = email
     this.password = password
     this.$context = $context
+  }
+
+  toJSON () {
+    return {
+      email: this.email.toString(),
+      password: this.password
+    }
   }
 
   static get $context () {

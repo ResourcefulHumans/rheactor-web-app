@@ -6,17 +6,16 @@ import {StatusService} from './status'
 import {ClientStorageService} from './client-storage'
 import {IDService} from './id'
 import {GoogleAnalyticsService} from './google-analytics'
-import {LoginModel} from '../model/login'
 import {RegistrationModel} from '../model/registration'
 import {PasswordChangeModel} from '../model/password-change'
 import {PasswordChangeConfirmModel} from '../model/password-change-confirm'
-import {User} from 'rheactor-models'
+import {User, JsonWebToken} from 'rheactor-models'
 
 export const RegisterRHeactorServices = angular => {
   angular
     .module('RHeactorServiceModule', [])
     .factory('LoginService', ['$http', 'APIService', ($http, APIService) => {
-      return new GenericAPIService($http, APIService, LoginModel.$context)
+      return new GenericAPIService($http, APIService, JsonWebToken.$context)
     }])
     .factory('RegistrationService', ['$http', 'APIService', ($http, APIService) => {
       return new GenericAPIService($http, APIService, RegistrationModel.$context)

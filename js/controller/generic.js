@@ -30,7 +30,7 @@ export function GenericController (Model, callbacks, createRelation, genericServ
     vm.p.activity()
     genericService.apiService.index()
       .then((index) => {
-        return genericService.create(JSONLD.getRelLink(createRelation, index), new Model(data))
+        return genericService.create(JSONLD.getRelLink(createRelation, index), callbacks.onSubmit(data))
           .then((result) => {
             vm.p.success()
             callbacks.success(result, vm)

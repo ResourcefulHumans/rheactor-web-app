@@ -1,11 +1,10 @@
-import {httpProblemfromHttpError} from '../util/http-problem'
+import {httpProblemfromHttpError, httpProblemfromException} from '../util/http-problem'
 import {auth, accept, ifMatch} from '../util/http'
 import _merge from 'lodash/merge'
 import Promise from 'bluebird'
 import {ApplicationError} from '@resourcefulhumans/rheactor-errors'
 import {JSONLD} from '../util/jsonld'
 import {URIValueType, MaybeURIValueType} from 'rheactor-value-objects'
-import {HttpProblem} from 'rheactor-models'
 
 export class GenericAPIService {
   /**
@@ -63,8 +62,11 @@ export class GenericAPIService {
         }
         return null
       })
-      .catch(httpError => {
+      .catch(err => err.status, httpError => {
         throw httpProblemfromHttpError(httpError, 'Creation of ' + model.$context + ' failed!')
+      })
+      .catch(err => {
+        throw httpProblemfromException(err)
       })
   }
 
@@ -86,8 +88,11 @@ export class GenericAPIService {
         this.validateModelContext(model)
         return model
       })
-      .catch(httpError => {
+      .catch(err => err.status, httpError => {
         throw httpProblemfromHttpError(httpError, 'Query to ' + endpoint + ' failed!')
+      })
+      .catch(err => {
+        throw httpProblemfromException(err)
       })
   }
 
@@ -110,11 +115,11 @@ export class GenericAPIService {
         }
         return null
       })
+      .catch(err => err.status, err => {
+        throw httpProblemfromHttpError(err, 'Fetching of ' + $id + ' failed!')
+      })
       .catch(err => {
-        if (err.status) {
-          throw httpProblemfromHttpError(err, 'Fetching of ' + $id + ' failed!')
-        }
-        throw HttpProblem.fromException(err, 500)
+        throw httpProblemfromException(err)
       })
   }
 
@@ -151,11 +156,11 @@ export class GenericAPIService {
         }
         return null
       })
+      .catch(err => err.status, err => {
+        throw httpProblemfromHttpError(err, 'Fetching of ' + endpoint + ' failed!')
+      })
       .catch(err => {
-        if (err.status) {
-          throw httpProblemfromHttpError(err, 'Fetching of ' + endpoint + ' failed!')
-        }
-        throw HttpProblem.fromException(err, 500)
+        throw httpProblemfromException(err)
       })
   }
 
@@ -183,11 +188,11 @@ export class GenericAPIService {
   update (endpoint, data, version, token) {
     let header = _merge(accept(this.apiService.mimeType), ifMatch(version), auth(token))
     return this.$http.put(endpoint, data, header)
+      .catch(err => err.status, err => {
+        throw httpProblemfromHttpError(err, 'Updating of ' + endpoint + ' failed!')
+      })
       .catch(err => {
-        if (err.status) {
-          throw httpProblemfromHttpError(err, 'Updating of ' + endpoint + ' failed!')
-        }
-        throw HttpProblem.fromException(err, 500)
+        throw httpProblemfromException(err)
       })
   }
 
@@ -206,7 +211,7 @@ export class GenericAPIService {
         if (err.status) {
           throw httpProblemfromHttpError(err, 'Updating of ' + endpoint + ' failed!')
         }
-        throw HttpProblem.fromException(err, 500)
+        throw httpProblemfromException(err)
       })
   }
 }

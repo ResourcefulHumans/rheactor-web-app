@@ -1,5 +1,6 @@
 import {RegistrationModel} from '../model/registration'
 import {GenericController} from './generic'
+import {EmailValue} from 'rheactor-value-objects'
 
 export function RegisterController (app) {
   app
@@ -22,6 +23,7 @@ export function RegisterController (app) {
              */
             (RegistrationService, $window, $stateParams) => {
               let vm = GenericController(RegistrationModel, {
+                onSubmit: data => new RegistrationModel(new EmailValue(data.email), data.password, data.firstname, data.lastname),
                 success: () => {
                   if ($stateParams.returnTo) {
                     $window.localStorage.setItem('returnTo', $stateParams.returnTo)
