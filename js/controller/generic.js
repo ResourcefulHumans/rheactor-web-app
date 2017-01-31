@@ -3,6 +3,7 @@ import {appLogger} from '../util/logger'
 import {JSONLD} from '../util/jsonld'
 import _defaults from 'lodash/defaults'
 import {HttpProblem} from 'rheactor-models'
+import {httpProblemfromException} from '../util/http-problem'
 
 const logger = appLogger()
 
@@ -36,8 +37,8 @@ export function GenericController (Model, callbacks, createRelation, genericServ
             callbacks.success(result, vm)
           })
       })
-      .catch(err => HttpProblem.is(err), httpProblem => {
-        vm.p.error(httpProblem)
+      .catch(err => {
+        vm.p.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
       })
   }
   return vm

@@ -25,6 +25,7 @@ export class ClientStorageService {
             this.notify('me', token)
           })
       })
+      .catch(err => TokenExpiredError.is(err), () => null)
       .catch(err => EntryNotFoundError.is(err), () => null)
   }
 

@@ -1,5 +1,6 @@
 import {HttpProblem} from 'rheactor-models'
 import {HttpProgress} from '../util/http'
+import {httpProblemfromException} from '../util/http-problem'
 
 export function AdminUsersController (ClientStorageService, UserService) {
   const self = this
@@ -18,8 +19,8 @@ export function AdminUsersController (ClientStorageService, UserService) {
         self.paginatedList = paginatedList
         self.l.success()
       })
-      .catch(HttpProblem, err => {
-        self.l.error(err)
+      .catch(err => {
+        self.l.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
       })
   }
 
@@ -46,8 +47,8 @@ export function AdminUsersController (ClientStorageService, UserService) {
           refresh()
           self.p.success()
         })
-        .catch(HttpProblem, (httpProblem) => {
-          self.p.error(httpProblem)
+        .catch(err => {
+          self.p.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
         })
       )
   }

@@ -2,6 +2,7 @@ import {HttpProblem} from 'rheactor-models'
 import {HttpProgress} from '../util/http'
 import _cloneDeep from 'lodash/cloneDeep'
 import Promise from 'bluebird'
+import {httpProblemfromException} from '../util/http-problem'
 
 export function AccountProfileController ($rootScope, $timeout, ClientStorageService, UserService) {
   const self = this
@@ -25,8 +26,8 @@ export function AccountProfileController ($rootScope, $timeout, ClientStorageSer
       $rootScope.windowTitle = user.name
       self.p.success()
     })
-    .catch(HttpProblem, err => {
-      self.p.error(err)
+    .catch(err => {
+      self.p.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
     })
 
   // Update profile
@@ -55,8 +56,8 @@ export function AccountProfileController ($rootScope, $timeout, ClientStorageSer
           self.e.reset()
         }, 1000)
       })
-      .catch(HttpProblem, (httpProblem) => {
-        self.e.error(httpProblem)
+      .catch(err => {
+        self.e.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
       })
   }
 
@@ -72,8 +73,8 @@ export function AccountProfileController ($rootScope, $timeout, ClientStorageSer
       .then(() => {
         self.c.success()
       })
-      .catch(HttpProblem, (httpProblem) => {
-        self.c.error(httpProblem)
+      .catch(err => {
+        self.c.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
       })
   }
 }

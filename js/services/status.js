@@ -1,6 +1,7 @@
 import {GenericAPIService} from './generic'
 import {Status} from 'rheactor-models'
 import {JSONLD} from '../util/jsonld'
+import {URIValue} from 'rheactor-value-objects'
 
 /**
  * @param $http
@@ -16,6 +17,6 @@ export class StatusService extends GenericAPIService {
   status () {
     return this.apiService
       .index()
-      .then((index) => super.get(JSONLD.getRelLink('status', index) + '?t=' + Date.now()))
+      .then((index) => super.get(new URIValue(JSONLD.getRelLink('status', index) + '?t=' + Date.now())))
   }
 }

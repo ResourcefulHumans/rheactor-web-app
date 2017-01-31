@@ -4,7 +4,7 @@ const $context = new URIValue('https://github.com/RHeactor/nucleus/wiki/JsonLD#P
 
 export class PasswordChangeModel {
   constructor (email) {
-    EmailValueType(email)
+    EmailValueType(email, ['PasswordChangeModel', 'email:EmailValue'])
     this.email = email
     this.$context = $context
   }

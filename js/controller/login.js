@@ -1,5 +1,5 @@
 import {GenericController} from './generic'
-import {EmailValue} from 'rheactor-value-objects'
+import {EmailValue, URIValue} from 'rheactor-value-objects'
 
 export function LoginController (app) {
   app
@@ -36,7 +36,7 @@ export function LoginController (app) {
                 {
                   onSubmit: data => new LoginModel(new EmailValue(data.email), data.password),
                   success: (result) => {
-                    return UserService.get(result.sub, result)
+                    return UserService.get(new URIValue(result.sub), result)
                       .then(function (user) {
                         return ClientStorageService.set('me', user)
                       })

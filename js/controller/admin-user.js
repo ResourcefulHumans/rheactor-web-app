@@ -1,5 +1,6 @@
 import {HttpProblem} from 'rheactor-models'
 import {HttpProgress} from '../util/http'
+import {httpProblemfromException} from '../util/http-problem'
 import _cloneDeep from 'lodash/cloneDeep'
 
 export function AdminUserController ($rootScope, $timeout, $stateParams, IDService, ClientStorageService, UserService) {
@@ -13,15 +14,15 @@ export function AdminUserController ($rootScope, $timeout, $stateParams, IDServi
   self.p.activity()
   ClientStorageService
     .getValidToken()
-    .then(token => UserService.get(IDService.decode($stateParams.id), token))
+    .then(token => UserService.get(IDService.decodeURI($stateParams.id), token))
     .then(user => {
       self.user = user
       self.userCopy = _cloneDeep(user)
       $rootScope.windowTitle = user.name
       self.p.success()
     })
-    .catch(HttpProblem, err => {
-      self.p.error(err)
+    .catch(err => {
+      self.p.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
     })
 
   self.toggleActive = () => {
@@ -35,8 +36,8 @@ export function AdminUserController ($rootScope, $timeout, $stateParams, IDServi
       .then(() => {
         self.b.success()
       })
-      .catch(HttpProblem, (httpProblem) => {
-        self.b.error(httpProblem)
+      .catch(err => {
+        self.b.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
       })
   }
 
@@ -64,8 +65,8 @@ export function AdminUserController ($rootScope, $timeout, $stateParams, IDServi
           self.e.reset()
         }, 1000)
       })
-      .catch(HttpProblem, (httpProblem) => {
-        self.e.error(httpProblem)
+      .catch(err => {
+        self.e.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
       })
   }
 }

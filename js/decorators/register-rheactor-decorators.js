@@ -8,8 +8,8 @@ export const RegisterRHeactorDecorators = angular => {
      */
     .decorator('$rootScope', ($delegate) => {
       const Scope = $delegate.constructor
-      Scope.prototype.$once = (name, listener) => {
-        const deregister = this.$on(name, () => {
+      Scope.prototype.$once = function (name, listener) {
+        const deregister = this.$on(name, function () {
           deregister()
           listener.apply(this, arguments)
         })

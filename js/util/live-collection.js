@@ -27,7 +27,7 @@ export class LiveCollection {
         item.accepts(name) &&
         event[item.$context.toString()] &&
         event[item.$context.toString()].$context.equals(item.$context) &&
-        event[item.$context.toString()].$id === item.$id &&
+        event[item.$context.toString()].$id === item.$id.toString() &&
         event[item.$context.toString()].$version > item.$version // TODO: check if this is a good decision
       ) {
         let oldVersion = item.$version

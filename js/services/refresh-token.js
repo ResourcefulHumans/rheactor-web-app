@@ -4,38 +4,36 @@ const logger = appLogger()
 
 /* global: document */
 
-export function RefreshTokenService (TokenService, ClientStorageService) {
-  function RefreshTokenService () {
+export class RefreshTokenService {
+  constructor (TokenService, ClientStorageService) {
+    this.TokenService = TokenService
+    this.ClientStorageService = ClientStorageService
     this.refreshing = false
     this.token = undefined
   }
 
-  RefreshTokenService.prototype.refresh = function () {
-    const self = this
-    if (self.refreshing) return
-    if (!self.token) return
-    self.refreshing = true
+  refresh () {
+    if (this.refreshing) return
+    if (!this.token) return
+    this.refreshing = true
     logger.appInfo('Fetching a new token …')
-    TokenService.create(self.token)
+    this.TokenService.create(this.token)
       .then((token) => {
         logger.appInfo('Recived a new token …')
-        ClientStorageService.set('token', token)
-        self.token = token
-        self.refreshing = false
+        this.ClientStorageService.set('token', token)
+        this.token = token
+        this.refreshing = false
       })
   }
 
   /**
    * Refreshes the users token, if it is close to expiring
    */
-  RefreshTokenService.prototype.maybeRefreshToken = function () {
-    const self = this
-    if (!self.token) return
-    if (Math.max(self.token.exp.getTime() - Date.now(), 0) / (self.token.exp.getTime() - self.token.iat.getTime()) < 0.10) {
+  maybeRefreshToken () {
+    if (!this.token) return
+    if (Math.max(this.token.exp.getTime() - Date.now(), 0) / (this.token.exp.getTime() - this.token.iat.getTime()) < 0.10) {
       logger.appInfo('Auto refreshing token')
-      self.refresh()
+      this.refresh()
     }
   }
-
-  return new RefreshTokenService()
 }

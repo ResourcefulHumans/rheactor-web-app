@@ -4,6 +4,7 @@ import {JsonWebToken, HttpProblem} from 'rheactor-models'
 import {HttpProgress} from '../util/http'
 import {JSONLD} from '../util/jsonld'
 import {EmailValue} from 'rheactor-value-objects'
+import {httpProblemfromException} from '../util/http-problem'
 
 export function PasswordChangeController (app) {
   app
@@ -49,8 +50,8 @@ export function PasswordChangeController (app) {
                 .then(() => {
                   vm.p.success()
                 })
-                .catch(err => HttpProblem.is(err), httpProblem => {
-                  vm.p.error(httpProblem)
+                .catch(err => {
+                  vm.p.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
                 })
             }
             return vm

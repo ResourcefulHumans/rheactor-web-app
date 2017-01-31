@@ -44,8 +44,8 @@ export const RegisterRHeactorServices = angular => {
     .factory('RefreshTokenService', ['TokenService', 'ClientStorageService', (TokenService, ClientStorageService) => {
       return new RefreshTokenService(TokenService, ClientStorageService)
     }])
-    .factory('IDService', ['$window', ($window) => {
-      return new IDService($window)
+    .factory('IDService', ['$window', '$location', ($window, $location) => {
+      return new IDService($window, $location)
     }])
     .factory('GoogleAnalyticsService', ['$rootScope', '$window', '$location', ($rootScope, $window, $location) => {
       return new GoogleAnalyticsService($rootScope, $window, $location)

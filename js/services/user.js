@@ -1,151 +1,108 @@
-import _create from 'lodash/create'
 import {GenericAPIService} from '../services/generic'
-import {JSONLD} from '../util/jsonld'
 import {User} from 'rheactor-models'
+import {JSONLD} from '../util/jsonld'
 
-/**
- * @param $http
- * @param {APIService} apiService */
-export function UserService ($http, apiService) {
-  GenericAPIService.call(this, $http, apiService, User.$context)
-}
+export class UserService extends GenericAPIService {
+  /**
+   * @param $http
+   * @param {APIService} apiService
+   **/
+  constructor ($http, apiService) {
+    super($http, apiService, User.$context)
+  }
 
-UserService.prototype = _create(GenericAPIService.prototype, {
-  'constructor': UserService
-})
+  /**
+   * @param {Object} filter
+   * @param {JsonWebToken} token
+   * @return {Promise.<appButton>}
+   */
+  listUsers (filter, token) {
+    return this.apiService.index().then(index => this.list(JSONLD.getListLink(User.$context, index), filter, token))
+  }
 
-/**
- * @param {Object} filter
- * @param {JsonWebToken} token
- * @return {Promise.<appButton>}
- */
-UserService.prototype.listUsers = function (filter, token) {
-  const self = this
-  return self.apiService.index().then(index => GenericAPIService.prototype.list.call(this, JSONLD.getListLink(User.$context, index), filter, token))
-}
+  /**
+   * @param {User} user
+   * @param {JsonWebToken} token
+   * @return {Promise.<User>}
+   */
+  create (user, token) {
+    return this.apiService.index().then(index => this.list(JSONLD.getRelLink('create-user', index), user, token))
+  }
 
-/**
- * @param {User} user
- * @param {JsonWebToken} token
- * @return {Promise.<User>}
- */
-UserService.prototype.create = function (user, token) {
-  let self = this
-  return self.apiService.index().then(index => GenericAPIService.prototype.create.call(self, JSONLD.getRelLink('create-user', index), user, token))
-}
+  /**
+   * Activate a user (superusers only)
+   * @param {User} user
+   * @param {JsonWebToken} token
+   * @return {Promise}
+   */
+  activate (user, token) {
+    return this.update(JSONLD.getRelLink('toggle-active', user), {}, user.$version, token)
+      .then((response) => {
+        let lastModified = new Date(response.headers('Last-Modified'))
+        let version = +response.headers('etag')
+        user.updated(lastModified, version)
+        user.active = true
+        return user
+      })
+  }
 
-/**
- * Activate a user (superusers only)
- * @param {User} user
- * @param {JsonWebToken} token
- * @return {Promise}
- */
-UserService.prototype.activate = function (user, token) {
-  let self = this
-  return GenericAPIService.prototype.update
-    .call(
-      self,
-      JSONLD.getRelLink('toggle-active', user),
-      {},
-      user.$version,
-      token
-    )
-    .then((response) => {
-      let lastModified = new Date(response.headers('Last-Modified')).getTime()
-      let version = +response.headers('etag')
-      user.updated(lastModified, version)
-      user.active = true
-      return user
-    })
-}
+  /**
+   * Deactivate a user (superusers only)
+   * @param {User} user
+   * @param {JsonWebToken} token
+   * @return {Promise}
+   */
+  deactivate (user, token) {
+    return this.delete(JSONLD.getRelLink('toggle-active', user), user.$version, token)
+      .then((response) => {
+        let lastModified = new Date(response.headers('Last-Modified'))
+        let version = +response.headers('etag')
+        user.updated(lastModified, version)
+        user.active = false
+        return user
+      })
+  }
 
-/**
- * Deactivate a user (superusers only)
- * @param {User} user
- * @param {JsonWebToken} token
- * @return {Promise}
- */
-UserService.prototype.deactivate = function (user, token) {
-  let self = this
-  return GenericAPIService.prototype.delete
-    .call(
-      self,
-      JSONLD.getRelLink('toggle-active', user),
-      user.$version,
-      token
-    )
-    .then((response) => {
-      let lastModified = new Date(response.headers('Last-Modified')).getTime()
-      let version = +response.headers('etag')
-      user.updated(lastModified, version)
-      user.active = false
-      return user
-    })
-}
+  /**
+   * Update a user property
+   *
+   * @param {User} user
+   * @param {String} property
+   * @param {object} value
+   * @param {JsonWebToken} token
+   * @return {Promise}
+   */
+  updateProperty (user, property, value, token) {
+    return this.update(JSONLD.getRelLink('update-' + property, user), {value}, user.$version, token)
+      .then((response) => {
+        let lastModified = new Date(response.headers('Last-Modified'))
+        let version = +response.headers('etag')
+        user.updated(lastModified, version)
+        user[property] = value
+        return user
+      })
+  }
 
-/**
- * Update a user property
- *
- * @param {User} user
- * @param {String} property
- * @param {object} value
- * @param {JsonWebToken} token
- * @return {Promise}
- */
-UserService.prototype.updateProperty = function (user, property, value, token) {
-  let self = this
-  return GenericAPIService.prototype.update
-    .call(
-      self,
-      JSONLD.getRelLink('update-' + property, user),
-      {value},
-      user.$version,
-      token
-    )
-    .then((response) => {
-      let lastModified = new Date(response.headers('Last-Modified')).getTime()
-      let version = +response.headers('etag')
-      user.updated(lastModified, version)
-      user[property] = value
-      return user
-    })
-}
+  /**
+   * User requests and email change
+   *
+   * @param {User} user
+   * @param {String} newEmail
+   * @param {JsonWebToken} token
+   * @return {Promise}
+   */
+  requestEmailChange (user, newEmail, token) {
+    return this.update(JSONLD.getRelLink('change-email', user), {value: newEmail}, user.$version, token)
+  }
 
-/**
- * User requests and email change
- *
- * @param {User} user
- * @param {String} newEmail
- * @param {JsonWebToken} token
- * @return {Promise}
- */
-UserService.prototype.requestEmailChange = function (user, newEmail, token) {
-  let self = this
-  return GenericAPIService.prototype.update
-    .call(
-      self,
-      JSONLD.getRelLink('change-email', user),
-      {value: newEmail},
-      user.$version,
-      token
-    )
-}
-
-/**
- * Confirm an email change
- *
- * @param {User} user
- * @param {JsonWebToken} confirmationToken
- * @return {Promise}
- */
-UserService.prototype.confirmEmailChange = function (user, confirmationToken) {
-  let self = this
-  return GenericAPIService.prototype.update
-    .call(
-      self,
-      JSONLD.getRelLink('change-email-confirm', user),
-      {},
-      user.$version,
-      confirmationToken
-    )
+  /**
+   * Confirm an email change
+   *
+   * @param {User} user
+   * @param {JsonWebToken} confirmationToken
+   * @return {Promise}
+   */
+  confirmEmailChange (user, confirmationToken) {
+    return this.update(JSONLD.getRelLink('change-email-confirm', user), {}, user.$version, confirmationToken)
+  }
 }

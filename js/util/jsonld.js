@@ -1,16 +1,20 @@
 import {appLogger} from './logger'
-import _filter from 'lodash/filter'
 import {ApplicationError} from '@resourcefulhumans/rheactor-errors'
+import {URIValueType} from 'rheactor-value-objects'
+import {String as StringType, Function as FunctionType} from 'tcomb'
+import {ModelType} from 'rheactor-models'
 
 const logger = appLogger()
 
 /**
  * @param {Function} filterFunc
- * @param {object} model to fetch the relation from
+ * @param {Model} model to fetch the relation from
  * @returns {Promise.<String>}
  */
 const getLink = (filterFunc, model) => {
-  let matched = _filter(model.$links, filterFunc)
+  FunctionType(filterFunc, ['JSONLD.getLink', 'filterFunc:Function'])
+  ModelType(model, ['JSONLD.getLink', 'model:Model'])
+  let matched = model.$links.filter(filterFunc)
   if (!matched.length) {
     logger.apiWarning('Link not found …', model.$links)
     throw new ApplicationError('Relation link not found …')
@@ -25,10 +29,12 @@ const getLink = (filterFunc, model) => {
 /**
  * Find the link for the given relation
  * @param {String} relation
- * @param {object} model Optional model, to fetch the relation from
+ * @param {Model} model Optional model, to fetch the relation from
  * @returns {Promise.<String>}
  */
 const getRelLink = (relation, model) => {
+  StringType(relation, ['JSONLD.getRelLink', 'relation:String'])
+  ModelType(model, ['JSONLD.getRelLink', 'model:Model'])
   try {
     return getLink((link) => {
       return link.rel === relation
@@ -40,14 +46,16 @@ const getRelLink = (relation, model) => {
 }
 
 /**
- * @param {String} context
- * @param {object} model Optional model, to fetch the relation from
+ * @param {URIValue} context
+ * @param {Model} model Optional model, to fetch the relation from
  * @returns {Promise.<String>}
  */
 const getListLink = (context, model) => {
+  URIValueType(context, ['JSONLD.getListLink', 'context:URIValue'])
+  ModelType(model, ['JSONLD.getListLink', 'model:Model'])
   try {
     return getLink((link) => {
-      return link.list && link.context === context
+      return link.list && link.subject.equals(context)
     }, model)
   } catch (err) {
     logger.apiWarning('Tried to find link', context, 'on', model)

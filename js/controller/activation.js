@@ -1,6 +1,7 @@
 import {JsonWebToken, HttpProblem} from 'rheactor-models'
 import {HttpProgress} from '../util/http'
 import {JSONLD} from '../util/jsonld'
+import {httpProblemfromException} from '../util/http-problem'
 
 export function ActivationController (app) {
   app
@@ -30,8 +31,8 @@ export function ActivationController (app) {
               .then(() => {
                 vm.p.success()
               })
-              .catch(err => HttpProblem.is(err), (httpProblem) => {
-                vm.p.error(httpProblem)
+              .catch(err => {
+                vm.p.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
               })
             return vm
           }]
