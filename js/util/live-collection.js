@@ -1,7 +1,9 @@
 /* global trackJs */
 
-import logger from './logger'
+import {appLogger} from './logger'
 import Promise from 'bluebird'
+
+const logger = appLogger()
 
 export class LiveCollection {
   /**
