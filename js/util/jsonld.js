@@ -55,7 +55,7 @@ const getListLink = (context, model) => {
   ModelType(model, ['JSONLD.getListLink', 'model:Model'])
   try {
     return getLink((link) => {
-      return link.list && link.subject.equals(context)
+      return link.list && link.subject.toString() === context.toString()
     }, model)
   } catch (err) {
     logger.apiWarning('Tried to find link', context, 'on', model)

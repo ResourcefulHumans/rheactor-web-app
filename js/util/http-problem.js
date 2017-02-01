@@ -10,7 +10,7 @@ import {URIValue} from 'rheactor-value-objects'
  */
 export function httpProblemfromHttpError (httpError, detail) {
   const data = httpError.data || {}
-  if (data.$context === HttpProblem.$context.toString()) {
+  if (data.$context.toString() === HttpProblem.$context.toString()) {
     detail += ' (' + data.detail + ')'
     return new HttpProblem(new URIValue(data.type), data.title, data.status, detail)
   }

@@ -37,7 +37,7 @@ export class GenericAPIService {
     ModelType(model, ['GenericAPIService.validateModelContext', 'model:Model'])
     MaybeURIValueType(expectedContext, ['GenericAPIService.validateModelContext', 'expectedContext:?URIValue'])
     expectedContext = expectedContext || this.modelContext
-    if (expectedContext && !expectedContext.equals(model.$context)) {
+    if (expectedContext && !expectedContext.toString() === model.$context.toString()) {
       throw new ApplicationError('Unexpected model context! Got "' + model.$context + '", expected "' + expectedContext + "'")
     }
   }
