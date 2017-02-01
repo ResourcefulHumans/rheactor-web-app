@@ -6,9 +6,11 @@ import {appLogger} from './logger'
 
 const logger = appLogger()
 
+/**
+ * @deprecated Use ModelEventConnection
+ */
 export class EventSourceConnection {
   /**
-   * @deprecated Use ModelEventConnection
    * @param {string} streamUrl
    * @param {string} eventName */
   constructor (streamUrl, eventName) {
@@ -68,6 +70,7 @@ export class EventSourceConnection {
 
   /**
    * @param {function} handler
+   * @param {function} errorHandler
    */
   subscribe (handler, errorHandler) {
     this.subscribers.push(handler)
@@ -98,7 +101,6 @@ export class EventSourceConnection {
   getSource () {
     if (!this.source) {
       logger.appWarning('EventSourceConnection', 'not connected!')
-      return
     }
     return this.source
   }

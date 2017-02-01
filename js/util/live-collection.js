@@ -24,16 +24,18 @@ export class LiveCollection {
   handleEvent (name, eventCreatedAt, event) {
     return Promise.map(this.items, (item) => {
       if (
-        item.accepts(name) &&
         event[item.$context.toString()] &&
-        event[item.$context.toString()].$context.equals(item.$context) &&
-        event[item.$context.toString()].$id === item.$id.toString() &&
+        event[item.$context.toString()].$context.toString() === item.$context.toString() &&
+        event[item.$context.toString()].$id.toString() === item.$id.toString() &&
         event[item.$context.toString()].$version > item.$version // TODO: check if this is a good decision
       ) {
         let oldVersion = item.$version
         let method = 'apply' + name
         return Promise
           .try(() => {
+            if (!(method in item)) {
+              throw new Error(`${item.$context} has no method ${method}!`)
+            }
             item[method](event, eventCreatedAt)
           })
           .then(() => {
