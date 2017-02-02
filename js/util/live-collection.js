@@ -5,6 +5,9 @@ import Promise from 'bluebird'
 
 const logger = appLogger()
 
+/**
+ * @deprecated LiveCollection updates models in place, this should only be used our legacy Angular 1 apps.
+ */
 export class LiveCollection {
   /**
    * A live collection listens to events from the EventSourceConnection and applies those to the items the collections
