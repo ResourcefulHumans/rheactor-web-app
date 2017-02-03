@@ -1,5 +1,9 @@
 /* global trackJs, document */
 
+import {appLogger} from './logger'
+
+const logger = appLogger()
+
 /**
  * @param {JsonWebToken} token
  * @returns {{headers: {Authorization: string}}}
@@ -50,7 +54,8 @@ const done = (self, error, httpProblem) => {
 }
 
 export class HttpProgress {
-  constructor () {
+  constructor (log) {
+    this.log = log || logger.appWarning
     this.reset()
   }
 
@@ -71,6 +76,7 @@ export class HttpProgress {
    */
   error (httpProblem) {
     if (typeof trackJs !== 'undefined') trackJs.track(httpProblem)
+    this.log(httpProblem)
     return done(this, true, httpProblem)
   }
 

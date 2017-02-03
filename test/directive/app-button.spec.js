@@ -3,6 +3,7 @@
 import {AppButtonDirective} from '../../js/directives/app-button'
 import {HttpProgress} from '../../js/util/http'
 import {expect} from 'chai'
+import Promise from 'bluebird'
 
 describe('AppButton', () => {
   it('should be enabled if a form is provided and it is valid', done => {
@@ -72,17 +73,26 @@ describe('AppButton', () => {
   })
   it('should  show error on http error', done => {
     let b = AppButtonDirective
-    let scope = {
-      progress: new HttpProgress().error()
-    }
-    b.link(scope)
-    expect(scope.isDisabled(), 'It should not be disabled').to.equal(false)
-    expect(scope.isBlocked(), 'It should not be blocked').to.equal(false)
-    expect(scope.isPristine(), 'It should not be pristine').to.equal(false)
-    expect(scope.isProgress(), 'It should not be progress').to.equal(false)
-    expect(scope.isSuccess(), 'It should not be success').to.equal(false)
-    expect(scope.isError(), 'It should be error').to.equal(true)
-    done()
+    let scope
+    const p1 = new Promise((resolve, reject) => {
+      scope = {
+        progress: new HttpProgress(msg => {
+          expect(msg).to.equal('some msg')
+          resolve()
+        }).error('some msg')
+      }
+    })
+    const p2 = new Promise((resolve, reject) => {
+      b.link(scope)
+      expect(scope.isDisabled(), 'It should not be disabled').to.equal(false)
+      expect(scope.isBlocked(), 'It should not be blocked').to.equal(false)
+      expect(scope.isPristine(), 'It should not be pristine').to.equal(false)
+      expect(scope.isProgress(), 'It should not be progress').to.equal(false)
+      expect(scope.isSuccess(), 'It should not be success').to.equal(false)
+      expect(scope.isError(), 'It should be error').to.equal(true)
+      resolve()
+    })
+    Promise.join(p1, p2).then(() => done())
   })
   it('should show success on http success', done => {
     let b = AppButtonDirective
