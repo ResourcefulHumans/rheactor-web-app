@@ -40,9 +40,8 @@ export class UserService extends GenericAPIService {
       .then((response) => {
         let lastModified = new Date(response.headers('Last-Modified'))
         let version = +response.headers('etag')
-        user.updated(lastModified, version)
         user.active = true
-        return user
+        return user.updated(lastModified, version)
       })
   }
 
@@ -57,9 +56,8 @@ export class UserService extends GenericAPIService {
       .then((response) => {
         let lastModified = new Date(response.headers('Last-Modified'))
         let version = +response.headers('etag')
-        user.updated(lastModified, version)
         user.active = false
-        return user
+        return user.updated(lastModified, version)
       })
   }
 
@@ -77,9 +75,8 @@ export class UserService extends GenericAPIService {
       .then((response) => {
         let lastModified = new Date(response.headers('Last-Modified'))
         let version = +response.headers('etag')
-        user.updated(lastModified, version)
         user[property] = value
-        return user
+        return user.updated(lastModified, version)
       })
   }
 

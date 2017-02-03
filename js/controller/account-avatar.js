@@ -28,7 +28,7 @@ export class AccountAvatarController {
       )
       .spread((url, token) => {
         file.upload = this.Upload.upload({
-          url,
+          url: url.toString(),
           data: {file: file},
           headers: {'Authorization': 'Bearer ' + token.token}
         })
@@ -55,7 +55,7 @@ export class AccountAvatarController {
       file.result = response.data.url
       this.user.avatar = response.data.url
       file.progress = 0
-      this.user.updated()
+      this.user = this.user.updated()
       this.ClientStorageService.set('me', this.user)
     })
   }
