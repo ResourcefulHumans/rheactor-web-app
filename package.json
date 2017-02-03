@@ -23,17 +23,19 @@
   "homepage": "https://github.com/ResourcefulHumans/rheactor-web-app#readme",
   "dependencies": {
     "@resourcefulhumans/rheactor-errors": "1.x",
-    "angular": "^1.6.1",
-    "bluebird": "^3.4.7",
-    "bootstrap": "4.0.0-alpha.5",
     "compare-versions": "^3.0.0",
     "event-source-polyfill": "^0.0.9",
     "jquery": "^3.1.1",
-    "lodash": "^4.17.4",
     "moment": "^2.17.1",
-    "rheactor-models": "3.x >=3.0.1",
     "rheactor-value-objects": "9.x",
-    "showdown": "^1.6.0",
+    "rheactor-models": "3.x >=3.0.1",
+    "showdown": "^1.6.0"
+  },
+  "peerDependencies": {
+    "angular": "^1.6.1",
+    "bluebird": "^3.4.7",
+    "bootstrap": "4.0.0-alpha.5",
+    "lodash": "^4.17.4",
     "tcomb": "^3.2.16"
   },
   "devDependencies": {
