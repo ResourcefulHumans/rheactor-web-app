@@ -14,12 +14,17 @@ export function httpProblemfromHttpError (httpError, detail) {
     detail += ' (' + data.detail + ')'
     return new HttpProblem(new URIValue(data.type), data.title, data.status, detail)
   }
-  const statusText = httpError.status > 1 ? httpError.statusText : 'Connection failed'
+  let status = httpError.status
+  let statusText = httpError.statusText
+  if (status <= 1) {
+    status = 503 // Service Unavailable
+    statusText = 'Connection failed'
+  }
   const url = 'https://github.com/RHeactor/nucleus/wiki/HttpProblem#' +
     httpError.status +
     '?statusText=' + encodeURIComponent(statusText) +
     '&detail=' + encodeURIComponent(detail)
-  return new HttpProblem(new URIValue(url), statusText, httpError.status, detail)
+  return new HttpProblem(new URIValue(url), statusText, status, detail)
 }
 
 /**
