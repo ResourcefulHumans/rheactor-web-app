@@ -5,6 +5,7 @@ export const AppButtonDirective = {
   scope: {
     click: '=',
     clickArgument: '=?',
+    clickBindThis: '=?',
     form: '=?',
     progress: '=?',
     label: '@',
@@ -16,6 +17,7 @@ export const AppButtonDirective = {
     if (!scope.progress) {
       scope.progress = new HttpProgress()
     }
+    if (!scope.clickBindThis) scope.clickBindThis = scope
     scope.isDisabled = () => {
       if (scope.form) {
         if (scope.form.$invalid) return true
@@ -39,6 +41,9 @@ export const AppButtonDirective = {
     }
     scope.isError = () => {
       return !scope.isProgress() && scope.progress.$error
+    }
+    scope.executeClick = () => {
+      scope.click.call(scope.clickBindThis, scope.progress, scope.clickArgument)
     }
   }
 }
