@@ -4,7 +4,7 @@ import {String as StringValue} from 'tcomb'
 const $context = new URIValue('https://github.com/RHeactor/nucleus/wiki/JsonLD#PasswordChangeConfirm')
 
 export class PasswordChangeConfirmModel {
-  constructor (email, password) {
+  constructor (password) {
     StringValue(password)
     this.password = password
     this.$context = $context

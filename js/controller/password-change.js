@@ -43,7 +43,7 @@ export function PasswordChangeController (app) {
                   return PasswordChangeConfirmService
                     .create(
                       JSONLD.getRelLink('password-change-confirm', index),
-                      new PasswordChangeConfirmModel(new EmailValue(data.email), data.password),
+                      new PasswordChangeConfirmModel(data.password),
                       new JsonWebToken($stateParams.token)
                     )
                 })
