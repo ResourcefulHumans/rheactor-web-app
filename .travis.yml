@@ -6,8 +6,12 @@ notifications:
   email: false
 node_js:
   - 'node'
-before_script:
+before_install:
+  - npm install -g npm-install-peers
+install:
   - npm prune
+  - npm install
+  - npm-install-peers
 script:
   - npm run lint
   - npm run test:coverage-travis
