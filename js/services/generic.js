@@ -1,6 +1,5 @@
 import {httpProblemfromHttpError} from '../util/http-problem'
 import {auth, accept, ifMatch} from '../util/http'
-import _merge from 'lodash/merge'
 import Promise from 'bluebird'
 import {ApplicationError} from '@resourcefulhumans/rheactor-errors'
 import {JSONLD} from '../util/jsonld'
@@ -54,11 +53,11 @@ export class GenericAPIService {
     MaybeJsonWebTokenType(token, ['GenericAPIService.create', 'token:?JsonWebToken'])
     fetch = fetch !== false
 
-    let header = accept(this.apiService.mimeType)
+    let config = accept(this.apiService.mimeType)
     if (token) {
-      _merge(header, auth(token))
+      config.headers = Object.assign(config.headers, auth(token).headers)
     }
-    return this.$http.post(endpoint.toString(), model, header)
+    return this.$http.post(endpoint.toString(), model, config)
       .then(response => {
         if (response.data) {
           const model = this.apiService.createModelInstance(response.data)
@@ -89,11 +88,11 @@ export class GenericAPIService {
   query (endpoint, query, token) {
     URIValueType(endpoint, ['GenericAPIService.query', 'endpoint:URIValue'])
     MaybeJsonWebTokenType(token, ['GenericAPIService.query', 'token:?JsonWebToken'])
-    let header = accept(this.apiService.mimeType)
+    let config = accept(this.apiService.mimeType)
     if (token) {
-      _merge(header, auth(token))
+      config.headers = Object.assign(config.headers, auth(token).headers)
     }
-    return this.$http.post(endpoint.toString(), query, header)
+    return this.$http.post(endpoint.toString(), query, config)
       .then(response => {
         if (!response.data) return null
         const model = this.apiService.createModelInstance(response.data)
@@ -113,11 +112,11 @@ export class GenericAPIService {
   get (endpoint, token) {
     URIValueType(endpoint, ['GenericAPIService.get', 'endpoint:URIValue'])
     MaybeJsonWebTokenType(token, ['GenericAPIService.get', 'token:?JsonWebToken'])
-    let header = accept(this.apiService.mimeType)
+    let config = accept(this.apiService.mimeType)
     if (token) {
-      _merge(header, auth(token))
+      config.headers = Object.assign(config.headers, auth(token).headers)
     }
-    return this.$http.get(endpoint.toString(), header)
+    return this.$http.get(endpoint.toString(), config)
       .then(response => {
         if (response.data) {
           let model = this.apiService.createModelInstance(response.data)
@@ -145,11 +144,11 @@ export class GenericAPIService {
     MaybeJsonWebTokenType(token, ['GenericAPIService.get', 'token:?JsonWebToken'])
     MaybeURIValueType(expectedContext, ['GenericAPIService.list', 'expectedContext:?URIValue'])
     expectedContext = expectedContext || this.modelContext
-    let header = accept(this.apiService.mimeType)
+    let config = accept(this.apiService.mimeType)
     if (token) {
-      _merge(header, auth(token))
+      config.headers = Object.assign(config.headers, auth(token).headers)
     }
-    return this.$http.post(endpoint.toString(), query, header)
+    return this.$http.post(endpoint.toString(), query, config)
       .then(response => {
         if (response.data) {
           let model = this.apiService.createModelInstance(response.data)
@@ -200,8 +199,10 @@ export class GenericAPIService {
     URIValueType(endpoint, ['GenericAPIService.update', 'endpoint:URIValue'])
     VersionNumberType(version, ['GenericAPIService.update', 'version:VersionNumber'])
     JsonWebTokenType(token, ['GenericAPIService.update', 'token:JsonWebToken'])
-    let header = _merge(accept(this.apiService.mimeType), ifMatch(version), auth(token))
-    return this.$http.put(endpoint.toString(), data, header)
+    const config = {
+      headers: Object.assign(accept(this.apiService.mimeType).headers, ifMatch(version).headers, auth(token).headers)
+    }
+    return this.$http.put(endpoint.toString(), data, config)
       .catch(err => err.status, err => {
         throw httpProblemfromHttpError(err, 'Updating of ' + endpoint + ' failed!')
       })
@@ -219,8 +220,10 @@ export class GenericAPIService {
     URIValueType(endpoint, ['GenericAPIService.delete', 'endpoint:URIValue'])
     VersionNumberType(version, ['GenericAPIService.delete', 'version:VersionNumber'])
     JsonWebTokenType(token, ['GenericAPIService.delete', 'token:JsonWebToken'])
-    let header = _merge(accept(this.apiService.mimeType), ifMatch(version), auth(token))
-    return this.$http.delete(endpoint.toString(), header)
+    const config = {
+      headers: Object.assign(accept(this.apiService.mimeType).headers, ifMatch(version).headers, auth(token).headers)
+    }
+    return this.$http.delete(endpoint.toString(), config)
       .catch(err => err.status, err => {
         throw httpProblemfromHttpError(err, 'Updating of ' + endpoint + ' failed!')
       })

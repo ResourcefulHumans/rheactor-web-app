@@ -10,6 +10,8 @@ import {RegistrationModel} from '../model/registration'
 import {PasswordChangeModel} from '../model/password-change'
 import {PasswordChangeConfirmModel} from '../model/password-change-confirm'
 import {User, JsonWebToken} from 'rheactor-models'
+import {RHeactorImageServiceService} from './rheactor-image-service'
+import {URIValue} from 'rheactor-value-objects'
 
 export const RegisterRHeactorServices = angular => {
   angular
@@ -49,5 +51,8 @@ export const RegisterRHeactorServices = angular => {
     }])
     .factory('GoogleAnalyticsService', ['$rootScope', '$window', '$location', ($rootScope, $window, $location) => {
       return new GoogleAnalyticsService($rootScope, $window, $location)
+    }])
+    .factory('RHeactorImageServiceService', ['$http', 'APIService', 'FrontendConfig', ($http, APIService, config) => {
+      return new RHeactorImageServiceService($http, APIService, new URIValue(config.imageService))
     }])
 }

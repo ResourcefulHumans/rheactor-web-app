@@ -31,6 +31,7 @@
     "bootstrap": "4.0.0-alpha.5",
     "lodash": "^4.17.4",
     "moment": "^2.17.1",
+    "ng-file-upload": "^12.2.13",
     "rheactor-models": "^3.3.0",
     "rheactor-value-objects": "^9.1.0",
     "showdown": "^1.6.0",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
+    "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-preset-env": "^1.1.8",
     "babel-preset-es2015": "^6.18.0",
     "babel-register": "^6.23.0",

@@ -21,9 +21,10 @@ export function AccountController (app) {
             '$timeout',
             'ClientStorageService',
             'APIService',
-            (Upload, $timeout, ClientStorageService, APIService) => {
-              return new AccountAvatarController(Upload, $timeout, ClientStorageService, APIService)
-            }
+            'TokenService',
+            'RHeactorImageServiceService',
+            'UserService',
+            (Upload, $timeout, ClientStorageService, APIService, TokenService, RHeactorImageServiceService, UserService) => new AccountAvatarController(Upload, $timeout, ClientStorageService, APIService, TokenService, RHeactorImageServiceService, UserService)
           ]
         })
         .state('account.profile', {
