@@ -96,4 +96,3 @@ export class HttpProgress {
     this.$problem = null
   }
 }
-

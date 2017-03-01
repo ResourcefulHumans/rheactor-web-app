@@ -104,5 +104,4 @@ export class EventSourceConnection {
     }
     return this.source
   }
-
 }

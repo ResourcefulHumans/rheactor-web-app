@@ -78,4 +78,3 @@ export function AccountProfileController ($rootScope, $timeout, ClientStorageSer
       })
   }
 }
-

@@ -70,4 +70,3 @@ export function AdminUserController ($rootScope, $timeout, $stateParams, IDServi
       })
   }
 }
-

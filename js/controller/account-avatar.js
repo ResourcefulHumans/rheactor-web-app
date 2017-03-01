@@ -23,7 +23,7 @@ export class AccountAvatarController {
     this.errFile = errFiles && errFiles[0]
     this.errorMsg = undefined
     if (!file) {
-      return Promise.reject()
+      return Promise.reject(new Error('No file provided'))
     }
     return Promise
       .join(
@@ -73,5 +73,4 @@ export class AccountAvatarController {
       this.f = undefined
     }
   }
-
 }
