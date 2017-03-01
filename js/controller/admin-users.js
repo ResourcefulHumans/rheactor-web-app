@@ -55,4 +55,3 @@ export function AdminUsersController (ClientStorageService, UserService) {
 
   self.search = refresh
 }
-
