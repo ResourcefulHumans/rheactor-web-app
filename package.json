@@ -33,7 +33,7 @@
     "moment": "^2.17.1",
     "ng-file-upload": "^12.2.13",
     "rheactor-models": "^3.3.0",
-    "rheactor-value-objects": "^9.1.0",
+    "rheactor-value-objects": "^10.0.0",
     "showdown": "^1.6.0",
     "tcomb": "^3.2.16"
   },
