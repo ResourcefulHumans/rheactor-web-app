@@ -13,6 +13,13 @@ export const APIServiceType = struct({
   index: FunctionType
 }, 'APIServiceType')
 
+const handleErrorResponses = response => {
+  if (response.status >= 400) {
+    throw response
+  }
+  return response
+}
+
 export class GenericAPIService {
   /**
    * @param $http
@@ -58,6 +65,7 @@ export class GenericAPIService {
       config.headers = Object.assign(config.headers, auth(token).headers)
     }
     return this.$http.post(endpoint.toString(), model, config)
+      .then(response => handleErrorResponses(response))
       .then(response => {
         if (response.data) {
           const model = this.apiService.createModelInstance(response.data)
@@ -93,6 +101,7 @@ export class GenericAPIService {
       config.headers = Object.assign(config.headers, auth(token).headers)
     }
     return this.$http.post(endpoint.toString(), query, config)
+      .then(response => handleErrorResponses(response))
       .then(response => {
         if (!response.data) return null
         const model = this.apiService.createModelInstance(response.data)
@@ -117,6 +126,7 @@ export class GenericAPIService {
       config.headers = Object.assign(config.headers, auth(token).headers)
     }
     return this.$http.get(endpoint.toString(), config)
+      .then(response => handleErrorResponses(response))
       .then(response => {
         if (response.data) {
           let model = this.apiService.createModelInstance(response.data)
@@ -149,6 +159,7 @@ export class GenericAPIService {
       config.headers = Object.assign(config.headers, auth(token).headers)
     }
     return this.$http.post(endpoint.toString(), query, config)
+      .then(response => handleErrorResponses(response))
       .then(response => {
         if (response.data) {
           let model = this.apiService.createModelInstance(response.data)
@@ -184,6 +195,7 @@ export class GenericAPIService {
     StringType(dir, ['GenericAPIService.navigateList', 'dir:String'])
     MaybeJsonWebTokenType(token, ['GenericAPIService.navigateList', 'token:?JsonWebToken'])
     return this.list(JSONLD.getRelLink(dir, list), {}, token)
+      .then(response => handleErrorResponses(response))
   }
 
   /**
@@ -203,6 +215,7 @@ export class GenericAPIService {
       headers: Object.assign(accept(this.apiService.mimeType).headers, ifMatch(version).headers, auth(token).headers)
     }
     return this.$http.put(endpoint.toString(), data, config)
+      .then(response => handleErrorResponses(response))
       .catch(err => err.status, err => {
         throw httpProblemfromHttpError(err, 'Updating of ' + endpoint + ' failed!')
       })
@@ -224,6 +237,7 @@ export class GenericAPIService {
       headers: Object.assign(accept(this.apiService.mimeType).headers, ifMatch(version).headers, auth(token).headers)
     }
     return this.$http.delete(endpoint.toString(), config)
+      .then(response => handleErrorResponses(response))
       .catch(err => err.status, err => {
         throw httpProblemfromHttpError(err, 'Updating of ' + endpoint + ' failed!')
       })
