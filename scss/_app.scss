@@ -14,6 +14,9 @@ body {
       }
     }
   }
+  &.connection-error {
+    // background: repeating-linear-gradient(-45deg, #aaa, #aaa 20px, #ccc 20px, #ccc 40px)
+  }
 }
 
 abbr.environment {

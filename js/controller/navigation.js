@@ -23,7 +23,8 @@ export function NavigationController (app) {
           sync: true,
           stateName: '',
           on: {},
-          state: $state
+          state: $state,
+          connectionError: false
         }
         let updater
         let lifeTimeChecker
@@ -108,6 +109,14 @@ export function NavigationController (app) {
           vm.sync = sync
         })
         $(document).on('click touch', debounce(RefreshTokenService.maybeRefreshToken.bind(RefreshTokenService), 1000))
+
+        // Connection status
+        $rootScope.$on('connection.ok', () => {
+          vm.connectionError = false
+        })
+        $rootScope.$on('connection.error', () => {
+          vm.connectionError = true
+        })
 
         return vm
       }

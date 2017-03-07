@@ -55,4 +55,26 @@ export const RegisterRHeactorServices = angular => {
     .factory('RHeactorImageServiceService', ['$http', 'APIService', 'FrontendConfig', ($http, APIService, config) => {
       return new RHeactorImageServiceService($http, APIService, new URIValue(config.imageService))
     }])
+    .factory('RHeactorConnectionWatchInterceptor', ['$rootScope', $rootScope => ({
+      request: config => {
+        $rootScope.$emit('connection.ok', config)
+        return config
+      },
+      response: response => {
+        $rootScope.$emit('connection.ok', response)
+        return response
+      },
+      requestError: rejection => {
+        $rootScope.$emit('connection.error', rejection)
+        return rejection
+      },
+      responseError: rejection => {
+        $rootScope.$emit('connection.error', rejection)
+        return rejection
+      }
+    }
+    )])
+    .config(['$httpProvider', $httpProvider => {
+      $httpProvider.interceptors.push('RHeactorConnectionWatchInterceptor')
+    }])
 }

@@ -195,6 +195,25 @@ a.danger {
   #metanav {
     float: right;
   }
+
+  .nav-static-item {
+    display: block;
+    padding-top:    .425rem;
+    padding-bottom: .425rem;
+  }
+
+  .connection-error {
+    opacity: 1;
+    transition: opacity 2s linear;
+    &.ok {
+      opacity: 0;
+      transition: opacity 2s linear;
+    }
+    &.error {
+      opacity: 1;
+      transition: opacity 0.5s linear;
+    }
+  }
 }
 
 .navbar-brand img {
