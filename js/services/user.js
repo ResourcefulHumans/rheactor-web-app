@@ -81,6 +81,24 @@ export class UserService extends GenericAPIService {
   }
 
   /**
+   * Update the user's preferences
+   *
+   * @param {User} user
+   * @param {String} preferences
+   * @param {JsonWebToken} token
+   * @return {Promise}
+   */
+  updatePreferences (user, preferences, token) {
+    return this.update(JSONLD.getRelLink('update-preferences', user), {value: preferences}, user.$version, token)
+      .then(() => {
+        let lastModified = new Date()
+        let version = user.$version++
+        user.preferences = preferences
+        return user.updated(lastModified, version)
+      })
+  }
+
+  /**
    * User requests and email change
    *
    * @param {User} user
