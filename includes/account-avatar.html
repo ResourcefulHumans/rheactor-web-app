@@ -1,57 +1,7 @@
 <div class="container">
   <article class="row">
     <section class="col-xs-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-      <form name="form" class="card">
-        <div class="card-header">
-          <h1 class="card-title">
-            <i class="material-icons" data-ng-hide="vm.f.result">portrait</i>
-            <i class="material-icons success" data-ng-show="vm.f.result">check_circle</i>
-            Change Avatar
-          </h1>
-        </div>
-        <div class="card-block">
-          <div class="alert alert-success" role="alert" data-ng-show="vm.f.result">
-            <p>Awesome, your avatar has been updated …</p>
-          </div>
-          <div class="avatar-preview" data-ng-show="vm.user.avatar">
-            <img data-ng-src="%%vm.user.avatar%%" alt="%%vm.user.name%%"><br>
-            %%vm.user.name%%
-          </div>
-          <div data-ng-hide="vm.f.progress || vm.f.result">
-            <hr>
-            <p>Please select an image to use as your new avatar.<br>
-              <small>We support JPG and PNG up to 10 MB.</small></p>
-          </div>
-          <div data-ng-show="vm.f.progress && !vm.f.result">
-            <small>Uploading %%vm.f.name%% …</small>
-            <progress class="progress progress-striped" value="%%vm.f.progress%%" max="100">%%vm.f.progress%%%
-            </progress>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="controls">
-            <button type="submit"
-                    class="btn btn-primary"
-                    type="file" ngf-select="vm.uploadFiles($file, $invalidFiles)"
-                    accept="image/*" ngf-max-size="10MB"
-                    data-ng-disabled="vm.f.progress > 0"
-            >
-              <i class="material-icons" data-ng-show="!vm.f.result && !vm.f.progress && !vm.errorMsg">portrait</i>
-              <i class="material-icons spin" data-ng-show="!vm.f.result && !vm.errorMsg && vm.f.progress >= 0">hourglass_empty</i>
-              <i class="material-icons" data-ng-show="vm.f.result">check_ok</i>
-              <i class="material-icons" data-ng-show="vm.errorMsg">error</i>
-              <span>Change avatar …</span>
-            </button>
-          </div>
-          <div data-ng-show="vm.errorMsg" class="error-info">
-            <div class="alert alert-danger" role="alert">
-              <i class="material-icons">error</i>
-              %%vm.errorMsg.title%%<br>
-              <small>(%%vm.errorMsg.detail%%)</small>
-            </div>
-          </div>
-        </div>
-      </form>
+      <avatar-upload label="vm.user.name" avatar="vm.user.avatar" success="vm.uploadSuccess" success-bind-this="vm" data-ng-if="vm.user" />
     </section>
   </article>
 </div>

@@ -17,14 +17,9 @@ export function AccountController (app) {
           templateUrl: '/view/account-avatar.html',
           controllerAs: 'vm',
           controller: [
-            'Upload',
-            '$timeout',
             'ClientStorageService',
-            'APIService',
-            'TokenService',
-            'RHeactorImageServiceService',
             'UserService',
-            (Upload, $timeout, ClientStorageService, APIService, TokenService, RHeactorImageServiceService, UserService) => new AccountAvatarController(Upload, $timeout, ClientStorageService, APIService, TokenService, RHeactorImageServiceService, UserService)
+            (ClientStorageService, UserService) => new AccountAvatarController(ClientStorageService, UserService)
           ]
         })
         .state('account.profile', {

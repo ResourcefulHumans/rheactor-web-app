@@ -198,7 +198,7 @@ a.danger {
 
   .nav-static-item {
     display: block;
-    padding-top:    .425rem;
+    padding-top: .425rem;
     padding-bottom: .425rem;
   }
 
@@ -213,6 +213,15 @@ a.danger {
       opacity: 1;
       transition: opacity 0.5s linear;
     }
+  }
+
+  img.avatar {
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin-right: 5px;
+    border-radius: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
   }
 }
 

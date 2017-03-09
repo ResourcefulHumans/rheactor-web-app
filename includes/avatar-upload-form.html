@@ -1,0 +1,52 @@
+<form name="form" class="card">
+  <div class="card-header">
+    <h1 class="card-title">
+      <i class="material-icons" data-ng-hide="p.$success">portrait</i>
+      <i class="material-icons success" data-ng-show="p.$success">check_circle</i>
+      Change Avatar
+    </h1>
+  </div>
+  <div class="card-block">
+    <div class="alert alert-success" role="alert" data-ng-show="p.$success">
+      <p>Awesome, the avatar has been updated …</p>
+    </div>
+    <div class="avatar-preview" data-ng-show="avatar">
+      <img data-ng-src="%%avatar%%" alt="%%label%%"><br>
+      %%label%%
+    </div>
+    <div data-ng-hide="f.progress || f.result">
+      <hr>
+      <p>Please select an image to use as the new avatar.<br>
+        <small>We support JPG and PNG up to 10 MB.</small>
+      </p>
+    </div>
+    <div data-ng-show="f.progress && !f.result">
+      <small>Uploading %%f.name%% …</small>
+      <progress class="progress progress-striped" value="%%f.progress%%" max="100">%%f.progress%%%
+      </progress>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="controls">
+      <button type="submit"
+              class="btn btn-primary"
+              type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+              accept="image/*" ngf-max-size="10MB"
+              data-ng-disabled="f.progress > 0"
+      >
+        <i class="material-icons" data-ng-show="!p.$success && !p.active && !p.$error">portrait</i>
+        <i class="material-icons spin" data-ng-show="p.active">hourglass_empty</i>
+        <i class="material-icons" data-ng-show="p.$success">check_ok</i>
+        <i class="material-icons" data-ng-show="p.$error">error</i>
+        <span>Change avatar …</span>
+      </button>
+    </div>
+    <div data-ng-show="p.$error" class="error-info">
+      <div class="alert alert-danger" role="alert">
+        <i class="material-icons">error</i>
+        %%p.$problem.title%%<br>
+        <small>(%%p.$problem.detail%%)</small>
+      </div>
+    </div>
+  </div>
+</form>
