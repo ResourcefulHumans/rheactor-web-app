@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/ResourcefulHumans/rheactor-web-app#readme",
   "peerDependencies": {
-    "@resourcefulhumans/rheactor-errors": "^1.0.1",
+    "@resourcefulhumans/rheactor-errors": "^1.1.0",
     "angular": "^1.6.1",
     "compare-versions": "^3.0.0",
     "event-source-polyfill": "^0.0.9",

@@ -1,6 +1,8 @@
+/* globals trackJs */
+
 import Promise from 'bluebird'
 import {appLogger} from '../util/logger'
-import {TokenExpiredError, EntryNotFoundError} from '@resourcefulhumans/rheactor-errors'
+import {TokenExpiredError, EntryNotFoundError, ReanimationFailedError} from '@resourcefulhumans/rheactor-errors'
 
 const logger = appLogger()
 
@@ -20,9 +22,9 @@ export class ClientStorageService {
         this.notify('token', token)
       })
       .then(() => {
-        this.get('me')
-          .then((token) => {
-            this.notify('me', token)
+        return this.get('me')
+          .then((me) => {
+            this.notify('me', me)
           })
       })
       .catch(err => TokenExpiredError.is(err), () => null)
@@ -50,6 +52,7 @@ export class ClientStorageService {
    * Retrieve a value
    * @param {String} name
    * @returns {Promise}
+   * @throws {EntryNotFoundError}
    */
   get (name) {
     return Promise
@@ -59,6 +62,11 @@ export class ClientStorageService {
           throw new EntryNotFoundError(name)
         }
         return this.APIService.createModelInstance(JSON.parse(v))
+      })
+      .catch(err => ReanimationFailedError.is(err), err => {
+        logger.appWarning('ClientStorageService.get', err.message)
+        trackJs.track(err)
+        throw new EntryNotFoundError(name)
       })
   }
 
