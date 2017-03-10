@@ -225,6 +225,15 @@ a.danger {
   }
 }
 
+#navbar-mobile {
+  img.avatar {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    border-radius: 100%;
+  }
+}
+
 .navbar-brand img {
   float: left;
   height: 30px;
