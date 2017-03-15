@@ -1,4 +1,5 @@
 import {appLogger} from '../util/logger'
+import {HttpProblem} from 'rheactor-models'
 import {EntryNotFoundError} from '@resourcefulhumans/rheactor-errors'
 
 /* globals trackJs */
@@ -15,7 +16,7 @@ export const BluebirdController = angular => {
         if ((error.message && error.message.match(/^transition (superseded|prevented|aborted|failed)$/)) || error.toString() === 'canceled') {
           return
         }
-        if (errorName === 'UnauthorizedError' || errorName === 'UnauthorizedError') {
+        if (errorName === 'UnauthorizedError' || (HttpProblem.is(error) && error.status === 401)) {
           logger.appInfo('Handling unhandled rejection', errorName, '-> redirecting to logout')
           $state.go('logout')
           return
