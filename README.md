@@ -43,7 +43,7 @@ Directives for
  
 Services
 
- - a [Generic Service](https://github.com/ResourcefulHumans/rheactor-web-app/blob/master/js/services/generic.js) for accessing the restful, [JSON-LD](http://json-ld.org/) inspired API of [RHeactor applications](https://github.com/RHeactor).
+ - a [Generic Service](https://github.com/ResourcefulHumans/rheactor-web-app/blob/master/js/services/generic.js) for accessing the RESTful, [JSON-LD](http://json-ld.org/) inspired API of [RHeactor applications](https://github.com/RHeactor).
  - *[see all services](https://github.com/ResourcefulHumans/rheactor-web-app/blob/master/js/services/)*
  
 Utilities
