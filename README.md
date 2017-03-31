@@ -9,4 +9,45 @@
 
 [![NPM](https://nodei.co/npm/rheactor-web-app.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/rheactor-web-app/)
 
-Contains the building blocks for a web application
+This library contains the typical building blocks for a Angular 1 web application in the Resourceful Humans Bootstrap 4 design.
+
+HTML views for
+
+ - Registration
+ - Activation
+ - Lost Password
+ - Login
+ - Profile settings (Name, Email)
+ - Avatar
+ - Admin area for managing users
+ - and other parts like
+  - webfonts
+  - Google Analytics
+  - Favicon
+  - Update warning
+  - error tracking
+ - *[see all views](https://github.com/ResourcefulHumans/rheactor-web-app/tree/master/includes)*
+ 
+[Styles](https://github.com/ResourcefulHumans/rheactor-web-app/tree/master/scss) adapting Bootstrap 4 to RH design principles.
+
+Controllers for
+
+ - above views
+ - [managing errors](https://github.com/ResourcefulHumans/rheactor-web-app/blob/master/js/controller/bluebird.js)
+ - *[see all controllers](https://github.com/ResourcefulHumans/rheactor-web-app/tree/master/js/controller)* 
+
+Directives for
+
+ - [managing Bootstrap error states on input elements](https://github.com/ResourcefulHumans/rheactor-web-app/blob/master/js/directives/bootstrap-error-states.js)
+ - *[see all directives](https://github.com/ResourcefulHumans/rheactor-web-app/blob/master/js/directives/)*
+ 
+Services
+
+ - a [Generic Service](https://github.com/ResourcefulHumans/rheactor-web-app/blob/master/js/services/generic.js) for accessing the restful, [JSON-LD](http://json-ld.org/) inspired API of [RHeactor applications](https://github.com/RHeactor).
+ - *[see all services](https://github.com/ResourcefulHumans/rheactor-web-app/blob/master/js/services/)*
+ 
+Utilities
+ 
+ - that [handle live-updates](https://github.com/ResourcefulHumans/rheactor-web-app/blob/master/js/util/live-collection.js) via [EventSource connections](https://github.com/ResourcefulHumans/rheactor-web-app/blob/master/js/util/event-source-connection.js)
+ - that can [wait for](https://github.com/ResourcefulHumans/rheactor-web-app/blob/master/js/util/wait-for.js) dependencies to *appear* on the parent scope
+ - *[see all utilities](https://github.com/ResourcefulHumans/rheactor-web-app/tree/master/js/util)*
