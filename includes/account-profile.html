@@ -1,55 +1,72 @@
 <div class="container">
   <article class="row">
     <section class="col-xs-12 col-md-6" data-ng-if="vm.p.$success">
-      <form name="userEditForm" class="card">
-        <div class="card-header">
-          <h1 class="card-title">
-            <i class="material-icons" data-ng-if="!vm.user.avatar">person</i>
-            <img class="avatar" data-ng-src="%%vm.user.avatar%%" alt="%%vm.user.name%%" data-ng-if="vm.user.avatar">
-            %%vm.user.firstname%% %%vm.user.lastname%%
-          </h1>
-        </div>
-        <div class="card-block">
-          <fieldset class="form-group">
-            <label for="firstname">firstname</label>
-            <input class="form-control"
-                   type="text"
-                   id="firstname"
-                   required
-                   bootstrap-error-states
-                   data-ng-model="vm.userCopy.firstname"
-                   name="firstname"
-                   data-ng-blur="vm.updateUserProperty('firstname')"
-            />
-          </fieldset>
-          <fieldset class="form-group">
-            <label for="lastname">lastname</label>
-            <input class="form-control"
-                   type="text"
-                   id="lastname"
-                   required
-                   bootstrap-error-states
-                   data-ng-model="vm.userCopy.lastname"
-                   name="lastname"
-                   data-ng-blur="vm.updateUserProperty('lastname')"
-            />
-          </fieldset>
-        </div>
-        <div class="card-footer" data-ng-if="vm.e.$error || vm.e.$success">
-          <div class="error-info" data-ng-show="vm.e.$error">
-            <div class="alert alert-danger" role="alert">
-              <i class="material-icons">error</i>
-              %%vm.e.$problem.title%%<br>
-              <small>%%vm.e.$problem.detail%%</small>
+      <article class="row">
+        <form name="userEditForm" class="card">
+          <div class="card-header">
+            <h1 class="card-title">
+              <i class="material-icons" data-ng-if="!vm.user.avatar">person</i>
+              <img class="avatar" data-ng-src="%%vm.user.avatar%%" alt="%%vm.user.name%%" data-ng-if="vm.user.avatar">
+              %%vm.user.firstname%% %%vm.user.lastname%%
+            </h1>
+          </div>
+          <div class="card-block">
+            <fieldset class="form-group">
+              <label for="firstname">firstname</label>
+              <input class="form-control"
+                     type="text"
+                     id="firstname"
+                     required
+                     bootstrap-error-states
+                     data-ng-model="vm.userCopy.firstname"
+                     name="firstname"
+                     data-ng-blur="vm.updateUserProperty('firstname')"
+              />
+            </fieldset>
+            <fieldset class="form-group">
+              <label for="lastname">lastname</label>
+              <input class="form-control"
+                     type="text"
+                     id="lastname"
+                     required
+                     bootstrap-error-states
+                     data-ng-model="vm.userCopy.lastname"
+                     name="lastname"
+                     data-ng-blur="vm.updateUserProperty('lastname')"
+              />
+            </fieldset>
+          </div>
+          <div class="card-footer" data-ng-if="vm.e.$error || vm.e.$success">
+            <div class="error-info" data-ng-show="vm.e.$error">
+              <div class="alert alert-danger" role="alert">
+                <i class="material-icons">error</i>
+                %%vm.e.$problem.title%%<br>
+                <small>%%vm.e.$problem.detail%%</small>
+              </div>
+            </div>
+            <div class="success-info" data-ng-show="vm.e.$success">
+              <div class="alert alert-success" role="alert">
+                <i class="material-icons">check_ok</i> Changes saved …
+              </div>
             </div>
           </div>
-          <div class="success-info" data-ng-show="vm.e.$success">
-            <div class="alert alert-success" role="alert">
-              <i class="material-icons">check_ok</i> Changes saved …
-            </div>
+        </form>
+        <div class="card">
+          <div class="card-header">
+            <h1 class="card-title">
+              User capabilities
+            </h1>
+          </div>
+          <div class="card-block">
+            <span ng-show="vm.user.superUser">
+              Superuser
+            </span>
+            <span ng-hide="vm.user.superUser">
+              Normal User
+            </span>
           </div>
         </div>
-      </form>
+      </article>
     </section>
 
     <section class="col-xs-12 col-md-6" data-ng-if="vm.p.$success">
