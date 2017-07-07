@@ -1,6 +1,6 @@
 <div class="container">
   <article class="row">
-    <section class="col-xs-12 col-md-6 offset-md-3">
+    <section class="col-12 col-md-6 offset-md-3">
 
       <form name="userEditForm" class="card" data-ng-if="vm.p.$success">
         <div class="card-header">
@@ -23,12 +23,12 @@
               <span data-ng-if="vm.user.active">
                 <i class="material-icons success">check_box</i>
                 <span>Yes</span>
-                <app-button button-class="btn-secondary pull-xs-right" label="deactivate" icon="not_interested" click="vm.toggleActive" progress="vm.b" class="pull-xs-right"></app-button>
+                <app-button button-class="btn-secondary pull-right" label="deactivate" icon="not_interested" click="vm.toggleActive" progress="vm.b" class="pull-right"></app-button>
               </span>
               <span data-ng-if="!vm.user.active">
                 <i class="material-icons danger">block</i>
                 <span>No</span>
-                <app-button button-class="btn-secondary pull-xs-right" label="activate" icon="power_settings_new" click="vm.toggleActive" progress="vm.b" class="pull-xs-right"></app-button>
+                <app-button button-class="btn-secondary pull-right" label="activate" icon="power_settings_new" click="vm.toggleActive" progress="vm.b" class="pull-right"></app-button>
               </span>
             </dd>
             <dt>SuperUser</dt>
