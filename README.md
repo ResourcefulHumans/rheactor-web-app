@@ -17,7 +17,7 @@ HTML views for
  - Activation
  - Lost Password
  - Login
- - Profile settings (Name, Email)
+ - Profile settings (Name, Email, Password)
  - Avatar
  - Admin area for managing users
  - and other parts like
