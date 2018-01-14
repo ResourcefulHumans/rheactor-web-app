@@ -32,7 +32,8 @@ export function AccountController (app) {
             '$timeout',
             'ClientStorageService',
             'UserService',
-            ($rootScope, $timeout, ClientStorageService, UserService) => new AccountProfileController($rootScope, $timeout, ClientStorageService, UserService)
+            'PasswordChangeConfirmService',
+            ($rootScope, $timeout, ClientStorageService, UserService, PasswordChangeConfirmService) => new AccountProfileController($rootScope, $timeout, ClientStorageService, UserService, PasswordChangeConfirmService)
           ]
         })
         .state('account.email-change-confirm', {

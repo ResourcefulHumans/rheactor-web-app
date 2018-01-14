@@ -3,14 +3,17 @@ import {HttpProgress} from '../util/http'
 import _cloneDeep from 'lodash/cloneDeep'
 import Promise from 'bluebird'
 import {httpProblemfromException} from '../util/http-problem'
+import {JSONLD} from '../util/jsonld'
+import {PasswordChangeConfirmModel} from '../model/password-change-confirm'
 
-export function AccountProfileController ($rootScope, $timeout, ClientStorageService, UserService) {
+export function AccountProfileController ($rootScope, $timeout, ClientStorageService, UserService, PasswordChangeConfirmService) {
   const self = this
   self.user = false
   self.userCopy = false
   self.p = new HttpProgress()
   self.e = new HttpProgress()
   self.c = new HttpProgress()
+  self.cp = new HttpProgress()
 
   self.p.activity()
 
@@ -76,5 +79,31 @@ export function AccountProfileController ($rootScope, $timeout, ClientStorageSer
       .catch(err => {
         self.c.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
       })
+  }
+
+  // Update passwd
+  self.changePassword = () => {
+    if (self.cp.$active) {
+      return
+    }
+    self.cp.activity()
+    ClientStorageService
+      .getValidToken()
+      .then(token => PasswordChangeConfirmService.apiService.index()
+        .then((index) => {
+        return PasswordChangeConfirmService
+          .create(
+            JSONLD.getRelLink('password-change-confirm', index),
+            new PasswordChangeConfirmModel(self.newPassword),
+            token
+          )
+      })
+    )
+    .then(() => {
+      self.cp.success()
+    })
+    .catch(err => {
+      self.cp.error(HttpProblem.is(err) ? err : httpProblemfromException(err))
+    })
   }
 }

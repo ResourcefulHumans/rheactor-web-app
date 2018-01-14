@@ -1,6 +1,6 @@
 <div class="container">
   <article class="row">
-    <section class="col-12 col-md-6" data-ng-if="vm.p.$success">
+    <section class="col-12 col-lg-4 offset-lg-0 col-md-8 offset-md-2" data-ng-if="vm.p.$success">
       <form name="userEditForm" class="card">
         <div class="card-header">
           <h1 class="card-title">
@@ -52,7 +52,7 @@
       </form>
     </section>
 
-    <section class="col-12 col-md-6" data-ng-if="vm.p.$success">
+    <section class="col-12 col-lg-4 col-md-6" data-ng-if="vm.p.$success">
       <form name="updateEmailForm" class="card">
         <div class="card-header">
           <h2 class="card-title">
@@ -98,6 +98,85 @@
               <i class="material-icons">error</i>
               %%vm.c.$problem.title%%<br>
               <small>%%vm.c.$problem.detail%%</small>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="col-12 col-lg-4 col-md-6" data-ng-if="vm.p.$success">
+      <form name="form" class="card">
+        <div class="card-header">
+          <h1 class="card-title">
+            <i class="material-icons" data-ng-hide="vm.cp.$success">settings_backup_restore</i>
+            <i class="material-icons success" data-ng-show="vm.cp.$success">check_circle</i>
+            Change password
+          </h1>
+        </div>
+        <div class="card-block" data-ng-show="vm.cp.$success">
+          <div class="alert alert-success" role="alert">
+            <p>Your password has been updated!</p>
+            <p>You can now <a data-ui-sref="login">log in</a> with your email address and your new password.</p>
+          </div>
+        </div>
+        <div class="card-block" data-ng-hide="vm.cp.$success">
+          <p class="card-text">
+            Please pick a new password.
+          </p>
+          <fieldset class="form-group">
+            <label for="password">
+              password<br/>
+              <small>must be at least 8 characters long</small>
+            </label>
+            <input tabindex="2"
+                   class="form-control"
+                   type="password"
+                   id="password"
+                   required
+                   bootstrap-error-states
+                   data-ng-model="vm.newPassword"
+                   data-ng-minlength="8"
+                   data-ng-disabled="vm.cp.$active || vm.initializing"
+                   name="password"
+            />
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="password2">
+              retype password
+            </label>
+            <input tabindex="2"
+                   class="form-control"
+                   type="password"
+                   id="password2"
+                   required
+                   bootstrap-error-states
+                   data-ng-model="vm.newPassword2"
+                   data-ng-minlength="8"
+                   data-ng-disabled="vm.cp.$active || vm.initializing"
+                   name="password2"
+                   match="vm.newPassword"
+            />
+          </fieldset>
+        </div>
+        <div class="card-footer" data-ng-hide="vm.cp.$success">
+          <div class="controls">
+            <button type="submit"
+                    class="btn btn-primary"
+                    data-ng-disabled="form.$invalid || vm.cp.$active || vm.initializing"
+                    data-ng-click="vm.changePassword(data);">
+              <i class="material-icons" data-ng-show="(form.$invalid || vm.initializing) && !vm.p.$active">block</i>
+              <i class="material-icons" data-ng-show="!(form.$invalid || vm.cp.$active || vm.initializing) && vm.cp.$pristine">send</i>
+              <i class="material-icons spin" data-ng-show="vm.p.$active">hourglass_empty</i>
+              <i class="material-icons" data-ng-show="!(form.$invalid || vm.cp.$active || vm.initializing) && vm.cp.$success">check_ok</i>
+              <i class="material-icons" data-ng-show="!(form.$invalid || vm.cp.$active || vm.initializing) && vm.cp.$error">error</i>
+              <span>Continue</span>
+            </button>
+          </div>
+          <div class="error-info" data-ng-show="vm.cp.$error">
+            <div class="alert alert-danger" role="alert">
+              <i class="material-icons">error</i>
+              %%vm.cp.$problem.title%%<br>
+              <small>%%vm.cp.$problem.detail%%</small>
             </div>
           </div>
         </div>
