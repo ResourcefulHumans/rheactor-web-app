@@ -91,13 +91,13 @@ export function AccountProfileController ($rootScope, $timeout, ClientStorageSer
       .getValidToken()
       .then(token => PasswordChangeConfirmService.apiService.index()
         .then((index) => {
-        return PasswordChangeConfirmService
+          return PasswordChangeConfirmService
           .create(
             JSONLD.getRelLink('password-change-confirm', index),
             new PasswordChangeConfirmModel(self.newPassword),
             token
           )
-      })
+        })
     )
     .then(() => {
       self.cp.success()
