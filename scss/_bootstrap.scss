@@ -60,7 +60,7 @@ a.danger {
     margin-bottom: 0;
     @include media-breakpoint-up(sm) {
       line-height: 2.5rem;
-      font-size: $font-size-h1;
+      font-size: $h1-font-size;
       margin-top: $card-spacer-y;
       margin-bottom: $card-spacer-y;
     }
@@ -72,7 +72,7 @@ a.danger {
     margin-bottom: 0;
     @include media-breakpoint-up(sm) {
       line-height: 2.5rem;
-      font-size: $font-size-h2;
+      font-size: $h2-font-size;
       margin-top: $card-spacer-y;
       margin-bottom: $card-spacer-y;
     }
@@ -84,7 +84,7 @@ a.danger {
     margin-bottom: 0;
     @include media-breakpoint-up(sm) {
       line-height: 2rem;
-      font-size: $font-size-h3;
+      font-size: $h3-font-size;
       margin-top: $card-spacer-y;
       margin-bottom: $card-spacer-y;
     }
@@ -125,7 +125,7 @@ a.danger {
   cursor: pointer;
 }
 
-.card-block {
+.card-body {
   p:last-child {
     margin-bottom: 0;
   }
@@ -367,9 +367,9 @@ form fieldset p {
 .btn-warning,
 .btn-danger {
   &:disabled, &.disabled, &.disabled:hover, &:disabled:hover {
-    background-color: lighten($gray-dark, 40%);
-    color: lighten($gray-dark, 60%);
-    border-color: lighten($gray-dark, 60%);
+    background-color: lighten($gray-800, 40%);
+    color: lighten($gray-600, 60%);
+    border-color: lighten($gray-800, 60%);
   }
 }
 

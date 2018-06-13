@@ -10,7 +10,7 @@
               %%vm.user.firstname%% %%vm.user.lastname%%
             </h1>
           </div>
-          <div class="card-block">
+          <div class="card-body">
             <fieldset class="form-group">
               <label for="firstname">firstname</label>
               <input class="form-control"
@@ -62,13 +62,13 @@
               Change password
             </h1>
           </div>
-          <div class="card-block" data-ng-show="vm.cp.$success">
+          <div class="card-body" data-ng-show="vm.cp.$success">
             <div class="alert alert-success" role="alert">
               <p>Your password has been updated!</p>
               <p>You can now log in with your email address and your new password.</p>
             </div>
           </div>
-          <div class="card-block" data-ng-hide="vm.cp.$success">
+          <div class="card-body" data-ng-hide="vm.cp.$success">
             <p class="card-text">
               To change your current password, please enter a new password below.
             </p>
@@ -140,7 +140,7 @@
             Change email address
           </h2>
         </div>
-        <div class="card-block">
+        <div class="card-body">
           <div class="alert alert-success" role="alert" data-ng-if="vm.c.$success">
             <i class="material-icons">check_ok</i> Ok, now check the inbox of <code>%%vm.newEmail%%</code> for the confirmation email.
           </div>
@@ -193,7 +193,7 @@
             Please stand by …
           </h1>
         </div>
-        <div class="card-block">
+        <div class="card-body">
           <p>Loading user …</p>
           <progress class="progress progress-striped" value="50" max="100">50%</progress>
         </div>
@@ -208,7 +208,7 @@
             %%vm.p.$problem.title%%
           </h1>
         </div>
-        <div class="card-block">
+        <div class="card-body">
           <p>%%vm.p.$problem.detail%%</p>
         </div>
       </div>
