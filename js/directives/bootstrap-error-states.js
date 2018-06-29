@@ -1,30 +1,16 @@
 const setErrorStates = (element, modelCtrl) => {
-  const parent = element.parents('.form-group')
   if (modelCtrl.$valid) {
-    element.addClass('form-control-success')
-    element.removeClass('form-control-danger')
-    if (parent) {
-      parent.addClass('has-success')
-      parent.removeClass('has-danger')
-    }
+    element.addClass('is-valid')
+    element.removeClass('is-invalid')
   } else {
-    element.addClass('form-control-danger')
-    element.removeClass('form-control-success')
-    if (parent && modelCtrl.$dirty) {
-      parent.addClass('has-danger')
-      parent.removeClass('has-success')
-    }
+    element.addClass('is-invalid')
+    element.removeClass('is-valid')
   }
 }
 
 const resetErrorStates = (element) => {
-  element.removeClass('form-control-danger')
-  element.removeClass('form-control-success')
-  const parent = element.parents('.form-group')
-  if (parent) {
-    parent.removeClass('has-danger')
-    parent.removeClass('has-success')
-  }
+  element.removeClass('is-invalid')
+  element.removeClass('is-valid')
 }
 
 export const BootstrapErrorStatesDirective = {
