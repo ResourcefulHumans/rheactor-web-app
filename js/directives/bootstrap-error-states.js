@@ -26,6 +26,9 @@ export const BootstrapErrorStatesDirective = {
       setErrorStates(element, modelCtrl)
       return viewValue
     })
+    scope.$watch(formCtrl.$valid, () => {
+      setErrorStates(element, modelCtrl)
+    })
     // watch for changes on the pristine state (form might get reset)
     // and reset the error states
     if (modelCtrl.$name) { // can be empty on textareas
