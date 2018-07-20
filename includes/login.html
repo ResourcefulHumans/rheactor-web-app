@@ -9,7 +9,7 @@
             Login
           </h1>
         </div>
-        <div class="card-body">
+        <div class="card-body bg-secondary">
           <div class="alert alert-warning" role="alert" data-ng-show="vm.from === 'TokenExpiredError'">
             <p>Your login token expired, so we have logged you out.</p>
           </div>
@@ -62,7 +62,7 @@
         <div class="card-footer">
           <div class="controls">
             <button type="submit"
-                    class="btn btn-primary"
+                    class="btn btn-secondary"
                     data-ng-disabled="form.$invalid || vm.p.$active || vm.initializing"
                     data-ng-click="vm.submit(data);">
               <i class="material-icons" data-ng-show="(form.$invalid || vm.initializing) && !vm.p.$active">block</i>
