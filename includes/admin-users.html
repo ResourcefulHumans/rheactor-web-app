@@ -9,7 +9,7 @@
           </h1>
         </div>
         <div class="list-group">
-          <form class="list-group-item" name="userSearchForm">
+          <form class="list-group-item rounded-0 bg-secondary" name="userSearchForm">
             <fieldset class="form-group one-line">
               <label for="userSearch" class="sr-only">Search</label>
               <div class="input-group">
@@ -17,20 +17,20 @@
                   <i class="material-icons">email</i>
                 </div>
                 <input class="form-control"
-                       type="email"
-                       placeholder="Search by email …"
-                       id="userSearch"
-                       name="searchTerm"
-                       bootstrap-error-states
-                       data-ng-model="vm.searchTerm"
-                       data-ng-change="userSearchForm.$valid && vm.search()">
+                        type="email"
+                        placeholder="Search by email …"
+                        id="userSearch"
+                        name="searchTerm"
+                        bootstrap-error-states
+                        data-ng-model="vm.searchTerm"
+                        data-ng-change="userSearchForm.$valid && vm.search()">
                 <div class="input-group-addon" data-ng-if="!userSearchForm.$pristine">
                   <i class="material-icons control" data-ng-click="vm.searchTerm = ''; userSearchForm.$setPristine(); vm.search()">delete</i>
                 </div>
               </div>
             </fieldset>
           </form>
-          <div class="list-group-item" role="navigation">
+          <div class="list-group-item rounded-0 bg-secondary" role="navigation">
             <span class="loading" data-ng-if="vm.l.$active">
               <i class="material-icons spin">hourglass_empty</i>
             </span>
@@ -46,7 +46,7 @@
               <strong>%%vm.paginatedList.from%%</strong>&ndash;<strong>%%vm.paginatedList.to%%</strong> of <strong>%%vm.paginatedList.total%%</strong>
             </span>
           </div>
-          <a data-ui-sref="admin.user({id: (user|idparam)})" class="list-group-item" data-ng-repeat="user in vm.paginatedList.items">
+          <a data-ui-sref="admin.user({id: (user|idparam)})" class="list-group-item rounded-0 bg-secondary" data-ng-repeat="user in vm.paginatedList.items">
             <i class="material-icons" data-ng-if="user.superUser" title="SuperUser">security</i>
             <span>%%user.name%%</span>
           </a>
@@ -62,7 +62,7 @@
             <i class="material-icons success" data-ng-show="vm.p.$success">check_circle</i>
           </h2>
         </div>
-        <div class="card-body">
+        <div class="card-body bg-secondary">
           <div class="alert alert-info" role="alert">
             <i class="material-icons">info</i>
             <span>New users are automatically activated and their password is <code>12345678</code>.</span>
@@ -110,7 +110,7 @@
         </div>
         <div class="card-footer">
           <div class="controls">
-            <button type="submit" tabindex="4" class="btn btn-primary" data-ng-disabled="form.$invalid || vm.p.$active" data-ng-click="vm.submit(data);">
+            <button type="submit" tabindex="4" class="btn btn-secondary" data-ng-disabled="form.$invalid || vm.p.$active" data-ng-click="vm.submit(data);">
               <i class="material-icons" data-ng-show="(form.$invalid) && !vm.p.$active">block</i>
               <i class="material-icons" data-ng-show="!(form.$invalid || vm.p.$active) && vm.p.$pristine">add_circle_outline</i>
               <i class="material-icons spin" data-ng-show="vm.p.$active">hourglass_empty</i>

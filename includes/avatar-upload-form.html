@@ -6,7 +6,7 @@
       Change Avatar
     </h1>
   </div>
-  <div class="card-body">
+  <div class="card-body bg-secondary">
     <div class="alert alert-success" role="alert" data-ng-show="p.$success">
       <p>Awesome, the avatar has been updated …</p>
     </div>
@@ -29,7 +29,7 @@
   <div class="card-footer">
     <div class="controls">
       <button type="submit"
-              class="btn btn-primary"
+              class="btn btn-secondary"
               type="file" ngf-select="uploadFiles($file, $invalidFiles)"
               accept="image/*" ngf-max-size="10MB"
               data-ng-disabled="f.progress > 0"
