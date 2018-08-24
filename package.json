@@ -28,7 +28,6 @@
     "event-source-polyfill": "^0.0.9",
     "jquery": "^3.1.1",
     "bluebird": "^3.4.7",
-    "rh-styleguide": "^0.1.0",
     "lodash": "^4.17.4",
     "moment": "^2.17.1",
     "ng-file-upload": "^12.2.13",
