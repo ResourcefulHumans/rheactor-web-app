@@ -164,16 +164,17 @@ a.danger {
       cursor: pointer;
       @include transition(color .3s);
       &:hover {
-        background-color: darken($brand-primary, 5%);
+        background-color: darken($brand-secondary, 5%);
         color: $text-on-brand-primary;
       }
       &.active {
         color: $text-on-brand-primary;
+        background-color: darken($brand-secondary, 5%);
       }
     }
     &.active {
       .dropdown-item {
-        background-color: darken($brand-primary, 5%);
+        background-color: darken($brand-secondary, 5%);
         color: $text-on-brand-primary;
       }
     }
